@@ -1,7 +1,9 @@
 package com.teamknp.hotel.repository;
 
-import org.apache.catalina.User;
+import com.teamknp.hotel.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UsersRepository extends JpaRepository<User, Integer> {
+public interface UsersRepository extends JpaRepository<Users, Integer> {
+    Users findByUsername(String username);
 }
+
