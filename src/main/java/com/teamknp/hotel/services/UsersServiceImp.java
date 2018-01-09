@@ -5,7 +5,7 @@ import com.teamknp.hotel.repository.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-@Service("userDetailsService")
+@Service
 public class UsersServiceImp implements UserServices {
     @Override
     public Users findByUserName(Long username) {
