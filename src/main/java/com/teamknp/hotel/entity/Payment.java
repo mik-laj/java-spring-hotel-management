@@ -14,6 +14,6 @@ public class Payment {
     @OneToMany
     Reservation reservation;
     LocalDate date;
-    @OneToMany
+    @ManyToOne
     PaymentType paymentType;
 }
