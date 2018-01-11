@@ -12,7 +12,6 @@ public class KeyStatus {
     int id;
     LocalDate timeGiven;
     LocalDate timeReturned;
-    @OneToMany
-    @JoinTable
+    @ManyToOne
     ReservationRoom reservationRoom;
 }

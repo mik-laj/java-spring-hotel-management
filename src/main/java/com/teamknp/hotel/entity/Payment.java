@@ -11,9 +11,9 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     float amount;
-    @OneToMany
+    @ManyToOne
     Reservation reservation;
     LocalDate date;
-    @OneToMany
+    @ManyToOne
     PaymentType paymentType;
 }

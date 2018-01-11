@@ -16,7 +16,7 @@ public class Users {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
     @NotNull
-    String login;
+    String username;
     @NotNull
     @Size(min = 6, max = 30)
     String password;

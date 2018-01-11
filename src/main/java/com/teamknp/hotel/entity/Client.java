@@ -12,8 +12,10 @@ public class Client {
     int id;
     String firstName;
     String lastName;
-    @OneToMany(mappedBy="address", cascade=CascadeType.ALL)
-    @JoinTable
-    List<Address> addressList;
+    @OneToMany(mappedBy="client", cascade=CascadeType.ALL)
+    List<Address> addresses;
+    @OneToMany(mappedBy="client", cascade=CascadeType.ALL)
+    List<Reservation> reservations;
+
 
 }
