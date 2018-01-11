@@ -14,5 +14,8 @@ public class Client {
     String lastName;
     @OneToMany(mappedBy="client", cascade=CascadeType.ALL)
     List<Address> addresses;
+    @OneToMany(mappedBy="client", cascade=CascadeType.ALL)
+    List<Reservation> reservations;
+
 
 }

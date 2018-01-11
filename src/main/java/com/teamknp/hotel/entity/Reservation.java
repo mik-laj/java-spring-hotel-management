@@ -12,7 +12,7 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    @OneToMany
+    @ManyToOne
     Client client;
     LocalDate startDate;
     LocalDate endDate;
