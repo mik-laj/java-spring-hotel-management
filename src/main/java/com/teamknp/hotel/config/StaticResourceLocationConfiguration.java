@@ -11,6 +11,6 @@ public class StaticResourceLocationConfiguration extends WebMvcConfigurerAdapter
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/**").
-                addResourceLocations("classpath:/dupa/");
+                addResourceLocations("classpath:/static/");
     }
 }
