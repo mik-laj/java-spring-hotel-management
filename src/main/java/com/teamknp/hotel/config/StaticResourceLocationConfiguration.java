@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class StaticResourceLocationConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-               registry.addResourceHandler("/**").
-                               addResourceLocations("classpath:/static/");
-            }
+        registry.addResourceHandler("/**").
+                addResourceLocations("classpath:/static/");
+    }
 }
