@@ -1,7 +1,7 @@
 package com.teamknp.hotel.services;
 
-import com.teamknp.hotel.entity.Users;
+import com.teamknp.hotel.entity.User;
 
 public interface UserServices {
-    Users findByUsername(String username);
+    User findByUsername(String username);
 }
