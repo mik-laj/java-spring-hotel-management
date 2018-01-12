@@ -13,6 +13,7 @@ The steps below will get you up and running with a local development environment
 * JDK 1.8
 * PostgreSQL
 * Maven
+* Lombok Plugin for your IDE
 
 Create database
 ````sql
