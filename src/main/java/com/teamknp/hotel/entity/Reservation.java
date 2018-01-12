@@ -3,7 +3,6 @@ package com.teamknp.hotel.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.persistence.OneToMany;
 import java.time.LocalDate;
 
 @Entity
@@ -16,7 +15,7 @@ public class Reservation {
     Client client;
     LocalDate startDate;
     LocalDate endDate;
-    String status;
+    @ManyToOne
+    ReservationStatus status;
     String notes;
-
 }

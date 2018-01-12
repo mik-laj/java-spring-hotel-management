@@ -10,10 +10,9 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+    @Column(unique=true)
     String roomNumber;
     int bedsSingleCount;
     int bedsDoubleCount;
     float cost;
-
-
 }

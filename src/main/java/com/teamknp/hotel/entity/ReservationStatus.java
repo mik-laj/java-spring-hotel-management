@@ -4,9 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 @Entity
 @Data
-public class PaymentType {
+public class ReservationStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
