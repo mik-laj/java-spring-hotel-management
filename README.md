@@ -4,7 +4,7 @@
 
 ## Features
 
-* [Opsiać funkcje]
+* [Opisać funkcje]
 *
 
 ## Setup
