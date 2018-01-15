@@ -14,6 +14,13 @@ public class Payment {
     @ManyToOne
     Reservation reservation;
     LocalDate date;
-    @ManyToOne
-    PaymentType paymentType;
+    @Enumerated(EnumType.STRING)
+    Type type;
+
+    public enum Type {
+        CASH,
+        CREDIT_CARD,
+        TRANSFER,
+        CHEQUE
+    }
 }
