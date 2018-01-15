@@ -16,35 +16,28 @@ public class RepositoryMockupInitializer implements InitializingBean {
     private ClientRepository clientRepository;
     private KeyStatusRepository keyStatusRepository;
     private PaymentRepository paymentRepository;
-    private PaymentTypeRepository paymentTypeRepository;
     private ReservationRepository reservationRepository;
     private ReservationRoomRepository reservationRoomRepository;
     private RoomRepository roomRepository;
-    private ReservationStatusRepository reservationStatusRepository;
     private UserRepository userRepository;
 
     @Autowired
-    public RepositoryMockupInitializer(AddressRepository addressRepository, ClientRepository clientRepository, KeyStatusRepository keyStatusRepository, PaymentRepository paymentRepository, PaymentTypeRepository paymentTypeRepository, ReservationRepository reservationRepository, ReservationRoomRepository reservationRoomRepository, RoomRepository roomRepository, ReservationStatusRepository reservationStatusRepository, UserRepository userRepository) {
+    public RepositoryMockupInitializer(AddressRepository addressRepository, ClientRepository clientRepository, KeyStatusRepository keyStatusRepository, PaymentRepository paymentRepository, ReservationRepository reservationRepository, ReservationRoomRepository reservationRoomRepository, RoomRepository roomRepository, UserRepository userRepository) {
         this.addressRepository = addressRepository;
         this.clientRepository = clientRepository;
         this.keyStatusRepository = keyStatusRepository;
         this.paymentRepository = paymentRepository;
-        this.paymentTypeRepository = paymentTypeRepository;
         this.reservationRepository = reservationRepository;
         this.reservationRoomRepository = reservationRoomRepository;
         this.roomRepository = roomRepository;
-        this.reservationStatusRepository = reservationStatusRepository;
         this.userRepository = userRepository;
     }
 
+    @Autowired
+
+
     @Override
     public void afterPropertiesSet() {
-        if (paymentTypeRepository.findAll().isEmpty()) {
-            initPaymentTypeRepository();
-        }
-        if (reservationStatusRepository.findAll().isEmpty()) {
-            initReservationStatusRepository();
-        }
         if (roomRepository.findAll().isEmpty()) {
             initRoomRepository();
         }
@@ -55,42 +48,6 @@ public class RepositoryMockupInitializer implements InitializingBean {
 
     private void initUserRepository() {
         //TODO:
-    }
-
-    private void initReservationStatusRepository() {
-        ReservationStatus reservationStatus = new ReservationStatus();
-        reservationStatus.setName("PENDING");
-        reservationStatusRepository.save(reservationStatus);
-
-        reservationStatus = new ReservationStatus();
-        reservationStatus.setName("IN_PROGRESS");
-        reservationStatusRepository.save(reservationStatus);
-
-        reservationStatus = new ReservationStatus();
-        reservationStatus.setName("CANCELLED");
-        reservationStatusRepository.save(reservationStatus);
-
-        reservationStatus = new ReservationStatus();
-        reservationStatus.setName("FINISHED");
-        reservationStatusRepository.save(reservationStatus);
-    }
-
-    private void initPaymentTypeRepository() {
-        PaymentType paymentType = new PaymentType();
-        paymentType.setName("Gotówka");
-        paymentTypeRepository.save(paymentType);
-
-        paymentType = new PaymentType();
-        paymentType.setName("Karta kredytowa");
-        paymentTypeRepository.save(paymentType);
-
-        paymentType = new PaymentType();
-        paymentType.setName("Przelew");
-        paymentTypeRepository.save(paymentType);
-
-        paymentType = new PaymentType();
-        paymentType.setName("Czek");
-        paymentTypeRepository.save(paymentType);
     }
 
     private void initRoomRepository() {
@@ -176,7 +133,7 @@ public class RepositoryMockupInitializer implements InitializingBean {
         List<Reservation> reservations = new ArrayList<>();
 
         Reservation reservation = new Reservation();
-        reservation.setStatus(reservationStatusRepository.getOne(1));
+        reservation.setStatus(Reservation.Status.PENDING);
         reservation.setNotes("Jeździ na wózku inwalidzkim.");
         reservation.setStartDate(LocalDate.of(2018, 1, 19));
         reservation.setEndDate(LocalDate.of(2018, 1, 27));
@@ -186,7 +143,7 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservationRepository.save(reservation);
 
         reservation = new Reservation();
-        reservation.setStatus(reservationStatusRepository.getOne(3));
+        reservation.setStatus(Reservation.Status.CANCELLED);
         reservation.setNotes("Jeździ na wózku inwalidzkim.");
         reservation.setStartDate(LocalDate.of(2018, 1, 1));
         reservation.setEndDate(LocalDate.of(2018, 1, 4));
@@ -218,7 +175,7 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservations = new ArrayList<>();
 
         reservation = new Reservation();
-        reservation.setStatus(reservationStatusRepository.getOne(1));
+        reservation.setStatus(Reservation.Status.PENDING);
         reservation.setNotes("Ma uczulenie na pierze.");
         reservation.setStartDate(LocalDate.of(2018, 1, 19));
         reservation.setEndDate(LocalDate.of(2018, 1, 27));
@@ -228,7 +185,7 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservationRepository.save(reservation);
 
         reservation = new Reservation();
-        reservation.setStatus(reservationStatusRepository.getOne(4));
+        reservation.setStatus(Reservation.Status.FINISHED);
         reservation.setNotes("Ma uczulenie na pierze.");
         reservation.setStartDate(LocalDate.of(2017, 12, 23));
         reservation.setEndDate(LocalDate.of(2017, 12, 25));
@@ -248,7 +205,7 @@ public class RepositoryMockupInitializer implements InitializingBean {
         payment.setDate(LocalDate.of(2017, 12, 23));
         payment.setAmount(65);
         payment.setReservation(reservation);
-        payment.setPaymentType(paymentTypeRepository.getOne(1));
+        payment.setType(Payment.Type.CASH);
         paymentRepository.save(payment);
 
         ReservationRoom reservationRoom = new ReservationRoom();

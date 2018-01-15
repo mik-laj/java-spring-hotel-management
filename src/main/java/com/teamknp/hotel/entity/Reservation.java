@@ -15,7 +15,15 @@ public class Reservation {
     Client client;
     LocalDate startDate;
     LocalDate endDate;
-    @ManyToOne
-    ReservationStatus status;
+    @Enumerated(EnumType.STRING)
+    Status status;
     String notes;
+
+    public enum Status {
+        PENDING,
+        IN_PROGRESS,
+        CANCELLED,
+        FINISHED
+    }
+
 }
