@@ -13,6 +13,7 @@ public class Address {
     String houseNo;
     String postcode;
     String city;
+    String street;
     String province;
     String country;
     @ManyToOne
