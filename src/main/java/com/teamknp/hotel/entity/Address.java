@@ -3,6 +3,7 @@ package com.teamknp.hotel.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -12,9 +13,10 @@ public class Address {
     int id;
     String houseNo;
     String postcode;
+    String streetName;
     String city;
     String province;
     String country;
-    @ManyToOne
-    Client client;
+    @OneToMany(mappedBy = "address")
+    List<Reservation> reservation;
 }

@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class RepositoryMockupInitializer implements InitializingBean {
@@ -32,9 +30,6 @@ public class RepositoryMockupInitializer implements InitializingBean {
         this.roomRepository = roomRepository;
         this.userRepository = userRepository;
     }
-
-    @Autowired
-
 
     @Override
     public void afterPropertiesSet() {
@@ -115,22 +110,8 @@ public class RepositoryMockupInitializer implements InitializingBean {
         client.setFirstName("Jan");
         client.setLastName("Kowalski");
 
-        List<Address> addresses = new ArrayList<>();
-
-        Address address = new Address();
-        address.setCity("Siedlce");
-        address.setPostcode("08-110");
-        address.setProvince("Mazowieckie");
-        address.setCountry("Polska");
-        address.setHouseNo("ul. Kićka 10");
-        address.setClient(client);
-
-        addresses.add(address);
-
         clientRepository.save(client);
-        addressRepository.save(address);
 
-        List<Reservation> reservations = new ArrayList<>();
 
         Reservation reservation = new Reservation();
         reservation.setStatus(Reservation.Status.PENDING);
@@ -139,7 +120,16 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservation.setEndDate(LocalDate.of(2018, 1, 27));
         reservation.setClient(client);
 
-        reservations.add(reservation);
+        Address address = new Address();
+        address.setCity("Siedlce");
+        address.setPostcode("08-110");
+        address.setProvince("Mazowieckie");
+        address.setCountry("Polska");
+        address.setStreetName("Kićka");
+        address.setHouseNo("10");
+
+        addressRepository.save(address);
+        reservation.setAddress(address);
         reservationRepository.save(reservation);
 
         reservation = new Reservation();
@@ -149,7 +139,8 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservation.setEndDate(LocalDate.of(2018, 1, 4));
         reservation.setClient(client);
 
-        reservations.add(reservation);
+        addressRepository.save(address);
+        reservation.setAddress(address);
         reservationRepository.save(reservation);
 
         //2
@@ -157,22 +148,8 @@ public class RepositoryMockupInitializer implements InitializingBean {
         client.setFirstName("Adrianna");
         client.setLastName("Oszust");
 
-        addresses = new ArrayList<>();
-
-        address = new Address();
-        address.setCity("Warszawa");
-        address.setPostcode("04-672");
-        address.setProvince("Mazowieckie");
-        address.setCountry("Polska");
-        address.setHouseNo("ul. X 15");
-        address.setClient(client);
-
-        addresses.add(address);
-
         clientRepository.save(client);
         addressRepository.save(address);
-
-        reservations = new ArrayList<>();
 
         reservation = new Reservation();
         reservation.setStatus(Reservation.Status.PENDING);
@@ -181,7 +158,16 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservation.setEndDate(LocalDate.of(2018, 1, 27));
         reservation.setClient(client);
 
-        reservations.add(reservation);
+        address = new Address();
+        address.setCity("Warszawa");
+        address.setPostcode("04-672");
+        address.setProvince("Mazowieckie");
+        address.setCountry("Polska");
+        address.setStreetName("Nieistniejąca");
+        address.setHouseNo("15B");
+
+        addressRepository.save(address);
+        reservation.setAddress(address);
         reservationRepository.save(reservation);
 
         reservation = new Reservation();
@@ -191,7 +177,7 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservation.setEndDate(LocalDate.of(2017, 12, 25));
         reservation.setClient(client);
 
-        reservations.add(reservation);
+        reservation.setAddress(address);
         reservationRepository.save(reservation);
 
         Room room = new Room();
