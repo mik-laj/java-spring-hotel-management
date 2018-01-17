@@ -31,9 +31,6 @@ public class RepositoryMockupInitializer implements InitializingBean {
         this.userRepository = userRepository;
     }
 
-    @Autowired
-
-
     @Override
     public void afterPropertiesSet() {
         if (roomRepository.findAll().isEmpty()) {
@@ -113,14 +110,8 @@ public class RepositoryMockupInitializer implements InitializingBean {
         client.setFirstName("Jan");
         client.setLastName("Kowalski");
 
-        //List<Address> addresses = new ArrayList<>();
-
-        //addresses.add(address);
-
         clientRepository.save(client);
 
-
-        //List<Reservation> reservations = new ArrayList<>();
 
         Reservation reservation = new Reservation();
         reservation.setStatus(Reservation.Status.PENDING);
@@ -136,13 +127,10 @@ public class RepositoryMockupInitializer implements InitializingBean {
         address.setCountry("Polska");
         address.setStreetName("Kićka");
         address.setHouseNo("10");
-        //address.setReservation(reservation);
 
         addressRepository.save(address);
         reservation.setAddress(address);
         reservationRepository.save(reservation);
-
-        //reservations.add(reservation);
 
         reservation = new Reservation();
         reservation.setStatus(Reservation.Status.CANCELLED);
@@ -151,7 +139,6 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservation.setEndDate(LocalDate.of(2018, 1, 4));
         reservation.setClient(client);
 
-        //reservations.add(reservation);
         addressRepository.save(address);
         reservation.setAddress(address);
         reservationRepository.save(reservation);
@@ -161,14 +148,8 @@ public class RepositoryMockupInitializer implements InitializingBean {
         client.setFirstName("Adrianna");
         client.setLastName("Oszust");
 
-        //addresses = new ArrayList<>();
-
-        //addresses.add(address);
-
         clientRepository.save(client);
         addressRepository.save(address);
-
-        //reservations = new ArrayList<>();
 
         reservation = new Reservation();
         reservation.setStatus(Reservation.Status.PENDING);
@@ -184,9 +165,7 @@ public class RepositoryMockupInitializer implements InitializingBean {
         address.setCountry("Polska");
         address.setStreetName("Nieistniejąca");
         address.setHouseNo("15B");
-        //address.setReservation(reservation);
 
-        //reservations.add(reservation);
         addressRepository.save(address);
         reservation.setAddress(address);
         reservationRepository.save(reservation);
@@ -198,7 +177,6 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservation.setEndDate(LocalDate.of(2017, 12, 25));
         reservation.setClient(client);
 
-        //reservations.add(reservation);
         reservation.setAddress(address);
         reservationRepository.save(reservation);
 
