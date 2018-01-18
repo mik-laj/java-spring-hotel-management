@@ -14,6 +14,7 @@ public class Command {
     String houseNo;
     String postcode;
     String city;
+    String street;
     String province;
     String country;
 

@@ -6,21 +6,33 @@ import com.teamknp.hotel.entity.Client;
 import com.teamknp.hotel.entity.Reservation;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Service
 public class ReservationService {
-   // Reservation getReservation(int id);
-   // void saveReservation(Reservation r);
+
+    @PersistenceContext
+    private EntityManager m;
+
    public Reservation saveNewReservation(Command command) {
+
        Client client = new Client();
-       client.setFirstName("");
-       client.setLastName("AAA");
+       client.setFirstName(command.getFirstName());
+       client.setLastName(command.getLastName());
         // save client
 
        Address address = new Address();
+       address.setCity(command.getCity());
+       address.setPostcode(command.getPostcode());
+       address.setProvince(command.getProvince());
+       address.setCountry(command.getCountry());
+       address.setHouseNo(command.getHouseNo());
+       address.setStreet(command.getStreet());
        address.setClient(client);
-       /// Save
 
        Reservation reservation = new Reservation();
+       reservation.setStatus(Reservation.Status.PENDING);
        reservation.setStartDate(command.getStart());
        reservation.setEndDate(command.getEnd());
        reservation.setClient(client);
