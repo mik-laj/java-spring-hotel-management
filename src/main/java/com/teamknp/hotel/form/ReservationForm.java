@@ -5,7 +5,7 @@ import lombok.Data;
 import java.time.LocalDate;
 
 @Data
-public class Command {
+public class ReservationForm {
     // reservation
     LocalDate start;
     LocalDate end;

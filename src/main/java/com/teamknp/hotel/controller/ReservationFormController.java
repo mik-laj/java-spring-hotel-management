@@ -1,6 +1,8 @@
 package com.teamknp.hotel.controller;
 
 
+import com.teamknp.hotel.entity.Reservation;
+import com.teamknp.hotel.form.ReservationForm;
 import com.teamknp.hotel.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,24 +24,23 @@ public class ReservationFormController {
         this.ReservationService = ReservationService;
     }
 
-    @RequestMapping(value="/reservationForm.html", method= RequestMethod.GET)
+    @RequestMapping(value="/admin/reservation/add", method= RequestMethod.GET)
     public String showForm(Model model){
-        model.addAttribute("formData", new Command());
+        model.addAttribute("formData", new ReservationForm());
 
-        return "reservationForm";
-
+        return "reservation/add";
     }
 
-    @RequestMapping(value="/reservationForm.html", method= RequestMethod.POST)
-    public String processForm(@Valid @ModelAttribute("formData") Command r, BindingResult errors){
+    @RequestMapping(value="/admin/reservation/add", method= RequestMethod.POST)
+    public String processForm(@Valid @ModelAttribute("formData") ReservationForm r, BindingResult errors){
 
         if(errors.hasErrors()){
-            return "reservationForm";
+            return "reservation/add";
         }
 
-        ReservationService.saveNewReservation(r);
+        Reservation reservation = ReservationService.saveNewReservation(r);
 
-        return "redirect:home.html";//na razie przekierowanie na  glowna
+        return "redirect:/admin/reservation/" + reservation.getId();
     }
 
 
