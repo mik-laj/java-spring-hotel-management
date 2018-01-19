@@ -1,11 +1,11 @@
-package com.teamknp.hotel.controller;
+package com.teamknp.hotel.form;
 
 import lombok.Data;
 
 import java.time.LocalDate;
 
 @Data
-public class Command {
+public class ReservationForm {
     // reservation
     String notes;
     LocalDate start;

@@ -116,8 +116,8 @@ public class RepositoryMockupInitializer implements InitializingBean {
         Reservation reservation = new Reservation();
         reservation.setStatus(Reservation.Status.PENDING);
         reservation.setNotes("Jeździ na wózku inwalidzkim.");
-       // reservation.setStartDate(LocalDate.of(2018, 1, 19));
-       // reservation.setEndDate(LocalDate.of(2018, 1, 27));
+        reservation.setStartDate(LocalDate.of(2018, 1, 19));
+        reservation.setEndDate(LocalDate.of(2018, 1, 27));
         reservation.setClient(client);
 
         Address address = new Address();
@@ -135,8 +135,8 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservation = new Reservation();
         reservation.setStatus(Reservation.Status.CANCELLED);
         reservation.setNotes("Jeździ na wózku inwalidzkim.");
-       // reservation.setStartDate(LocalDate.of(2018, 1, 1));
-       // reservation.setEndDate(LocalDate.of(2018, 1, 4));
+        reservation.setStartDate(LocalDate.of(2018, 1, 1));
+        reservation.setEndDate(LocalDate.of(2018, 1, 4));
         reservation.setClient(client);
 
         addressRepository.save(address);
