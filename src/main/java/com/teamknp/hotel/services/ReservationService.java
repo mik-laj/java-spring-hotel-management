@@ -3,12 +3,16 @@ package com.teamknp.hotel.services;
 import com.teamknp.hotel.entity.Address;
 import com.teamknp.hotel.entity.Client;
 import com.teamknp.hotel.entity.Reservation;
+import com.teamknp.hotel.entity.Room;
 import com.teamknp.hotel.form.ReservationForm;
 import com.teamknp.hotel.repository.AddressRepository;
 import com.teamknp.hotel.repository.ClientRepository;
 import com.teamknp.hotel.repository.ReservationRepository;
+import com.teamknp.hotel.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ReservationService {
@@ -19,6 +23,8 @@ public class ReservationService {
     AddressRepository addressRepository;
     @Autowired
     ReservationRepository reservationRepository;
+    @Autowired
+    RoomRepository roomRepository;
 
    public Reservation saveNewReservation(ReservationForm reservationForm) {
 
@@ -34,7 +40,7 @@ public class ReservationService {
        address.setProvince(reservationForm.getProvince());
        address.setCountry(reservationForm.getCountry());
        address.setHouseNo(reservationForm.getHouseNo());
-       address.setStreet(reservationForm.getStreet());
+       address.setStreetName(reservationForm.getStreet());
        addressRepository.save(address);
 
 
@@ -47,8 +53,15 @@ public class ReservationService {
        // Save reservation
        reservationRepository.save(reservation);
 
+
        return reservation;
 
    }
+    public List<Room> getAllRooms(){
+        return roomRepository.findAll();
+}
 
+    public List<Reservation> findAll() {
+        return reservationRepository.findAll();
+    }
 }

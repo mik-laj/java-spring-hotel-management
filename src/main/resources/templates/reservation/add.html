@@ -31,13 +31,19 @@
                             <p th:each="err : ${#fields.errors('end')}" th:text="${err}"></p>
                         </div>
                     </div>
-
+<!--
                     <div class="form-group">
                         <input type="text" name="roomNo" th:value="*{room}"
                                class="form-control" th:classappend="${#fields.hasErrors('room')}?'is-invalid'"
                                placeholder="numer pokoju" required="true" autofocus="true"/>
+                    </div>-->
+                    <div class="form-group">
+                        <div th:each="no : ${RoomList}" class='checkbox' style="left:25px;">
+                            <input th:id="${no.id}" type="checkbox" th:field="*{roomNO}" class="form_control"
+                                   th:value="${no.id}"/>
+                            <label th:text="${no.roomNumber}" th:for="${no.id}"></label>
+                        </div>
                     </div>
-
 
                     <div class="form-group">
                         <input type="text" th:field="*{firstName}"
@@ -83,7 +89,7 @@
                     </div>
                     <div class="col-xs-6 col-sm-6 col-md-6">
                         <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Zarejestruj"/>
+                        <input type="submit" class="btn btn-lg btn-primary btn-block" value="Dodaj"/>
                     </div>
                 </fieldset>
             </form>

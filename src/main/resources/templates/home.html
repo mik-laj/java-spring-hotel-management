@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Thymeleaf i spring security</title>
 
@@ -7,7 +7,8 @@
 <body>
 <h1>Welcome</h1>
 <h2>I love you</h2>
-
+<a th:href="@{/reservation/add.html}">dodanie rezerwacji</a>
+<a th:href="@{login.html}">login</a>
 
 </body>
 </html>

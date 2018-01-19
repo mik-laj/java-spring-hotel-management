@@ -2,17 +2,18 @@ package com.teamknp.hotel.controller;
 
 
 import com.teamknp.hotel.entity.Reservation;
+import com.teamknp.hotel.entity.Room;
 import com.teamknp.hotel.form.ReservationForm;
 import com.teamknp.hotel.services.ReservationService;
+import com.teamknp.hotel.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class ReservationFormController {
@@ -43,6 +44,16 @@ public class ReservationFormController {
         return "redirect:/admin/reservation/" + reservation.getId();
     }
 
+    @ModelAttribute("/admin/reservation/add")
+    public List<Room> roomList() {
+        return ReservationService.getAllRooms();
+    }
 
+
+    @GetMapping("/admin/reservation/show")
+    public String list(Model model) {
+        model.addAttribute("reservationsList", ReservationService.findAll());
+        return "reservation/show";
+    }
 
 }

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<ul th:each="list: ${reservationsList}">
+    <li>
+        <div th:text="${list.client.firstName+ ' ' +list.client.lastName}"></div>
+        <div th:text="${list.startDate + ' - ' + list.endDate}"></div>
+
+        <div th:text="${list.address.streetName + '-' + list.address.houseNo}"></div>
+        <div th:text="${list.address.postcode + ' ' + list.address.city}"></div>
+      <!--  <ul th:each="roomNo :${list.reservationRoom} "></ul>
+    <li>
+        <div th:text="$roomNo.roomNumber"></div>
+    </li>-->
+    <div th:text="${list.status}"></div>
+    </li>
+</ul>
+
+</body>
+</html>

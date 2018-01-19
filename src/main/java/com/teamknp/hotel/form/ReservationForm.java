@@ -1,8 +1,10 @@
 package com.teamknp.hotel.form;
 
+import com.teamknp.hotel.entity.Room;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 public class ReservationForm {
@@ -22,4 +24,6 @@ public class ReservationForm {
     // Client
     String firstName;
     String lastName;
+    //Room
+    List<Room> roomNO;
 }
