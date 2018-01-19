@@ -11,7 +11,7 @@
 
     <div class="row" style="margin-top:20px">
         <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form th:method="POST" th:action="@{/reservationForm.html}" th:object="${formData}">
+            <form th:method="POST" th:action="@{/admin/reservation/add}" th:object="${formData}">
                 <fieldset>
                     <h1>Dodawanie Rezerwacji</h1>
 
@@ -39,7 +39,41 @@
                     </div>
 
 
+                    <div class="form-group">
+                        <input type="text" th:field="*{firstName}"
+                               class="form-control" placeholder="imie klienta" required="true" autofocus="true"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{lastName}"
+                               class="form-control" placeholder="nazwisko klienta" required="true" autofocus="true"/>
+                    </div>
 
+                    -- Address
+
+                    <div class="form-group">
+                        <input type="text" th:field="*{houseNo}"
+                               class="form-control" placeholder="numer domu" required="true" autofocus="true"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{street}"
+                               class="form-control" placeholder="ulica" required="true" autofocus="true"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{postcode}"
+                               class="form-control" placeholder="kod pocztowy" required="true" autofocus="true"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{city}"
+                               class="form-control" placeholder="miasto" required="true" autofocus="true"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{province}"
+                               class="form-control" placeholder="wojewodztwo" required="true" autofocus="true"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" th:field="*{country}"
+                               class="form-control" placeholder="Państwo" required="true" autofocus="true"/>
+                    </div>
 
                     <div class="row">
                     </div>

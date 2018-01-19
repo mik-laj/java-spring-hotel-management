@@ -1,4 +1,4 @@
-package com.teamknp.hotel.controller;
+package com.teamknp.hotel.form;
 
 import lombok.Data;
 
@@ -14,6 +14,7 @@ public class Command {
     String houseNo;
     String postcode;
     String city;
+    String street;
     String province;
     String country;
 
