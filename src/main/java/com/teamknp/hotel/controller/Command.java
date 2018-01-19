@@ -7,6 +7,7 @@ import java.time.LocalDate;
 @Data
 public class Command {
     // reservation
+    String notes;
     LocalDate start;
     LocalDate end;
     String room;

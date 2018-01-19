@@ -43,6 +43,7 @@ public class ReservationService {
 
        Reservation reservation = new Reservation();
        reservation.setStatus(Reservation.Status.PENDING);
+       reservation.setNotes(command.getNotes());
        reservation.setStartDate(command.getStart());
        reservation.setEndDate(command.getEnd());
        reservation.setClient(client);
