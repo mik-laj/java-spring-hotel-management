@@ -15,6 +15,7 @@ public class Address {
     String postcode;
     String streetName;
     String city;
+    String street;
     String province;
     String country;
     @OneToMany(mappedBy = "address")
