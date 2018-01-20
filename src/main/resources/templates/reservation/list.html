@@ -27,7 +27,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="float-right">
-                        <!--<th-block data-th-include="partials :: size(entities)"></th-block>-->
+                        <th-block data-th-include="partials :: size(${entities})"></th-block>
                     </div>
                     <h4 class="card-title">List</h4>
                 </div>
@@ -72,7 +72,7 @@
                     </div>
                 </div>
                 <div class="card-footer">
-                    <!--<div data-th-include="partials :: pager(entities)"></div>-->
+                    <div data-th-include="partials :: pager(${entities})"></div>
                 </div>
             </div>
         </div>
