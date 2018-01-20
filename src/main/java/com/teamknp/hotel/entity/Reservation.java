@@ -4,7 +4,6 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Data
@@ -20,12 +19,13 @@ public class Reservation {
     Status status;
     @ManyToOne
     Address address;
-    @OneToMany(mappedBy = "reservation")
-    List<ReservationRoom> reservationRoom;
+    @ManyToOne
+    Room room;
     String notes;
 
     public enum Status {
         PENDING,
+        TIMED_OUT,
         IN_PROGRESS,
         CANCELLED,
         FINISHED
