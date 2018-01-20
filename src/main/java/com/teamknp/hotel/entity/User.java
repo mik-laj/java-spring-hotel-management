@@ -1,5 +1,6 @@
 package com.teamknp.hotel.entity;
 
+import io.springlets.format.EntityFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Data
 @Table(name = "`user`")
+@EntityFormat("#{username}")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

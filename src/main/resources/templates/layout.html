@@ -35,26 +35,26 @@
                 </a>
             </div>
             <ul class="nav">
-                <li>
+                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/dashboard') ? 'active':''}">
                     <a class="nav-link" href="dashboard.html">
                         <i class="nc-icon nc-chart-pie-35"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li>
-                    <a class="nav-link" href="./user.html">
+                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/client') ? 'active':''}">
+                    <a class="nav-link" href="/admin/client">
                         <i class="nc-icon nc-circle-09"></i>
                         <p>Clients</p>
                     </a>
                 </li>
-                <li>
+                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/reservation') ? 'active':''}">
                     <a class="nav-link" href="/admin/reservation">
                         <i class="nc-icon nc-map-big"></i>
                         <p>Reservations</p>
                     </a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="./icons.html">
+                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/room') ? 'active':''}">
+                    <a class="nav-link" href="/admin/room">
                         <i class="nc-icon nc-tag-content"></i>
                         <p>Rooms</p>
                     </a>
@@ -90,9 +90,18 @@
             </div>
         </nav>
         <!-- End Navbar -->
-        <section layout:fragment="content">
-            Page content goes here
-        </section>
+        <div class="content">
+            <div class="container-fluid">
+                <section layout:fragment="breadcrumbs">
+                    Page content goes here
+                </section>
+
+                <section layout:fragment="content">
+                    Page content goes here
+                </section>
+            </div>
+        </div>
+
         <footer layout:fragment="footer" class="footer">
             <div class="container">
                 <nav>
@@ -122,3 +131,4 @@
 <th:block layout:fragment="scripts"></th:block>
 </body>
 </html>
+
