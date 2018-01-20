@@ -1,11 +1,13 @@
 package com.teamknp.hotel.entity;
 
+import io.springlets.format.EntityFormat;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 @Entity
 @Data
+@EntityFormat("#{type} #{amount} PLN")
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

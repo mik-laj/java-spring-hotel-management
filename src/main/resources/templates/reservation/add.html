@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<<<<<<< HEAD
+<html lang="en" data-layout-decorator="layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello world page</title>
+    <link rel="stylesheet" href="/css/hello.css"/>
+</head>
+<body>
+
+<div data-layout-fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
+        <li class="breadcrumb-item"><a data-th-href="@{/admin/reservation/}">Reservations</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add reservation</li>
+    </ol>
+</div>
+
+<div data-layout-fragment="content">
+    <h1>Add reservation</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Form</h2>
+                </div>
+                <div class="card-body">
+                    <form th:method="POST" th:action="@{/admin/reservation/add}" th:object="${formData}">
+                        <fieldset>
+                            <h1>Dodawanie Rezerwacji</h1>
+
+                            <div class="form-group">
+                                <input type="date" th:field="*{start}"
+                                       class="form-control" th:classappend="${#fields.hasErrors('start')}?'is-invalid'"
+                                       placeholder="date" required="true"/>
+                                <div class="error text-danger" th:if="${#fields.hasErrors('start')}">
+                                    <p th:each="err : ${#fields.errors('start')}" th:text="${err}"></p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="date" th:field="*{end}"
+                                       class="form-control" th:classappend="${#fields.hasErrors('end')}?'is-invalid'"
+                                       placeholder="date" required="true"/>
+                                <div class="error text-danger" th:if="${#fields.hasErrors('end')}">
+                                    <p th:each="err : ${#fields.errors('end')}" th:text="${err}"></p>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" name="roomNo" th:value="*{room}"
+                                       class="form-control" th:classappend="${#fields.hasErrors('room')}?'is-invalid'"
+                                       placeholder="numer pokoju" required="true" autofocus="true"/>
+                            </div>
+
+
+                            <div class="form-group">
+                                <input type="text" th:field="*{firstName}"
+                                       class="form-control" placeholder="imie klienta" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{lastName}"
+                                       class="form-control" placeholder="nazwisko klienta" required="true" autofocus="true"/>
+                            </div>
+
+                            -- Address
+
+                            <div class="form-group">
+                                <input type="text" th:field="*{houseNo}"
+                                       class="form-control" placeholder="numer domu" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{street}"
+                                       class="form-control" placeholder="ulica" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{postcode}"
+                                       class="form-control" placeholder="kod pocztowy" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{city}"
+                                       class="form-control" placeholder="miasto" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{province}"
+                                       class="form-control" placeholder="wojewodztwo" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{country}"
+                                       class="form-control" placeholder="Państwo" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" th:field="*{notes}"
+                                       class="form-control" placeholder="notes" required="true" autofocus="true"/>
+                            </div>
+
+                            <div class="row">
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6">
+                                <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Zarejestruj"/>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
