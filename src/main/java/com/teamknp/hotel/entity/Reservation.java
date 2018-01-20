@@ -1,5 +1,6 @@
 package com.teamknp.hotel.entity;
 
+import io.springlets.format.EntityFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,6 +9,7 @@ import java.util.List;
 
 @Entity
 @Data
+@EntityFormat("Reservation #{id}")
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

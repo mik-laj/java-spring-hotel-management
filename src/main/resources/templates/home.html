@@ -1,13 +1,16 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorator="layout">
 <head>
     <title>Thymeleaf i spring security</title>
-
 </head>
 <body>
-<h1>Welcome</h1>
-<h2>I love you</h2>
 
+<div layout:fragment="content">
+    <h1>AAA</h1>
+</div>
 
 </body>
 </html>

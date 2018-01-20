@@ -1,5 +1,6 @@
 package com.teamknp.hotel.entity;
 
+import io.springlets.format.EntityFormat;
 import lombok.Data;
 
 import javax.persistence.*;
