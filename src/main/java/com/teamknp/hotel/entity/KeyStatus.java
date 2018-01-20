@@ -3,15 +3,16 @@ package com.teamknp.hotel.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Entity
 @Data
 public class KeyStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    LocalDate timeGiven;
-    LocalDate timeReturned;
+    LocalDateTime timeGiven;
+    LocalDateTime timeReturned;
     @ManyToOne
-    ReservationRoom reservationRoom;
+    Room room;
 }

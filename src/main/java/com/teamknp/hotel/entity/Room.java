@@ -4,6 +4,7 @@ import io.springlets.format.EntityFormat;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -16,5 +17,8 @@ public class Room {
     String roomNumber;
     int bedsSingleCount;
     int bedsDoubleCount;
-    float cost;
+    int cost;
+    @OneToMany(mappedBy="room", cascade=CascadeType.PERSIST)
+    List<Reservation> reservations;
+
 }
