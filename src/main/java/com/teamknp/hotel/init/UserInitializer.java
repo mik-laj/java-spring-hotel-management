@@ -59,11 +59,11 @@ public class UserInitializer implements InitializingBean {
             userRepository.save(userWarehouse);
 
             User userRaport = new User();
-            userRaport.setUsername("raport");
+            userRaport.setUsername("hr");
             userRaport.setFirstName("Czarek");
             userRaport.setLastName("Kot");
             userRaport.setRoles(new HashSet<>(Arrays.asList(roleUser, roleHr)));
-            userRaport.setPassword(encoder.encode("raport"));
+            userRaport.setPassword(encoder.encode("hr"));
             userRepository.save(userRaport);
         }
     }

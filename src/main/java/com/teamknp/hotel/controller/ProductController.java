@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,12 +33,14 @@ public class ProductController {
     ConversionService conversionService;
 
     @GetMapping("")
+    @Secured("ROLE_WAREHOUSE")
     String list(Model model, Pageable pageable) {
         model.addAttribute("entities", productService.findAll(pageable));
         return "product/list";
     }
 
     @GetMapping("/{id}/")
+    @Secured("ROLE_WAREHOUSE")
     String view(
             @PathVariable("id") Product product,
             Model model
@@ -47,6 +50,7 @@ public class ProductController {
     }
 
     @GetMapping("/add")
+    @Secured("ROLE_WAREHOUSE")
     String add(
             @ModelAttribute("formData") ProductForm formData
     ) {
@@ -54,6 +58,7 @@ public class ProductController {
     }
 
     @PostMapping("/add")
+    @Secured("ROLE_WAREHOUSE")
     String add(
             @ModelAttribute("formData") @Valid ProductForm formData,
             BindingResult bindingResult
@@ -67,6 +72,7 @@ public class ProductController {
 
 
     @RequestMapping(value = "/{id}/delete", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_WAREHOUSE")
     String delete(
             HttpServletRequest request,
             @PathVariable("id") Product entity,

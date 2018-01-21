@@ -7,6 +7,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
@@ -61,5 +64,4 @@ public class ThemeFunc {
             return "red";
         };
     }
-
 }
