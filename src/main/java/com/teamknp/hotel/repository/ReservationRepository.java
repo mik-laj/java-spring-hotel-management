@@ -20,5 +20,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     @Transactional
     @Modifying
     @Query(value = "update Reservation r set r.status = 'EXPIRED' where r.status = 'PENDING' and r.startDate < :timeoutDate")
-    void timeoutReservationStatuses(@Param("timeoutDate")LocalDate timeoutDate);
+    void expireReservationStatuses(@Param("timeoutDate")LocalDate timeoutDate);
 }

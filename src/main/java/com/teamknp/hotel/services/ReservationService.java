@@ -71,8 +71,8 @@ public class ReservationService {
     }
 
     @Transactional
-    public void updateReservationStatuses(LocalDate timeoutDate) {
-        reservationRepository.timeoutReservationStatuses(timeoutDate);
+    public void expireReservationStatuses(LocalDate timeoutDate) {
+        reservationRepository.expireReservationStatuses(timeoutDate);
     }
 
 }

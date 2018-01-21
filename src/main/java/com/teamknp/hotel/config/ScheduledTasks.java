@@ -14,7 +14,7 @@ public class ScheduledTasks {
     ReservationService reservationService;
 
     @Scheduled(cron = "0 10 0 * * ?")
-    public void updateReservationStatuses() {
-        reservationService.updateReservationStatuses(LocalDate.now());
+    public void expireReservationStatuses() {
+        reservationService.expireReservationStatuses(LocalDate.now());
     }
 }
