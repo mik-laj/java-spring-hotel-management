@@ -6,18 +6,25 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 @Data
 @Table(name = "`user`")
-@EntityFormat("#{username}")
+@EntityFormat("#{firstName} #{lastName}")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    @NotNull
+
     String username;
+
+    String firstName;
+    String lastName;
+
     @NotNull
-    @Size(min = 6, max = 30)
     String password;
+
+    @ManyToMany
+    Set<Role> roles;
 }

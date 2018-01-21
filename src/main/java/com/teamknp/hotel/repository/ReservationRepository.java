@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
-    @Query("select r from Reservation r inner join r.client as c where c.firstName = :query or c.lastName = :query")
+    @Query("select r from Reservation r inner join r.client as c where c.firstName LIKE :query or c.lastName LIKE :query")
     Page<Reservation> search(@Param("query") String query, Pageable pageable);
 }

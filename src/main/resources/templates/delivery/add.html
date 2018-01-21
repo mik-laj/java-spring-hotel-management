@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorator="layout">
+<head>
+    <title>Hello world page</title>
+    <link rel="stylesheet" href="/css/hello.css"/>
+    <th-block data-layout-framgnet="stylesheets">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" integrity="sha256-xJOZHfpxLR/uhh1BwYFS5fhmOAdIRQaiOul5F/b7v3s=" crossorigin="anonymous" />
+    </th-block>
+</head>
+<body>
+
+<th-block data-layout-fragment="section">Warehouse</th-block>
+
+<div data-layout-fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
+        <li class="breadcrumb-item"><a data-th-href="@{/admin/delivery/}">Deliveries</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add delivery</li>
+    </ol>
+</div>
+
+<div data-layout-fragment="content">
+    <h1>Add delivery</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Form</h2>
+                </div>
+                <div class="card-body">
+                    <form action="#" data-th-action="@{/admin/delivery/add}" data-th-object="${formData}" method="post">
+                        <div data-th-include="delivery/form2"></div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-check" aria-hidden="true"></i> Add delivery
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div data-layout-fragment="scripts">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.js" integrity="sha256-Sp9iyAGCmNhQw7nNwUU3zKH/uO3DPzcJVxdKOkWOI6A=" crossorigin="anonymous"></script>
+    <script src="/static/js/collection-form.js"></script>
+</div>
+
+</body>
+</html>
