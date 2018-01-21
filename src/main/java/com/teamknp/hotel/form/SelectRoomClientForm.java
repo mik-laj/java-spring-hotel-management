@@ -1,19 +1,16 @@
 package com.teamknp.hotel.form;
 
 import com.teamknp.hotel.entity.Reservation;
-import com.teamknp.hotel.entity.Room;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 
 @Data
 public class SelectRoomClientForm {
     // reservation
     String notes;
-    Date start;
-    Date end;
+    LocalDate start;
+    LocalDate end;
     Long roomId;
     // address
     String houseNo;

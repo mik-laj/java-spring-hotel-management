@@ -1,10 +1,7 @@
 package com.teamknp.hotel.controller;
 
 import com.teamknp.hotel.entity.Delivery;
-import com.teamknp.hotel.entity.Product;
 import com.teamknp.hotel.form.DeliveryForm;
-import com.teamknp.hotel.form.DeliveryItemForm;
-import com.teamknp.hotel.form.ProductForm;
 import com.teamknp.hotel.services.DeliveryService;
 import io.springlets.data.web.select2.Select2DataSupport;
 import io.springlets.data.web.select2.Select2DataWithConversion;
@@ -14,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,6 +36,7 @@ public class DeliveryController {
     }
 
     @GetMapping("/{id}/")
+    @Secured("ROLE_WAREHOUSE")
     String view(
             @PathVariable("id") Delivery delivery,
             Model model
@@ -47,6 +46,7 @@ public class DeliveryController {
     }
 
     @GetMapping("/add")
+    @Secured("ROLE_WAREHOUSE")
     String add(
             @ModelAttribute("formData") DeliveryForm formData
     ) {
@@ -54,6 +54,7 @@ public class DeliveryController {
     }
 
     @PostMapping("/add")
+    @Secured("ROLE_WAREHOUSE")
     String add(
             @ModelAttribute("formData") @Valid DeliveryForm formData,
             BindingResult bindingResult
@@ -66,6 +67,7 @@ public class DeliveryController {
     }
 
     @GetMapping("/{id}/edit")
+    @Secured("ROLE_WAREHOUSE")
     String edit(
             @PathVariable("id") Delivery entity,
             Model model
@@ -76,6 +78,7 @@ public class DeliveryController {
     }
 
     @PostMapping("/{id}/edit")
+    @Secured("ROLE_WAREHOUSE")
     String edit(
             @ModelAttribute("formData") DeliveryForm formData,
             BindingResult bindingResult,
@@ -91,6 +94,7 @@ public class DeliveryController {
     }
 
     @RequestMapping(value = "/{id}/delete", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_WAREHOUSE")
     String delete(
             HttpServletRequest request,
             @PathVariable("id") Delivery entity,

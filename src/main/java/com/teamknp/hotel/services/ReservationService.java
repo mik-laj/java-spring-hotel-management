@@ -1,17 +1,21 @@
 package com.teamknp.hotel.services;
 
-import com.teamknp.hotel.entity.*;
+import com.teamknp.hotel.entity.Address;
+import com.teamknp.hotel.entity.Client;
+import com.teamknp.hotel.entity.Reservation;
 import com.teamknp.hotel.form.ReservationEditForm;
 import com.teamknp.hotel.form.SelectRoomClientForm;
-import com.teamknp.hotel.repository.*;
+import com.teamknp.hotel.repository.AddressRepository;
+import com.teamknp.hotel.repository.ClientRepository;
+import com.teamknp.hotel.repository.ReservationRepository;
+import com.teamknp.hotel.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
-import com.teamknp.hotel.entity.Reservation;
-import com.teamknp.hotel.repository.ReservationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 
 @Service
 public class ReservationService {
@@ -95,6 +99,11 @@ public class ReservationService {
 
         return reservation;
 
+    }
+
+    @Transactional
+    public void expireReservationStatuses(LocalDate expirationDate) {
+        reservationRepository.expireReservationStatuses(expirationDate);
     }
 
 }

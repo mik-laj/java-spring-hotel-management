@@ -39,7 +39,7 @@ public class WarehouseInitializer implements InitializingBean{
                 product.setName(String.format("Product #%03d", i));
                 product.setEan(String.format("590%010d", i));
                 product.setAvailable(0);
-                product.setPrice(new BigDecimal(10 * i % 200));
+                product.setPrice(new BigDecimal(10 + (10 * i % 200)));
                 productRepository.save(product);
             }
         }

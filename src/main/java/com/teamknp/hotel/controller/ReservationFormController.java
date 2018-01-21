@@ -54,8 +54,8 @@ public class ReservationFormController {
             return "reservation/select-date";
         }
         SelectRoomClientForm formData = new SelectRoomClientForm();
-        Date start = selectDateForm.getStart();
-        Date end = selectDateForm.getEnd();
+        LocalDate start = selectDateForm.getStart();
+        LocalDate end = selectDateForm.getEnd();
         List<Room> avialableRooms = roomService.findAvailableRoomByDate(start, end);
         formData.setStart(start);
         formData.setEnd(end);

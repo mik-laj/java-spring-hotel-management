@@ -6,7 +6,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Data
@@ -18,11 +17,9 @@ public class Reservation {
     @ManyToOne
     Client client;
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
-    @Temporal(TemporalType.DATE)
-    Date startDate;
+    LocalDate startDate;
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
-    @Temporal(TemporalType.DATE)
-    Date endDate;
+    LocalDate endDate;
     @Enumerated(EnumType.STRING)
     Status status;
     @ManyToOne
@@ -42,7 +39,7 @@ public class Reservation {
 
     public enum Status {
         PENDING,
-        TIMED_OUT,
+        EXPIRED,
         IN_PROGRESS,
         CANCELLED,
         FINISHED

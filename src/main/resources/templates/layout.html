@@ -36,43 +36,56 @@
                 </a>
             </div>
             <ul class="nav">
-                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/dashboard') ? 'active':''}">
+                <li class="nav-item"
+                    data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/dashboard') ? 'active':''}">
                     <a class="nav-link" href="dashboard.html">
                         <i class="nc-icon nc-chart-pie-35"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/client') ? 'active':''}">
+                <li class="nav-item"
+                    data-sec-authorize="hasRole('ROLE_RECEPTION')"
+                    data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/client') ? 'active':''}">
                     <a class="nav-link" href="/admin/client">
                         <i class="nc-icon nc-circle-09"></i>
                         <p>Clients</p>
                     </a>
                 </li>
-                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/reservation') ? 'active':''}">
+                <li class="nav-item"
+                    data-sec-authorize="hasRole('ROLE_RECEPTION')"
+                    data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/reservation') ? 'active':''}">
                     <a class="nav-link" href="/admin/reservation">
                         <i class="nc-icon nc-map-big"></i>
                         <p>Reservations</p>
                     </a>
                 </li>
-                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/room') ? 'active':''}">
+                <li class="nav-item"
+                    data-sec-authorize="hasRole('ROLE_RECEPTION')"
+                    data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/room') ? 'active':''}">
                     <a class="nav-link" href="/admin/room">
                         <i class="nc-icon nc-tag-content"></i>
                         <p>Rooms</p>
                     </a>
                 </li>
-                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/product') ? 'active':''}">
+                <li class="nav-item"
+                    data-sec-authorize="hasRole('ROLE_WAREHOUSE')"
+                    data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/product') ? 'active':''}">
                     <a class="nav-link" href="/admin/product">
                         <i class="nc-icon nc-app"></i>
                         <p>Products</p>
                     </a>
                 </li>
-                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/delivery') ? 'active':''}">
+                <li class="nav-item"
+                    data-sec-authorize="hasRole('ROLE_WAREHOUSE')"
+                    data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/delivery') ? 'active':''}">
                     <a class="nav-link" href="/admin/delivery">
                         <i class="nc-icon nc-bus-front-12"></i>
                         <p>Delivery</p>
                     </a>
                 </li>
-                <li class="nav-item" data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/staff') ? 'active':''}">
+                <li class="nav-item"
+                    data-sec-authorize="hasRole('ROLE_HR')"
+                    data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/staff') ? 'active':''}">
                     <a class="nav-link" href="/admin/staff">
                         <i class="nc-icon nc-bag"></i>
                         <p>Staff</p>
@@ -84,10 +97,9 @@
     <div class="main-panel">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg" color-on-scroll="500">
-            <div class=" container-fluid  ">
-                <a class="navbar-brand" layout:fragment="section" href="#"></a>
-                <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                        aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#"><th-block layout:fragment="section"></th-block></a>
+                <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-bar burger-lines"></span>
                     <span class="navbar-toggler-bar burger-lines"></span>
                     <span class="navbar-toggler-bar burger-lines"></span>
@@ -98,6 +110,17 @@
                             <a class="nav-link" href="#pablo">
                                 <span class="no-icon">Account</span>
                             </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="no-icon">Dropdown</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <div class="px-4 py-3">
+                                    <p>Logged user: <span data-sec-authentication="name">Bob</span></p>
+                                    <p>Roles: <span data-sec-authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span></p>
+                                </div>
+                            </div>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/login?logout">

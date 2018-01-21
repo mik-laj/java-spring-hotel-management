@@ -1,12 +1,8 @@
 package com.teamknp.hotel.controller;
 
-import com.teamknp.hotel.entity.Delivery;
 import com.teamknp.hotel.entity.Role;
-import com.teamknp.hotel.entity.Room;
 import com.teamknp.hotel.entity.User;
-import com.teamknp.hotel.form.DeliveryForm;
 import com.teamknp.hotel.form.EmployeeForm;
-import com.teamknp.hotel.services.RoomService;
 import com.teamknp.hotel.services.UserService;
 import io.springlets.data.web.select2.Select2DataSupport;
 import io.springlets.data.web.select2.Select2DataWithConversion;
@@ -16,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,12 +31,14 @@ public class UsersController {
     ConversionService conversionService;
 
     @GetMapping("")
+    @Secured("ROLE_HR")
     String list(Model model, Pageable pageable) {
         model.addAttribute("entities", userService.findAll(pageable));
         return "user/list";
     }
 
     @GetMapping("/{id}/")
+    @Secured("ROLE_HR")
     String view(
             @PathVariable("id") User user,
             Model model
@@ -49,6 +48,7 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/{id}/delete", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_HR")
     String delete(
             HttpServletRequest request,
             @PathVariable("id") User entity,

@@ -2,6 +2,7 @@ package com.teamknp.hotel.entity;
 
 import io.springlets.format.EntityFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -15,6 +16,7 @@ public class Payment {
     float amount;
     @ManyToOne
     Reservation reservation;
+    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     LocalDate date;
     @Enumerated(EnumType.STRING)
     Type type;

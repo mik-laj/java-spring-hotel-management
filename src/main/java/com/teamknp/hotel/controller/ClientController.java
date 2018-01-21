@@ -11,9 +11,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +28,14 @@ public class ClientController {
     ConversionService conversionService;
 
     @GetMapping("")
+    @Secured("ROLE_RECEPTION")
     String list(Model model, Pageable pageable) {
         model.addAttribute("entities", clientService.findAll(pageable));
         return "client/list";
     }
 
     @GetMapping("/{id}/")
+    @Secured("ROLE_RECEPTION")
     String view(
             @PathVariable("id") Client client,
             Model model
@@ -65,6 +67,7 @@ public class ClientController {
 
 
     @RequestMapping(value = "/{id}/delete", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_RECEPTION")
     String delete(
             HttpServletRequest request,
             @PathVariable("id") Client entity,

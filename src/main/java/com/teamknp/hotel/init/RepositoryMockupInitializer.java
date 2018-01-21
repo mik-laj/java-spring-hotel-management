@@ -6,12 +6,8 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.List;
 
 @Component
 public class RepositoryMockupInitializer implements InitializingBean {
@@ -69,93 +65,159 @@ public class RepositoryMockupInitializer implements InitializingBean {
         room.setBedsSingleCount(0);
         room.setBedsDoubleCount(2);
         roomRepository.save(room);
-        roomRepository.flush();
+
+        room = new Room();
+        room.setRoomNumber("500B");
+        room.setCost(16000);
+        room.setBedsSingleCount(2);
+        room.setBedsDoubleCount(1);
+        roomRepository.save(room);
+
+        room = new Room();
+        room.setRoomNumber("22");
+        room.setCost(14000);
+        room.setBedsSingleCount(4);
+        room.setBedsDoubleCount(0);
+        roomRepository.save(room);
+
+        room = new Room();
+        room.setRoomNumber("23");
+        room.setCost(14000);
+        room.setBedsSingleCount(4);
+        room.setBedsDoubleCount(0);
+        roomRepository.save(room);
+
+        room = new Room();
+        room.setRoomNumber("24");
+        room.setCost(6500);
+        room.setBedsSingleCount(1);
+        room.setBedsDoubleCount(0);
+        roomRepository.save(room);
+
+        room = new Room();
+        room.setRoomNumber("25");
+        room.setCost(6500);
+        room.setBedsSingleCount(1);
+        room.setBedsDoubleCount(0);
+        roomRepository.save(room);
+
     }
 
     private void initClientRepository() {
-        List<Room> rooms = roomRepository.findAll();
-        List<Address> addresses = new ArrayList<Address>();
-        List<Client> clients = new ArrayList<Client>();
+        //1
+        Client client = new Client();
+        client.setFirstName("Jan");
+        client.setLastName("Kowalski");
 
-        Address address1 = new Address();
-        address1.setCity("Siedlce");
-        address1.setPostcode("08-110");
-        address1.setProvince("Mazowieckie");
-        address1.setCountry("Polska");
-        address1.setStreetName("Kićka");
-        address1.setHouseNo("10");
-        addressRepository.save(address1);
-        addresses.add(address1);
-
-        Address address2 = new Address();
-        address2.setCity("Warszawa");
-        address2.setPostcode("04-672");
-        address2.setProvince("Mazowieckie");
-        address2.setCountry("Polska");
-        address2.setStreetName("Nieistniejąca");
-        address2.setHouseNo("15B");
-        addressRepository.save(address2);
-
-        for(int i = 0; i < 10; i++) {
-            Client client = new Client();
-            client.setFirstName("Client #" + i);
-            client.setLastName("Kowalski");
-            clientRepository.save(client);
-            clients.add(client);
-        }
-
-
-        Reservation reservation1 = new Reservation();
-        reservation1.setStatus(Reservation.Status.PENDING);
-        reservation1.setNotes("Jeździ na wózku inwalidzkim.");
-        reservation1.setStartDate(new GregorianCalendar(2018, 0, 2).getTime());
-        reservation1.setEndDate(new GregorianCalendar(2018, 0, 4).getTime());
-        reservation1.setClient(clients.get(0));
-        reservation1.setAddress(address2);
-        reservation1.setRoom(rooms.get(0));
-
-        reservationRepository.save(reservation1);
-
-        Reservation reservation2 = new Reservation();
-        reservation2.setStatus(Reservation.Status.CANCELLED);
-        reservation2.setNotes("Jeździ na wózku inwalidzkim.");
-        reservation2.setStartDate(new GregorianCalendar(2018, 0, 19).getTime());
-        reservation2.setEndDate(new GregorianCalendar(2018, 1, 27).getTime());
-        reservation2.setClient(clients.get(1));
-        reservation2.setRoom(rooms.get(0));
-        reservation2.setAddress(addresses.get(0));
-        reservationRepository.save(reservation2);
+        clientRepository.save(client);
 
         Reservation reservation = new Reservation();
         reservation.setStatus(Reservation.Status.PENDING);
+        reservation.setNotes("Jeździ na wózku inwalidzkim.");
+        reservation.setStartDate(LocalDate.of(2018, 1, 19));
+        reservation.setEndDate(LocalDate.of(2018, 1, 27));
+        reservation.setClient(client);
+
+        Address address = new Address();
+        address.setCity("Siedlce");
+        address.setPostcode("08-110");
+        address.setProvince("Mazowieckie");
+        address.setCountry("Polska");
+        address.setStreetName("Kićka");
+        address.setHouseNo("10");
+        addressRepository.save(address);
+
+        reservation.setAddress(address);
+
+        Room room = new Room();
+        room.setRoomNumber("1");
+        room.setCost(12500);
+        room.setBedsSingleCount(1);
+        room.setBedsDoubleCount(1);
+        roomRepository.save(room);
+
+        reservation.setRoom(room);
+
+        reservationRepository.save(reservation);
+
+        reservation = new Reservation();
+        reservation.setStatus(Reservation.Status.CANCELLED);
+        reservation.setNotes("Jeździ na wózku inwalidzkim.");
+        reservation.setStartDate(LocalDate.of(2018, 1, 1));
+        reservation.setEndDate(LocalDate.of(2018, 1, 4));
+        reservation.setClient(client);
+        reservation.setRoom(room);
+
+        addressRepository.save(address);
+        reservation.setAddress(address);
+        reservationRepository.save(reservation);
+
+        //2
+        client = new Client();
+        client.setFirstName("Adrianna");
+        client.setLastName("Oszust");
+
+        clientRepository.save(client);
+        addressRepository.save(address);
+
+        reservation = new Reservation();
+        reservation.setStatus(Reservation.Status.PENDING);
         reservation.setNotes("Ma uczulenie na pierze.");
-        reservation.setStartDate(new GregorianCalendar(2018, 0, 6).getTime());
-        reservation.setEndDate(new GregorianCalendar(2018, 0, 14).getTime());
-        reservation.setClient(clients.get(0));
-        reservation.setRoom(rooms.get(1));
-        reservation.setAddress(address2);
+        reservation.setStartDate(LocalDate.of(2018, 1, 19));
+        reservation.setEndDate(LocalDate.of(2018, 1, 27));
+        reservation.setClient(client);
+
+        room = new Room();
+        room.setRoomNumber("2");
+        room.setCost(6000);
+        room.setBedsSingleCount(1);
+        room.setBedsDoubleCount(0);
+        roomRepository.save(room);
+
+        reservation.setRoom(room);
+
+        address = new Address();
+        address.setCity("Warszawa");
+        address.setPostcode("04-672");
+        address.setProvince("Mazowieckie");
+        address.setCountry("Polska");
+        address.setStreetName("Nieistniejąca");
+        address.setHouseNo("15B");
+        addressRepository.save(address);
+
+        reservation.setAddress(address);
 
         reservationRepository.save(reservation);
 
         reservation = new Reservation();
         reservation.setStatus(Reservation.Status.FINISHED);
         reservation.setNotes("Ma uczulenie na pierze.");
-        reservation.setStartDate(new GregorianCalendar(2018, 0, 2).getTime());
-        reservation.setEndDate(new GregorianCalendar(2018, 0, 6).getTime());
-        reservation.setClient(clients.get(0));
-        reservation.setAddress(addresses.get(0));
-        reservation.setRoom(rooms.get(2));
+        reservation.setStartDate(LocalDate.of(2017, 12, 23));
+        reservation.setEndDate(LocalDate.of(2017, 12, 25));
+        reservation.setClient(client);
+        reservation.setAddress(address);
+
+        room = new Room();
+        room.setRoomNumber("26");
+        room.setCost(6500);
+        room.setBedsSingleCount(1);
+        room.setBedsDoubleCount(0);
+        roomRepository.save(room);
+
+        reservation.setRoom(room);
         reservationRepository.save(reservation);
 
-        Reservation reservation3 = new Reservation();
-        reservation3.setStatus(Reservation.Status.PENDING);
-        reservation3.setNotes("Ma uczulenie na pierze.");
-        reservation3.setStartDate(new GregorianCalendar(2018, 0, 15).getTime());
-        reservation3.setEndDate(new GregorianCalendar(2018, 0, 19).getTime());
-        reservation3.setClient(clients.get(0));
-        reservation3.setRoom(rooms.get(2));
-        reservation3.setAddress(address2);
+        Payment payment = new Payment();
+        payment.setDate(LocalDate.of(2017, 12, 23));
+        payment.setAmount(6500);
+        payment.setReservation(reservation);
+        payment.setType(Payment.Type.CASH);
+        paymentRepository.save(payment);
 
-        reservationRepository.save(reservation3);
+        KeyStatus keyStatus = new KeyStatus();
+        keyStatus.setRoom(room);
+        keyStatus.setTimeGiven(LocalDateTime.of(2017, 12, 23, 12, 35));
+        keyStatus.setTimeReturned(LocalDateTime.of(2017, 12, 25, 15, 55));
+        keyStatusRepository.save(keyStatus);
     }
 }
