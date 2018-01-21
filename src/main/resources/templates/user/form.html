@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <div class="form-group">
+        <label for="inputRoomNumber">Number</label>
+        <input type="text" class="form-control" id="inputRoomNumber" required="" data-th-field="*{roomNumber}" data-th-classappend="${#fields.hasErrors('roomNumber')}? is-invalid"/>
+        <div data-th-if="${#fields.hasErrors('roomNumber')}" data-th-each="err : ${#fields.errors('roomNumber')}" data-th-text="${err}" class="invalid-feedback"></div>
+    </div>
+</body>
+</html>

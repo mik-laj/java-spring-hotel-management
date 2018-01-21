@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <div class="form-group">
+        <label for="inputName">Name</label>
+        <input type="text" class="form-control" id="inputName" required="" data-th-field="*{name}" data-th-classappend="${#fields.hasErrors('name')}? is-invalid"/>
+        <div data-th-if="${#fields.hasErrors('name')}" data-th-each="err : ${#fields.errors('name')}" data-th-text="${err}" class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label for="inputEan">Ean</label>
+        <input type="text" class="form-control" id="inputEan" required="" data-th-field="*{ean}" data-th-classappend="${#fields.hasErrors('ean')}? is-invalid"/>
+        <div data-th-if="${#fields.hasErrors('ean')}" data-th-each="err : ${#fields.errors('ean')}" data-th-text="${err}" class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label for="inputPrice">Price</label>
+        <input type="text" class="form-control" id="inputRoomNumber" required="" data-th-field="*{price}" data-th-classappend="${#fields.hasErrors('price')}? is-invalid"/>
+        <div data-th-if="${#fields.hasErrors('price')}" data-th-each="err : ${#fields.errors('price')}" data-th-text="${err}" class="invalid-feedback"></div>
+    </div>
+</body>
+</html>

@@ -1,53 +1,59 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" data-layout-decorator="layout-plain">
 <head>
     <title>Spring Security Example </title>
 </head>
 <body>
 
+<th-block data-layout-fragment="content">
+    <div class="row justify-content-center">
+        <div class="col-sm-9 col-md-8 col-lg-6 col-xl-4">
+            <div class="card card-login">
+                <div class="card-header">
+                    <h2 class="text-center">Login</h2>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/login}" method="post">
 
-<div class="container">
-
-    <div class="row" style="margin-top:20px">
-        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
-            <form th:action="@{/login}" method="post">
-                <fieldset>
-                    <h1>Please Sign In</h1>
-
-                    <div th:if="${param.error}">
-                        <div class="alert alert-danger">
-                            Invalid username and password.
+                        <div th:if="${param.error}">
+                            <div class="alert alert-danger">
+                                Invalid username and password.
+                            </div>
                         </div>
-                    </div>
-                    <div th:if="${param.logout}">
-                        <div class="alert alert-info">
-                            You have been logged out.
+                        <div th:if="${param.logout}">
+                            <div class="alert alert-info">
+                                You have been logged out.
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="form-group">
-                        <input type="text" name="username" id="username" class="form-control input-lg"
-                               placeholder="UserName" required="true" autofocus="true"/>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" id="password" class="form-control input-lg"
-                               placeholder="Password" required="true"/>
-                    </div>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control input-lg"
+                                   placeholder="UserName" required="true" autofocus="true"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" id="password" class="form-control input-lg"
+                                   placeholder="Password" required="true"/>
+                        </div>
 
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign In"/>
+                        <div class="row justify-content-center">
+                            <div class="col-md-5">
+                                <button type="submit" class="btn btn-lg btn-fill btn-warning btn-block">
+                                    Login
+                                </button>
+                            </div>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6">
-                        </div>
-                    </div>
-                </fieldset>
-            </form>
+
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 
-</div>
+
+
+</th-block>
 
 </body>
 </html>

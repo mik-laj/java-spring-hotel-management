@@ -1,14 +1,35 @@
 package com.teamknp.hotel.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
 @Configuration
 public class ThemeFunc {
+
+    private static final Map<String, String> PREFIX_TO_COLOR;
+
+    static {
+//        purple | blue | green | orange | red
+        HashMap<String, String> prefixes = new HashMap<>();
+        prefixes.put("/admin/dashboard", "purple");
+        prefixes.put("/admin/product", "blue");
+        prefixes.put("/admin/delivery", "blue");
+        prefixes.put("/admin/staff", "orange");
+
+        PREFIX_TO_COLOR = Collections.unmodifiableMap(prefixes);
+    }
 
     @Bean
     public Function<String, String> currentUrlWithoutParam() {
@@ -25,6 +46,20 @@ public class ThemeFunc {
                 .replaceQueryParam(param)
                 .replaceQueryParam(param2)
                 .toUriString();
+    }
+
+    @Bean
+    Function<HttpServletRequest, String> currentThemeColor() {
+        return (HttpServletRequest request) -> {
+            for (Map.Entry<String, String> entry : PREFIX_TO_COLOR.entrySet()) {
+                if (request.getRequestURI().startsWith(entry.getKey())) {
+                    return entry.getValue();
+                }
+            }
+
+
+            return "red";
+        };
     }
 
 }
