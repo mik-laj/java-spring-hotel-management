@@ -3,10 +3,46 @@
 <head>
 </head>
 <body>
-    <div class="form-group">
-        <label for="inputRoomNumber">Number</label>
-        <input type="text" class="form-control" id="inputRoomNumber" required="" data-th-field="*{roomNumber}" data-th-classappend="${#fields.hasErrors('roomNumber')}? is-invalid"/>
-        <div data-th-if="${#fields.hasErrors('roomNumber')}" data-th-each="err : ${#fields.errors('roomNumber')}" data-th-text="${err}" class="invalid-feedback"></div>
+
+<div class="form-group">
+    <div class="alert alert-danger" data-th-if="${#fields.hasErrors('*')}">
+        <p data-th-each="err : ${#fields.errors('*')}" data-th-text="${err}"></p>
     </div>
+</div>
+
+<div class="form-group">
+    <label>Nick</label>
+    <input type="text" data-th-field="${formData.username}"
+           class="form-control" placeholder="nick" required="true" autofocus="true"/>
+</div>
+<div class="form-group">
+    <label>Imię</label>
+    <input type="text" data-th-field="${formData.firstName}"
+           class="form-control" placeholder="imie" required="true" autofocus="true"/>
+</div>
+<div class="form-group">
+    <label>Nazwisko</label>
+    <input type="text" data-th-field="${formData.lastName}"
+           class="form-control" placeholder="nazwisko" required="true" autofocus="true"/>
+</div>
+
+<div class="form-group">
+    <label>Hasło</label>
+    <input type="password" data-th-field="${formData.password}"
+           class="form-control" placeholder="hasło" required="true" autofocus="true"/>
+</div>
+
+<div class="form-group">
+    <label>Powtórz hasło</label>
+    <input type="password" data-th-field="${formData.passwordConfirm}"
+           class="form-control" placeholder="hasło" required="true" autofocus="true"/>
+</div>
+<div class="form-group">
+    <label>Wybierz role</label>
+    <select multiple="multiple" data-ajax--url="/admin/staff/s2-role" data-th-field="${formData.roles}" class="form-control select2">
+    </select>
+</div>
+
+
 </body>
 </html>

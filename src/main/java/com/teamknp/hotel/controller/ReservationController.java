@@ -1,6 +1,8 @@
 package com.teamknp.hotel.controller;
 
 import com.teamknp.hotel.entity.Reservation;
+import com.teamknp.hotel.form.ReservationEditForm;
+import com.teamknp.hotel.form.SelectRoomClientForm;
 import com.teamknp.hotel.services.ReservationService;
 import io.springlets.data.web.select2.Select2DataSupport;
 import io.springlets.data.web.select2.Select2DataWithConversion;
@@ -33,7 +35,7 @@ public class ReservationController {
         return "reservation/list";
     }
 
-    @GetMapping("/{id}/")
+    @GetMapping("/{id}")
     String view(
             @PathVariable("id") Reservation reservation,
             Model model
@@ -90,5 +92,29 @@ public class ReservationController {
         String idExpression = "#{id}";
         Select2DataSupport<Reservation> select2Data = new Select2DataWithConversion<>(vets, idExpression, conversionService);
         return ResponseEntity.ok(select2Data);
+    }
+
+    @GetMapping("/{id}/edit")
+    String edit(
+            @PathVariable("id") Reservation entity,
+            Model model
+    ) {
+        model.addAttribute("formData", ReservationEditForm.from(entity));
+        model.addAttribute("object", entity);
+        return "reservation/edit";
+    }
+    @PostMapping("/{id}/edit")
+    String edit(
+            @ModelAttribute("formData") ReservationEditForm formData,
+            BindingResult bindingResult,
+            @PathVariable("id") Reservation entity,
+            Model model
+    ) {
+        model.addAttribute("object", entity);
+        if (bindingResult.hasErrors()) {
+            return "reservation/edit";
+        }
+        reservationService.update(entity, formData);
+        return String.format("redirect:/admin/reservation/%d/", entity.getId());
     }
 }

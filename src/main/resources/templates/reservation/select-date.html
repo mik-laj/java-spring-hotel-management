@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<html lang="en" data-layout-decorator="layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Hello world page</title>
+    <link rel="stylesheet" href="/css/hello.css"/>
+</head>
+<body>
+
+<div data-layout-fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
+        <li class="breadcrumb-item"><a data-th-href="@{/admin/reservation/}">Reservations</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add reservation</li>
+    </ol>
+</div>
+
+<div data-layout-fragment="content">
+    <h1>Add reservation</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Form</h2>
+                </div>
+                <div class="card-body">
+                    <form th:method="POST" th:action="@{/admin/reservation/select-room-client}" th:object="${formData}">
+                        <h1>Wybieranie Daty</h1>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="startDate">Start date:</label>
+                                <input id="startDate" type="date" th:field="*{start}"
+                                       class="form-control" th:classappend="${#fields.hasErrors('start')}?'is-invalid'"
+                                       placeholder="date" required="true"/>
+                                <div class="error text-danger" th:if="${#fields.hasErrors('start')}">
+                                    <p th:each="err : ${#fields.errors('start')}" th:text="${err}"></p>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="startDate">End date:</label>
+                                <input for="endDate" type="date" th:field="*{end}"
+                                       class="form-control" th:classappend="${#fields.hasErrors('end')}?'is-invalid'"
+                                       placeholder="date" required="true"/>
+                                <div class="error text-danger" th:if="${#fields.hasErrors('end')}">
+                                    <p th:each="err : ${#fields.errors('end')}" th:text="${err}"></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Zaakceptuj datę</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>

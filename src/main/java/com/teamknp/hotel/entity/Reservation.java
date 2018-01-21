@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Data
@@ -17,15 +18,26 @@ public class Reservation {
     @ManyToOne
     Client client;
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
-    LocalDate startDate;
+    @Temporal(TemporalType.DATE)
+    Date startDate;
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
-    LocalDate endDate;
+    @Temporal(TemporalType.DATE)
+    Date endDate;
     @Enumerated(EnumType.STRING)
     Status status;
     @ManyToOne
     Address address;
     @ManyToOne
     Room room;
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
     String notes;
 
     public enum Status {
