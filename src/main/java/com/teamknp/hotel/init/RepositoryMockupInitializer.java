@@ -219,6 +219,5 @@ public class RepositoryMockupInitializer implements InitializingBean {
         keyStatus.setTimeGiven(LocalDateTime.of(2017, 12, 23, 12, 35));
         keyStatus.setTimeReturned(LocalDateTime.of(2017, 12, 25, 15, 55));
         keyStatusRepository.save(keyStatus);
-
     }
 }

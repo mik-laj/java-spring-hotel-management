@@ -30,7 +30,7 @@ public class Reservation {
 
     public enum Status {
         PENDING,
-        TIMED_OUT,
+        EXPIRED,
         IN_PROGRESS,
         CANCELLED,
         FINISHED
