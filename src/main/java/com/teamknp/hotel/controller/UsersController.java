@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +29,14 @@ public class UsersController {
     ConversionService conversionService;
 
     @GetMapping("")
+    @Secured("ROLE_HR")
     String list(Model model, Pageable pageable) {
         model.addAttribute("entities", userService.findAll(pageable));
         return "user/list";
     }
 
     @GetMapping("/{id}/")
+    @Secured("ROLE_HR")
     String view(
             @PathVariable("id") User user,
             Model model
@@ -43,6 +46,7 @@ public class UsersController {
     }
 
     @RequestMapping(value = "/{id}/delete", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_HR")
     String delete(
             HttpServletRequest request,
             @PathVariable("id") User entity,
