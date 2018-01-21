@@ -6,6 +6,7 @@ import com.teamknp.hotel.repository.RoleRepository;
 import com.teamknp.hotel.repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +15,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 
 @Component
-@Priority(1)
-public class UserInitializer implements InitializingBean {
+@Order(10)
+public class UserInitializer implements DataLoader {
     @Autowired
     UserRepository userRepository;
 
@@ -26,7 +27,7 @@ public class UserInitializer implements InitializingBean {
     PasswordEncoder encoder;
 
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void load() {
         if (userRepository.count() == 0 && roleRepository.count() == 0) {
             Role roleUser = new Role("ROLE_USER");
             Role roleReception = new Role("ROLE_RECEPTION");

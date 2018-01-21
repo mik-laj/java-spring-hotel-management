@@ -8,8 +8,9 @@
        var $form = $(form);
        var $tbody = $form.find('tbody');
        var $rows = $tbody.children().filter('tr');
-       var max_id = Math.max.apply(null, Array.from($rows).map(d => d.getAttribute('data-row-index')));
+       var max_id = Math.max.apply(null, Array.from($rows).map(d => d.getAttribute('data-row-index'))) | 0;
        var template_html = $form.find('template')[0].innerHTML;
+       debugger;
        $form.on('click', '[data-action=remove-row]', function(ev) {
             var $this = this;
             this.closest('tr').remove();

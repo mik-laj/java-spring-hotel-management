@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Integer> {
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
     @Query("select r from Reservation r inner join r.client as c where c.firstName LIKE :query or c.lastName LIKE :query")
     Page<Reservation> search(@Param("query") String query, Pageable pageable);
 

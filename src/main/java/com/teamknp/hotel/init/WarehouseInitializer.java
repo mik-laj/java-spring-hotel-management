@@ -9,6 +9,7 @@ import com.teamknp.hotel.repository.ProductRepository;
 import com.teamknp.hotel.repository.UserRepository;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Priority;
@@ -18,8 +19,8 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-@Priority(1)
-public class WarehouseInitializer implements InitializingBean{
+@Order(1)
+public class WarehouseInitializer implements DataLoader{
     @Autowired
     UserRepository userRepository;
 
@@ -30,16 +31,16 @@ public class WarehouseInitializer implements InitializingBean{
     DeliveryRepository deliveryRepository;
 
 
-
     @Override
-    public void afterPropertiesSet() throws Exception {
+    public void load() {
         if (productRepository.count() == 0) {
             for(int i = 0; i < 50; i++) {
                 Product product = new Product();
                 product.setName(String.format("Product #%03d", i));
                 product.setEan(String.format("590%010d", i));
-                product.setAvailable(0);
                 product.setPrice(new BigDecimal(10 + (10 * i % 200)));
+                product.setAvailable((i * 8) % 12);
+
                 productRepository.save(product);
             }
         }
