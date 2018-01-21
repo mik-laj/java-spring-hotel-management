@@ -92,9 +92,11 @@ public class ProductController {
     @ResponseBody
     public ResponseEntity<Select2DataSupport<Product>> select2(
             @RequestParam("q") String search,
+            @RequestParam(value = "only_available", required = false, defaultValue = "false") String only_available_param,
             Pageable pageable
     ) {
-        Page<Product> vets = productService.search(search, pageable);
+        boolean only_available = "true".equals(only_available_param);
+        Page<Product> vets = productService.search(search, pageable, only_available);
         String idExpression = "#{id}";
         Select2DataSupport<Product> select2Data = new Select2DataWithConversion<>(vets, idExpression, conversionService);
         return ResponseEntity.ok(select2Data);

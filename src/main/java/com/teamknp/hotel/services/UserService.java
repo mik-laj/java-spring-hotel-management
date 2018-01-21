@@ -14,6 +14,9 @@ public class UserService {
     @Autowired
     protected UserRepository userRepository;
 
+    @Autowired
+    SecurityService securityService;
+
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
@@ -28,5 +31,10 @@ public class UserService {
 
     public Page<User> search(String query, Pageable pageable) {
         return userRepository.search(query, pageable);
+    }
+
+    public User getCurrentUser() {
+        String username = securityService.findLoggedInUsername();
+        return userRepository.findByUsername(username);
     }
 }

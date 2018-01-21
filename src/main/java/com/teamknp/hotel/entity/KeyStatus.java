@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 public class KeyStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Long id;
+
     LocalDateTime timeGiven;
     LocalDateTime timeReturned;
     @ManyToOne

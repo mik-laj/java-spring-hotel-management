@@ -10,7 +10,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
-public class RepositoryMockupInitializer implements InitializingBean {
+public class RepositoryMockupInitializer implements DataLoader {
     private AddressRepository addressRepository;
     private ClientRepository clientRepository;
     private KeyStatusRepository keyStatusRepository;
@@ -31,7 +31,7 @@ public class RepositoryMockupInitializer implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() {
+    public void load() {
         if (roomRepository.findAll().isEmpty()) {
             initRoomRepository();
         }
