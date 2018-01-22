@@ -3,8 +3,6 @@ package com.teamknp.hotel.form;
 import com.teamknp.hotel.entity.Reservation;
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class ReservationEditForm {
     // reservation
@@ -27,7 +25,7 @@ public class ReservationEditForm {
         f.setHouseNo(reservation.getAddress().getHouseNo());
         f.setPostcode(reservation.getAddress().getPostcode());
         f.setCity(reservation.getAddress().getCity());
-        f.setStreet(reservation.getAddress().getStreet());
+        f.setStreet(reservation.getAddress().getStreetName());
         f.setProvince(reservation.getAddress().getProvince());
         f.setCountry(reservation.getAddress().getCountry());
 

@@ -1,17 +1,14 @@
 package com.teamknp.hotel.services;
 
-import com.teamknp.hotel.entity.*;
-import com.teamknp.hotel.form.ReservationEditForm;
-import com.teamknp.hotel.form.SelectRoomClientForm;
-import com.teamknp.hotel.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import com.teamknp.hotel.entity.Address;
 import com.teamknp.hotel.entity.Client;
 import com.teamknp.hotel.entity.Reservation;
+import com.teamknp.hotel.form.ReservationEditForm;
+import com.teamknp.hotel.form.SelectRoomClientForm;
+import com.teamknp.hotel.repository.AddressRepository;
+import com.teamknp.hotel.repository.ClientRepository;
 import com.teamknp.hotel.repository.ReservationRepository;
+import com.teamknp.hotel.repository.RoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -59,7 +56,6 @@ public class ReservationService {
         clientRepository.save(client);
 
         Address address = entity.getAddress();
-        address.setStreet(formData.getStreet());
         address.setStreetName(formData.getStreet());
         address.setCity(formData.getCity());
         address.setCountry(formData.getCountry());
@@ -85,7 +81,7 @@ public class ReservationService {
         address.setProvince(reservationForm.getProvince());
         address.setCountry(reservationForm.getCountry());
         address.setHouseNo(reservationForm.getHouseNo());
-        address.setStreet(reservationForm.getStreet());
+        address.setStreetName(reservationForm.getStreetName());
         addressRepository.save(address);
 
         Reservation reservation = new Reservation();
