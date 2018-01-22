@@ -2,6 +2,7 @@ package com.teamknp.hotel.controller;
 
 import com.teamknp.hotel.entity.Reservation;
 import com.teamknp.hotel.form.ReservationEditForm;
+import com.teamknp.hotel.services.PaymentService;
 import com.teamknp.hotel.services.ReservationService;
 import com.teamknp.hotel.services.SaleService;
 import io.springlets.data.web.select2.Select2DataSupport;
@@ -32,6 +33,9 @@ public class ReservationController {
     @Autowired
     SaleService saleService;
 
+    @Autowired
+    PaymentService paymentService;
+
     @GetMapping("")
     @Secured("ROLE_RECEPTION")
     String list(Model model, Pageable pageable) {
@@ -47,6 +51,8 @@ public class ReservationController {
     ) {
         model.addAttribute("object", reservation);
         model.addAttribute("soldItems", saleService.findAllByReservation(reservation));
+        model.addAttribute("invoice", reservation.getRoom().getCost());
+        model.addAttribute("paymentSum", paymentService.sumPaymentsForReservation(reservation.getId()));
         return "reservation/view";
     }
 

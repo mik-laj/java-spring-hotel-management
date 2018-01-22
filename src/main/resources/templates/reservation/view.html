@@ -22,6 +22,10 @@
         <!--<a href="#" data-th-href="@{/admin/reservation/{id}/edit/(id=${object.id})}" rel="tooltip" class="btn btn-info" data-original-title="Edit">-->
             <!--<i class="fa fa-edit"></i>-->
         <!--</a>-->
+        <a href="#" data-th-href="@{/admin/reservation/{id}/add-payment/(id=${object.id})}" class="btn btn-primary">
+            <i class="fa fa-credit-card"></i>
+            Add payment
+        </a>
         <a href="#" data-th-href="@{/admin/reservation/{id}/sell-product/(id=${object.id})}" class="btn btn-primary">
             <i class="fa fa-shopping-cart"></i>
             Sell product
@@ -33,33 +37,65 @@
     </div>
 
     <h1 data-th-text="${{object}}">Reservation #555</h1>
-
     <div class="row">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header ">
-                    <h4 class="card-title">Object info</h4>
+                    <h4 class="card-title">Reservation Details</h4>
                 </div>
                 <div class="card-body table-full-width table-responsive">
                     <table class="table" data-th-object="${object}">
                         <tbody>
                         <tr>
-                            <td>
-                                Id:
-                            </td>
-                            <td data-th-text="*{id}">
-                                5
+                            <td><b>First name</b></td>
+                            <td data-th-text="*{client.firstName}">
+                                Potato
                             </td>
                         </tr>
                         <tr>
-                            <td>Start date:</td>
+                            <td><b>Last name</b></td>
+                            <td data-th-text="*{client.lastName}">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Address</b></td>
+                            <td>
+                                <span data-th-text="*{address.country}"> </span>,
+                                <span data-th-text="*{address.province}"> </span>,
+                                <span data-th-text="*{address.city}"> </span>
+                                <span data-th-text="*{address.postcode}"> </span>,
+                                <span data-th-text="*{address.streetName}"> </span>
+                                <span data-th-text="*{address.houseNo}"> </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Room number</b></td>
+                            <td data-th-text="*{room.roomNumber}">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Start date</b></td>
                             <td data-th-text="*{startDate}">
                                 Potato
                             </td>
                         </tr>
                         <tr>
-                            <td>End date:</td>
+                            <td><b>End date</b></td>
                             <td data-th-text="*{endDate}">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Status</b></td>
+                            <td data-th-text="*{status}">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Notes</b></td>
+                            <td data-th-text="*{notes}">
                                 Potato
                             </td>
                         </tr>
@@ -111,6 +147,39 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header ">
+                    <h4 class="card-title">Payments and Invoice</h4>
+                </div>
+                <div class="card-body table-full-width table-responsive">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><b>Balance</b></td>
+                            <td data-th-text="*{paymentSum - invoice}">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Invoice</b></td>
+                            <td data-th-text="*{invoice}">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Paid</b></td>
+                            <td data-th-text="*{paymentSum}">
+                                Potato
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

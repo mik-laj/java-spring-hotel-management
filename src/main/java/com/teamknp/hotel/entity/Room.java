@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -20,7 +22,8 @@ public class Room {
     String roomNumber;
     int bedsSingleCount;
     int bedsDoubleCount;
-    int cost;
+    @Digits(integer=5, fraction=2)
+    BigDecimal cost;
     @OneToMany(mappedBy="room", cascade=CascadeType.PERSIST)
     List<Reservation> reservations;
 
