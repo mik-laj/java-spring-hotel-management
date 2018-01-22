@@ -21,7 +21,7 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             "  LEFT JOIN\n" +
             "  reservation\n" +
             "    ON (\n" +
-            "    reservation.room_id = room.id AND\n" +
+            "    reservation.room_id = room.id AND (reservation.status = 'PENDING' or reservation.status = 'IN_PROGRESS') AND\n" +
             "    NOT (\n" +
             "      (reservation.start_date < ?1 and reservation.end_date < ?1)\n" +
             "      OR\n" +
