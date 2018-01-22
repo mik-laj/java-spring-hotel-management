@@ -36,6 +36,7 @@ public class ReservationService {
     }
 
     public Page<Reservation> search(String query, Pageable pageable) {
+        query = "%" + query + "%";
         return reservationRepository.search(query, pageable);
     }
 
@@ -44,7 +45,7 @@ public class ReservationService {
         Client client = new Client();
         client.setFirstName(reservationForm.getFirstName());
         client.setLastName(reservationForm.getLastName());
-        // save client
+        // addClaim client
         clientRepository.save(client);
 
         Address address = new Address();

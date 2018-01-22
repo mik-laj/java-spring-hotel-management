@@ -62,7 +62,7 @@ public class ClientController {
 //        }
 //        Client client = new Client();
 ////        formData.patch(client);
-////        cityManager.save(client);
+////        cityManager.addClaim(client);
 //        return String.format("redirect:/admin/client/%d/", client.getId());
 //    }
 

@@ -67,7 +67,7 @@ public class ReservationController {
 //        }
 //        Reservation reservation = new Reservation();
 ////        formData.patch(reservation);
-////        cityManager.save(reservation);
+////        cityManager.addClaim(reservation);
 //        return String.format("redirect:/admin/reservation/%d/", reservation.getId());
 //    }
 

@@ -11,6 +11,8 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 import static org.springframework.data.jpa.domain.Specifications.where;
 
 @Service
@@ -45,5 +47,9 @@ public class ProductService {
         p.setPrice(formData.getPrice());
         productRepository.save(p);
         return p;
+    }
+
+    public List<Product> getOutOfStockProducts() {
+        return productRepository.findAll(productSpecification.onlyOutOfStock());
     }
 }
