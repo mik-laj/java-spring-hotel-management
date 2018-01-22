@@ -27,4 +27,7 @@ public class Product {
 
     @Column(nullable = false)
     Integer available;
+
+    @Column(nullable = false)
+    Integer warning;
 }

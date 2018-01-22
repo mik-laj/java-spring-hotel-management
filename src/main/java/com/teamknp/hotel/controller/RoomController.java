@@ -62,7 +62,7 @@ public class RoomController {
 //        }
 //        Room room = new Room();
 ////        formData.patch(room);
-////        cityManager.save(city);
+////        cityManager.addClaim(city);
 //        return String.format("redirect:/admin/room/%d/", room.getId());
 //    }
 

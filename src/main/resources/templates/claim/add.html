@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorator="layout">
+<head>
+    <title>Hello world page</title>
+    <link rel="stylesheet" href="/css/hello.css"/>
+</head>
+<body>
+
+<th-block data-layout-fragment="section">Reception</th-block>
+
+<div data-layout-fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
+        <li class="breadcrumb-item"><a data-th-href="@{/admin/claim/}">Claims</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Add claim</li>
+    </ol>
+</div>
+
+<div data-layout-fragment="content">
+    <h1>Add claim</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Form</h2>
+                </div>
+                <div class="card-body">
+                    <form action="#" data-th-action="@{/admin/claim/add}" data-th-object="${formData}" method="post">
+                        <div data-th-include="claim/form"></div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-check" aria-hidden="true"></i> Add claim
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th-block data-layout-fragment="scripts">
+    <script>
+        (function($) {
+            $('.select2').select2();
+        })(jQuery);
+    </script>
+</th-block>
+
+</body>
+</html>
