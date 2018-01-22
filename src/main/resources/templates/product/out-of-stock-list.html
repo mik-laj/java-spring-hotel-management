@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+
+    <style>
+        .container {
+            width: 800px;
+            margin: 0 auto;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, td, th {
+            border: 1px solid black;
+        }
+        td, th {
+            padding: 10px;
+        }
+        .text-right {
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Out of stock report</h1>
+
+    <table class="table table-hover" border="1">
+        <thead>
+        <tr>
+            <th rowspan="2">No</th>
+            <th rowspan="2">ID</th>
+            <th rowspan="2">Name</th>
+            <th rowspan="2">EAN</th>
+            <th colspan="3">Count</th>
+        </tr>
+        <tr>
+            <th>Available</th>
+            <th>Warning</th>
+            <th>Missing</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="entity, stat: ${entities}" data-th-object="${entity}">
+            <td data-th-text="${stat.index} + 1">
+                5
+            </td>
+            <td data-th-text="*{id}">
+                5
+            </td>
+            <td data-th-text="*{{name}}">
+                Potato
+            </td>
+            <td data-th-text="*{{ean}}">
+                Potato
+            </td>
+            <td data-th-text="*{{available}}" class="text-right">
+                Potato
+            </td>
+            <td data-th-text="*{{warning}}" class="text-right">
+                Potato
+            </td>
+            <td data-th-text="${entity.available} - ${entity.warning}" class="text-right">
+                5
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    window.print();
+</script>
+</body>
+
+</html>

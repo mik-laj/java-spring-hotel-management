@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorator="layout">
+<head>
+    <title>Hello world page</title>
+    <link rel="stylesheet" href="/css/hello.css"/>
+</head>
+<body>
+
+<th-block data-layout-fragment="section">Reception</th-block>
+
+<div data-layout-fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
+        <li class="breadcrumb-item"><a data-th-href="@{/admin/room/}">Claims</a></li>
+        <li class="breadcrumb-item active" aria-current="page" data-th-text="${{object}}">Claim #22</li>
+    </ol>
+</div>
+
+<div data-layout-fragment="content">
+
+    <div class="btn-group float-right">
+        <!--<a href="#" data-th-href="@{/admin/claim/{id}/edit/(id=${object.id})}" rel="tooltip" class="btn btn-info" data-original-title="Edit">-->
+        <!--<i class="fa fa-edit"></i>-->
+        <!--</a>-->
+        <!--<a href="#" data-th-href="@{/admin/claim/{id}/delete/(id=${object.id})}" rel="tooltip" class="btn btn-danger"-->
+           <!--data-original-title="Remove">-->
+            <!--<i class="fa fa-times"></i>-->
+        <!--</a>-->
+        <a href="#" data-th-href="@{/admin/claim/{id}/resolve/(id=${object.id})}" rel="tooltip" class="btn btn-danger"
+           data-original-title="Remove">
+            <i class="fa fa-handshake-o"></i> Resolve
+        </a>
+
+    </div>
+
+    <h1 data-th-text="${{object}}">Claim #555</h1>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header ">
+                    <h4 class="card-title">Object info</h4>
+                </div>
+                <div class="card-body table-full-width table-responsive">
+                    <table class="table" data-th-object="${object}">
+                        <tbody>
+                        <tr>
+                            <td>
+                                First name:
+                            </td>
+                            <td data-th-text="*{firstName}">
+                                5
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Last name:
+                            </td>
+                            <td data-th-text="*{lastName}">
+                                5
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Content:
+                            </td>
+                            <td data-th-text="*{content}">
+                                5
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Status:
+                            </td>
+                            <td data-th-text="*{status}">
+                                5
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Reservation:
+                            </td>
+                            <td>
+                                <a href="#" data-th-if="*{reservation}"
+                                   data-th-href="@{/admin/reservation/{id}/(id=*{reservation.id})}">
+                                    Reservation #444
+                                </a>
+                                <th-block data-th-unless="*{reservation}">
+                                    No selected
+                                </th-block>
+
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Explanations</h4>
+                </div>
+                <div class="card-body">
+                    <div class="table-full-width table-responsive">
+                        <table class="table">
+                            <tbody>
+                            <th-block data-th-each="entity: ${object.explanationList}" data-th-object="${entity}">
+                                <tr>
+                                    <td>
+                                        <a data-th="*{createdBy}" href="#"
+                                           data-th-href="@{/admin/staff/{id}/(id=*{createdBy.id})}"
+                                           data-th-text="*{{createdBy}}">
+                                        </a>
+                                    </td>
+                                    <td data-th-text="*{{createdDate}}">
+                                        Potato
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" data-th-text="*{{content}}"></td>
+                                </tr>
+                            </th-block>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Add explanation</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" data-th-action="@{/admin/claim/{id}/add-explanation/(id=${object.id})}"
+                          data-th-object="${explanationFormData}" method="post">
+                        <div class="form-group">
+                            <label for="inputContent">Content</label>
+                            <textarea class="form-control" id="inputContent" data-th-field="*{content}"
+                                      data-th-classappend="${#fields.hasErrors('content')}? is-invalid"
+                                      rows="5"></textarea>
+                            <div data-th-if="${#fields.hasErrors('content')}"
+                                 data-th-each="err : ${#fields.errors('content')}" data-th-text="${err}"
+                                 class="invalid-feedback"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-check" aria-hidden="true"></i> Add explanation
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header ">
+                    <h4 class="card-title">Object info</h4>
+                </div>
+                <div class="card-body table-full-width table-responsive">
+                    <table class="table" data-th-object="${object}">
+                        <tbody>
+                        <tr>
+                            <td>
+                                Id:
+                            </td>
+                            <td data-th-text="*{id}">
+                                5
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Created by:
+                            </td>
+                            <td>
+                                <a data-th="*{createdBy}" href="#"
+                                   data-th-href="@{/admin/staff/{id}/(id=*{createdBy.id})}"
+                                   data-th-text="*{{createdBy}}">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Created Date:
+                            </td>
+                            <td data-th-text="*{{createdDate}}">
+                                5
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Last Modified By
+                            </td>
+                            <td>
+                                <a data-th="*{lastModifiedBy}" href="#"
+                                   data-th-href="@{/admin/staff/{id}/(id=*{lastModifiedBy.id})}"
+                                   data-th-text="*{{lastModifiedBy}}">
+                                </a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Last Modified Date:
+                            </td>
+                            <td data-th-text="*{{lastModifiedDate}}">
+                                5
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

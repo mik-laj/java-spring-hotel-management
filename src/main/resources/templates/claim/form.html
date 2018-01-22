@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputFirstName">First name</label>
+            <input type="text" class="form-control" id="inputFirstName" required="" data-th-field="*{firstName}" data-th-classappend="${#fields.hasErrors('firstName')}? is-invalid"/>
+            <div data-th-if="${#fields.hasErrors('firstName')}" data-th-each="err : ${#fields.errors('firstName')}" data-th-text="${err}" class="invalid-feedback"></div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputLastName">Last name</label>
+            <input type="text" class="form-control" id="inputLastName" required="" data-th-field="*{lastName}" data-th-classappend="${#fields.hasErrors('lastName')}? is-invalid"/>
+            <div data-th-if="${#fields.hasErrors('lastName')}" data-th-each="err : ${#fields.errors('lastName')}" data-th-text="${err}" class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputPhone">Phone</label>
+            <input type="text" class="form-control" id="inputPhone" required="" data-th-field="*{phone}" data-th-classappend="${#fields.hasErrors('phone')}? is-invalid"/>
+            <div data-th-if="${#fields.hasErrors('phone')}" data-th-each="err : ${#fields.errors('phone')}" data-th-text="${err}" class="invalid-feedback"></div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputContent">Content</label>
+            <textarea class="form-control" id="inputContent" data-th-field="*{content}" data-th-classappend="${#fields.hasErrors('content')}? is-invalid" rows="5"/>
+            <div data-th-if="${#fields.hasErrors('content')}" data-th-each="err : ${#fields.errors('content')}" data-th-text="${err}" class="invalid-feedback"></div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="inputReservation">Reservation</label>
+            <select id="inputReservation" class="form-control select2"
+                    data-th-field="*{reservation}"
+                    data-ajax--url="/admin/reservation/s2"
+                    data-allowClear="true"
+                    data-th-classappend="${#fields.hasErrors('reservation')}? is-invalid"></select>
+            <div data-th-if="${#fields.hasErrors('reservation')}" data-th-each="err : ${#fields.errors('reservation')}" data-th-text="${err}" class="invalid-feedback"></div>
+        </div>
+    </div>
+
+</body>
+</html>

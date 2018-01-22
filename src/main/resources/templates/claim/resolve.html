@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorator="layout">
+<head>
+    <title>Hello world page</title>
+    <link rel="stylesheet" href="/css/hello.css"/>
+</head>
+<body>
+
+<th-block data-layout-fragment="section">Reception</th-block>
+
+<div data-layout-fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
+        <li class="breadcrumb-item"><a data-th-href="@{/admin/claim/}">Claims</a></li>
+        <li class="breadcrumb-item">
+            <a href="#" data-th-href="@{/admin/claim/{id}/(id=${object.id})}" data-th-text="${{object}}">Claim #4</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Reslve claim</li>
+    </ol>
+</div>
+
+<div data-layout-fragment="content">
+    <h1>Resolve claim</h1>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Form</h2>
+                </div>
+                <div class="card-body">
+                    <form action="#" data-th-action="@{/admin/claim/{id}/resolve/(id=${object.id})}" data-th-object="${formData}" method="post">
+                        <div class="form-group">
+                            <label for="inputContent">Content</label>
+                            <textarea class="form-control" id="inputContent" data-th-field="*{content}" data-th-classappend="${#fields.hasErrors('content')}? is-invalid" rows="5"></textarea>
+                            <div data-th-if="${#fields.hasErrors('content')}" data-th-each="err : ${#fields.errors('content')}" data-th-text="${err}" class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputSatus">Status</label>
+                            <select class="form-control" id="inputSatus" data-th-field="*{status}" data-th-classappend="${#fields.hasErrors('status')}? is-invalid">
+                                <option value="positive">Positive</option>
+                                <option value="negative">Negative</option>
+                            </select>
+                            <div data-th-if="${#fields.hasErrors('status')}" data-th-each="err : ${#fields.errors('status')}" data-th-text="${err}" class="invalid-feedback"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-check" aria-hidden="true"></i> Add explanation
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th-block data-layout-fragment="scripts">
+    <script>
+        (function($) {
+            $('.select2').select2();
+        })(jQuery);
+    </script>
+</th-block>
+
+</body>
+</html>

@@ -6,34 +6,23 @@
 </head>
 <body>
 
-<th-block data-layout-fragment="section">Warehouse</th-block>
+<th-block data-layout-fragment="section">Reception</th-block>
 
 <div layout:fragment="breadcrumbs">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Products</li>
+        <li class="breadcrumb-item active" aria-current="page">Claims</li>
     </ol>
 </div>
 
 <div layout:fragment="content">
     <div class="float-right">
-        <!--<a data-th-href="@{/admin/product/add/}" class="btn btn-default">-->
-            <!--<i class="fa fa-plus"></i> Add product-->
-        <!--</a>-->
-
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownReports" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-table"></i> Reports
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownReports">
-                <a class="dropdown-item" data-th-href="@{/admin/product/out-of-stock/}">
-                    Out of stock
-                </a>
-            </div>
-        </div>
+        <a data-th-href="@{/admin/claim/add/}" class="btn btn-default">
+            <i class="fa fa-plus"></i> Add claim
+        </a>
     </div>
 
-    <h1>Products</h1>
+    <h1>Claims</h1>
 
     <div class="row">
         <div class="col-md-6">
@@ -50,9 +39,10 @@
                             <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Name</th>
-                                <th>EAN</th>
-                                <th>Available count</th>
+                                <th>First name</th>
+                                <th>Last name</th>
+                                <th>Created date</th>
+
                                 <th>Actions</th>
                             </tr>
                             </thead>
@@ -61,25 +51,28 @@
                                 <td data-th-text="*{id}">
                                     5
                                 </td>
-                                <td data-th-text="*{{name}}">
+                                <td data-th-text="*{{firstName}}">
                                     Potato
                                 </td>
-                                <td data-th-text="*{{ean}}">
+                                <td data-th-text="*{{lastName}}">
                                     Potato
                                 </td>
-                                <td data-th-text="*{{available}}">
-                                    5
+                                <td data-th-text="*{{createdDate}}">
+                                    Potato
+                                </td>
+                                <td data-th-text="*{{status}}">
+                                    Potato
                                 </td>
                                 <td class="td-actions text-right">
-                                    <a href="#" data-th-href="@{/admin/product/{id}/(id=*{id})}" rel="tooltip" title="" class="btn btn-info btn-simple btn-link" data-original-title="Show">
+                                    <a href="#" data-th-href="@{/admin/claim/{id}/(id=*{id})}" rel="tooltip" title="" class="btn btn-info btn-simple btn-link" data-original-title="Show">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <!--<a href="#" data-th-href="@{/admin/product/{id}/edit/(id=*{id})}" rel="tooltip" title="" class="btn btn-info btn-simple btn-link" data-original-title="Edit">-->
+                                    <!--<a href="#" data-th-href="@{/admin/claim/{id}/edit/(id=*{id})}" rel="tooltip" title="" class="btn btn-info btn-simple btn-link" data-original-title="Edit">-->
                                         <!--<i class="fa edit"></i>-->
                                     <!--</a>-->
-                                    <a href="#" data-th-href="@{/admin/product/{id}/delete/(id=*{id})}" rel="tooltip" title="" class="btn btn-danger btn-simple btn-link" data-original-title="Remove">
-                                        <i class="fa fa-times"></i>
-                                    </a>
+                                    <!--<a href="#" data-th-href="@{/admin/claim/{id}/delete/(id=*{id})}" rel="tooltip" title="" class="btn btn-danger btn-simple btn-link" data-original-title="Remove">-->
+                                        <!--<i class="fa fa-times"></i>-->
+                                    <!--</a>-->
                                 </td>
                             </tr>
                             </tbody>

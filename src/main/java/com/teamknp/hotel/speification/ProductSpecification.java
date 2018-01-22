@@ -20,4 +20,8 @@ public class ProductSpecification {
     public Specification<Product> onlyAvailable() {
         return (root, q, cb) -> cb.notEqual(root.get("available"), 0);
     }
+
+    public Specification<Product> onlyOutOfStock() {
+        return (root, q, cb) -> cb.greaterThan(root.get("available"), root.get("warning"));
+    }
 }

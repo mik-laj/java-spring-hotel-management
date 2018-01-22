@@ -38,6 +38,7 @@ public class WarehouseInitializer implements DataLoader{
                 product.setEan(String.format("590%010d", i));
                 product.setPrice(new BigDecimal(10 + (10 * i % 200)));
                 product.setAvailable((i * 8) % 12);
+                product.setWarning((i * 8) % 10);
 
                 productRepository.save(product);
             }

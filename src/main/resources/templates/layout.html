@@ -19,6 +19,7 @@
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="/static/css/demo.css" rel="stylesheet"/>
     <link href="/static/css/project.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" integrity="sha256-xJOZHfpxLR/uhh1BwYFS5fhmOAdIRQaiOul5F/b7v3s=" crossorigin="anonymous" />
 </head>
 
 <body>
@@ -38,9 +39,16 @@
             <ul class="nav">
                 <li class="nav-item"
                     data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/dashboard') ? 'active':''}">
-                    <a class="nav-link" href="dashboard.html">
+                    <a class="nav-link" href="/admin/dashboard">
                         <i class="nc-icon nc-chart-pie-35"></i>
                         <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item"
+                    data-th-classappend="${#httpServletRequest.getRequestURI().startsWith('/admin/claim') ? 'active':''}">
+                    <a class="nav-link" href="/admin/claim">
+                        <i class="nc-icon nc-bank"></i>
+                        <p>Claims</p>
                     </a>
                 </li>
                 <li class="nav-item"
@@ -169,6 +177,7 @@
 <!-- Control Center for Light Bootstrap Dashboard: scripts for the example pages etc -->
 <script src="/static/js/light-bootstrap-dashboard.js?v=2.0.1" type="text/javascript"></script>
 <!-- Light Bootstrap Dashboard DEMO methods, don't include it in your project! -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.js" integrity="sha256-Sp9iyAGCmNhQw7nNwUU3zKH/uO3DPzcJVxdKOkWOI6A=" crossorigin="anonymous"></script>
 <th:block layout:fragment="scripts"></th:block>
 </body>
 </html>
