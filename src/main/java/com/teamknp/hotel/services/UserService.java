@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +21,9 @@ import java.util.Set;
 public class UserService {
     @Autowired
     protected UserRepository userRepository;
+
+    @Autowired
+    SecurityService securityService;
 
     @Autowired
     protected RoleRepository roleRepository;
@@ -66,5 +71,10 @@ public class UserService {
     public Page<Role> searchRole(String search, Pageable pageable) {
         search = "%" + search + "%";
         return roleRepository.findAllByNameLike(search, pageable);
+    }
+
+    public User getCurrentUser() {
+        String username = securityService.findLoggedInUsername();
+        return userRepository.findByUsername(username);
     }
 }

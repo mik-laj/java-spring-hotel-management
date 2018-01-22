@@ -33,6 +33,6 @@ public class WebMvcConfig extends SpringletsEntityFormatWebConfiguration {
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatterForFieldType(Date.class, new DateFormatter("dd-MM-yyyy HH:mm"));
         registry.addFormatterForFieldType(LocalDate.class, new DateFormatter("dd-MM-yyyy"));
-        registry.addFormatterForFieldType(BigDecimal.class, new NumberStyleFormatter("#,###,###,###.##"));
+        registry.addFormatterForFieldType(BigDecimal.class, new NumberStyleFormatter("#,###,###,###.## PLN"));
     }
 }

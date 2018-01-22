@@ -6,7 +6,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,7 +34,7 @@ public class RepositoryMockupInitializer implements InitializingBean {
     }
 
     @Override
-    public void afterPropertiesSet() {
+    public void load() {
         if (roomRepository.findAll().isEmpty()) {
             initRoomRepository();
         }

@@ -9,12 +9,14 @@ import java.util.List;
 
 @Entity
 @Data
+@ToString(exclude = "reservations")
 @EntityFormat("#{roomNumber}")
 @ToString(exclude = "reservations")
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Long id;
+
     @Column(unique=true)
     String roomNumber;
     int bedsSingleCount;

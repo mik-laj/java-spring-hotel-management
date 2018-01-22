@@ -14,7 +14,7 @@ import java.util.Date;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Long id;
     @ManyToOne
     Client client;
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
@@ -42,7 +42,7 @@ public class Reservation {
 
     public enum Status {
         PENDING,
-        TIMED_OUT,
+        EXPIRED,
         IN_PROGRESS,
         CANCELLED,
         FINISHED

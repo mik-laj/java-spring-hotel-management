@@ -26,5 +26,6 @@ public class DeliveryItem {
     @JoinColumn(nullable = false)
     private Product product;
 
+    @Column(nullable = false)
     private Integer count;
 }

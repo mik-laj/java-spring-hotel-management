@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,17 +31,21 @@ public class ReservationController {
     ConversionService conversionService;
 
     @GetMapping("")
+    @Secured("ROLE_RECEPTION")
     String list(Model model, Pageable pageable) {
         model.addAttribute("entities", reservationService.findAll(pageable));
         return "reservation/list";
     }
 
     @GetMapping("/{id}")
+    @GetMapping("/{id}/")
+    @Secured("ROLE_RECEPTION")
     String view(
             @PathVariable("id") Reservation reservation,
             Model model
     ) {
         model.addAttribute("object", reservation);
+        model.addAttribute("soldItems", saleService.findAllByReservation(reservation));
         return "reservation/view";
     }
 
@@ -67,6 +72,7 @@ public class ReservationController {
 
 
     @RequestMapping(value = "/{id}/delete", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_RECEPTION")
     String delete(
             HttpServletRequest request,
             @PathVariable("id") Reservation entity,
@@ -84,6 +90,7 @@ public class ReservationController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, name = "select2", value = "/s2")
     @ResponseBody
+    @Secured("ROLE_RECEPTION")
     public ResponseEntity<Select2DataSupport<Reservation>> select2(
             @RequestParam("q") String search,
             Pageable pageable

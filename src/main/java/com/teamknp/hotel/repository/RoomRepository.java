@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Repository
-public interface RoomRepository extends JpaRepository<Room, Integer> {
+public interface RoomRepository extends JpaRepository<Room, Long> {
     Page<Room> findByRoomNumberLike(String name, Pageable pageable);
 
     @Query(value = "SELECT\n" +

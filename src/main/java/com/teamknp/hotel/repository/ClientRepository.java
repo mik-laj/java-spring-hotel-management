@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Integer> {
+public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @Query("from Client c where c.firstName = :query or c.lastName = :query")
     Page<Reservation> search(@Param("query") String query, Pageable pageable);
