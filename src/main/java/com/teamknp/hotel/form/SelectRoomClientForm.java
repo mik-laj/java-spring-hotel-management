@@ -16,7 +16,7 @@ public class SelectRoomClientForm {
     String houseNo;
     String postcode;
     String city;
-    String streetName;
+    String street;
     String province;
     String country;
 

@@ -81,7 +81,7 @@ public class ReservationService {
         address.setProvince(reservationForm.getProvince());
         address.setCountry(reservationForm.getCountry());
         address.setHouseNo(reservationForm.getHouseNo());
-        address.setStreetName(reservationForm.getStreetName());
+        address.setStreetName(reservationForm.getStreet());
         addressRepository.save(address);
 
         Reservation reservation = new Reservation();
