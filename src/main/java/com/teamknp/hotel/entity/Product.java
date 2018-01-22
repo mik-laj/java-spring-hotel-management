@@ -4,27 +4,26 @@ import io.springlets.format.EntityFormat;
 import lombok.Data;
 import org.springframework.format.annotation.NumberFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 @Entity
 @Data
-@EntityFormat("#{name} (EAN: #{ean})")
+@EntityFormat("#{name}")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column()
     String ean;
 
+    @Column(nullable = false)
     String name;
 
     @NumberFormat(pattern = "#,###,###,###.##")
     BigDecimal price;
 
-    int available;
+    @Column(nullable = false)
+    Integer available;
 }

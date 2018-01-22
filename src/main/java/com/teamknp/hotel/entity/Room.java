@@ -14,7 +14,8 @@ import java.util.List;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Long id;
+
     @Column(unique=true)
     String roomNumber;
     int bedsSingleCount;

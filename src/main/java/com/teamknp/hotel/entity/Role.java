@@ -4,10 +4,7 @@ import io.springlets.format.EntityFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Data
 @Entity
@@ -16,8 +13,9 @@ import javax.persistence.Id;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+    Long id;
 
+    @Column(nullable = false)
     String name;
 
     public Role(String name) {

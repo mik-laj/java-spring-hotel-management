@@ -2,17 +2,14 @@ package com.teamknp.hotel.entity;
 
 import io.springlets.format.EntityFormat;
 import lombok.Data;
-import org.hibernate.annotations.Type;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.domain.Auditable;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -27,25 +24,27 @@ public class Delivery {
 
     @CreatedBy
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(nullable = false)
     protected User createdBy;
 
     @LastModifiedBy
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
+    @JoinColumn(nullable = false)
     protected User lastModifiedBy;
 
     @CreatedDate
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @Column(nullable = false)
     protected Date createdDate;
 
     @LastModifiedDate
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     protected Date lastModifiedDate;
 
     @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, orphanRemoval = true)
-    protected List<DeliveryItem> itemList;
+    protected List<DeliveryItem> itemList = new ArrayList<>();
 
     public boolean addAll(Collection<DeliveryItem> c) {
         return itemList.addAll(c);

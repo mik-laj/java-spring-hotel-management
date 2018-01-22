@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorator="layout">
+<head>
+    <title>Hello world page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css" integrity="sha256-xJOZHfpxLR/uhh1BwYFS5fhmOAdIRQaiOul5F/b7v3s=" crossorigin="anonymous" />
+</head>
+<body>
+
+<th-block data-layout-fragment="section">Reception</th-block>
+
+<th-block data-layout-fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
+        <li class="breadcrumb-item"><a data-th-href="@{/admin/reservation/}">Reservations</a></li>
+        <li class="breadcrumb-item">
+            <a href="#" data-th-href="@{/admin/reservation/{id}/(id=${object.id})}" data-th-text="${{object}}">Room #4</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Sell product</li>
+    </ol>
+</th-block>
+
+<th-block data-layout-fragment="content">
+    <h1>Sell product</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Form</h4>
+                </div>
+                <div class="card-body">
+                    <form action="#" data-th-action="@{/admin/reservation/{id}/sell-product/(id=${object.id})}" data-th-object="${formData}" method="post">
+                        <div class="form-group">
+                            <label for="inputProduct">Product</label>
+                            <select id="inputProduct" class="form-control select2"
+                                    data-th-field="*{product}"
+                                    data-ajax--url="/admin/product/s2?only_available=true"
+                                    data-th-classappend="${#fields.hasErrors('product')}? is-invalid"></select>
+                            <div data-th-if="${#fields.hasErrors('roomNumber')}" data-th-each="err : ${#fields.errors('product')}" data-th-text="${err}" class="invalid-feedback"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputCount">Count</label>
+                            <input id="inputCount" type="number" class="form-control" data-th-field="*{count}" data-th-classappend="${#fields.hasErrors('count')}? is-invalid"/>
+                            <div data-th-if="${#fields.hasErrors('count')}" data-th-each="err : ${#fields.errors('count')}" data-th-text="${err}" class="invalid-feedback"></div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-check" aria-hidden="true"></i> Edit
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</th-block>
+
+<th-block data-layout-fragment="scripts">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.full.js" integrity="sha256-Sp9iyAGCmNhQw7nNwUU3zKH/uO3DPzcJVxdKOkWOI6A=" crossorigin="anonymous"></script>
+    <script>
+        (function($) {
+            $('.select2').select2();
+        })(jQuery);
+    </script>
+</th-block>
+</body>
+</html>

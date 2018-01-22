@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
 
@@ -26,5 +25,6 @@ public class DeliveryItem {
     @JoinColumn(nullable = false)
     private Product product;
 
+    @Column(nullable = false)
     private Integer count;
 }

@@ -3,7 +3,6 @@ package com.teamknp.hotel.services;
 import com.teamknp.hotel.entity.Role;
 import com.teamknp.hotel.entity.User;
 import com.teamknp.hotel.form.EmployeeForm;
-import com.teamknp.hotel.form.DeliveryForm;
 import com.teamknp.hotel.repository.RoleRepository;
 import com.teamknp.hotel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,13 +11,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 
 @Service
 public class UserService {
     @Autowired
     protected UserRepository userRepository;
+
+    @Autowired
+    SecurityService securityService;
 
     @Autowired
     protected RoleRepository roleRepository;
@@ -43,17 +44,15 @@ public class UserService {
     }
 
     public User save(EmployeeForm form) {
-
-        Set<Role> roles = null;
-        Set<Integer> rolesId = form.getRoles();
+        Set<Long> rolesId = form.getRoles();
 
         User user = new User();
         user.setUsername(form.getUsername());
         user.setFirstName(form.getFirstName());
         user.setLastName(form.getLastName());
 
-        for(Integer a: rolesId){
-            user.addRole(roleRepository.findOne(a));
+        for(Long roleId: rolesId){
+            user.addRole(roleRepository.findOne(roleId));
         }
         user.setPassword(passwordEncoder.encode(form.getPassword()));
         userRepository.save(user);
@@ -61,10 +60,16 @@ public class UserService {
     }
 
     public void update(User entity, EmployeeForm formData) {
+        //TODO:
     }
 
     public Page<Role> searchRole(String search, Pageable pageable) {
         search = "%" + search + "%";
         return roleRepository.findAllByNameLike(search, pageable);
+    }
+
+    public User getCurrentUser() {
+        String username = securityService.findLoggedInUsername();
+        return userRepository.findByUsername(username);
     }
 }

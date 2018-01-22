@@ -3,17 +3,15 @@ package com.teamknp.hotel.services;
 
 import com.teamknp.hotel.entity.Delivery;
 import com.teamknp.hotel.entity.DeliveryItem;
-import com.teamknp.hotel.entity.Product;
 import com.teamknp.hotel.form.DeliveryForm;
 import com.teamknp.hotel.repository.DeliveryRepository;
 import com.teamknp.hotel.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
-import java.util.Objects;
+import java.util.Date;
 
 import static java.util.stream.Collectors.toList;
 
@@ -25,6 +23,9 @@ public class DeliveryService {
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    UserService userService;
 
     public Page<Delivery> search(String query, Pageable pageable) {
         query = "%" + query + "%";
@@ -40,18 +41,30 @@ public class DeliveryService {
     }
 
     public Delivery save(DeliveryForm formData) {
-        return null;
+        Delivery delivery = new Delivery();
+        bindFormData(formData, delivery);
+        delivery.setCreatedBy(userService.getCurrentUser());
+        delivery.setCreatedDate(new Date());
+        deliveryRepository.save(delivery);
+
+        return delivery;
     }
 
-    public void update(Delivery entity, DeliveryForm formData) {
-        entity.clear();
-        entity.addAll(formData.getItems().stream().filter(d -> d.getProduct() != null).map(d -> {
+    private void bindFormData(DeliveryForm formData, Delivery delivery) {
+        delivery.addAll(formData.getItems().stream().filter(d -> d.getProduct() != null).map(d -> {
             DeliveryItem item = new DeliveryItem();
             item.setCount(d.getCount());
             item.setProduct(productRepository.getOne(d.getProduct().getId()));
-            item.setDelivery(entity);
+            item.setDelivery(delivery);
             return item;
         }).collect(toList()));
-        deliveryRepository.save(entity);
+        delivery.setLastModifiedBy(userService.getCurrentUser());
+        delivery.setLastModifiedDate(new Date());
+    }
+
+    public void update(Delivery delivery, DeliveryForm formData) {
+        delivery.clear();
+        bindFormData(formData, delivery);
+        deliveryRepository.save(delivery);
     }
 }

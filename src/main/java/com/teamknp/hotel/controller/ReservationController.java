@@ -3,6 +3,7 @@ package com.teamknp.hotel.controller;
 import com.teamknp.hotel.entity.Reservation;
 import com.teamknp.hotel.form.ReservationEditForm;
 import com.teamknp.hotel.services.ReservationService;
+import com.teamknp.hotel.services.SaleService;
 import io.springlets.data.web.select2.Select2DataSupport;
 import io.springlets.data.web.select2.Select2DataWithConversion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class ReservationController {
     @Autowired
     ConversionService conversionService;
 
+    @Autowired
+    SaleService saleService;
+
     @GetMapping("")
     @Secured("ROLE_RECEPTION")
     String list(Model model, Pageable pageable) {
@@ -35,13 +39,14 @@ public class ReservationController {
         return "reservation/list";
     }
 
-    @GetMapping("/{id}/")
+    @GetMapping("/{id}")
     @Secured("ROLE_RECEPTION")
     String view(
             @PathVariable("id") Reservation reservation,
             Model model
     ) {
         model.addAttribute("object", reservation);
+        model.addAttribute("soldItems", saleService.findAllByReservation(reservation));
         return "reservation/view";
     }
 

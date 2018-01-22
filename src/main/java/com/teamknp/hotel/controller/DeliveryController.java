@@ -63,7 +63,7 @@ public class DeliveryController {
             return "delivery/add";
         }
         Delivery entity = deliveryService.save(formData);
-        return String.format("redirect:/delivery/%d/", entity.getId());
+        return String.format("redirect:/admin/delivery/%d/", entity.getId());
     }
 
     @GetMapping("/{id}/edit")

@@ -1,6 +1,5 @@
 package com.teamknp.hotel.form;
 
-import com.teamknp.hotel.entity.Role;
 import lombok.Data;
 
 import javax.validation.Valid;
@@ -25,7 +24,7 @@ public class EmployeeForm {
     @Size(min=5)
     @NotNull
     String passwordConfirm;
-    Set<Integer> roles;
+    Set<Long> roles;
 
     @Valid
     public boolean isPasswordMatch() {
