@@ -1,8 +1,6 @@
 package com.teamknp.hotel.controller;
 
-import com.teamknp.hotel.entity.Delivery;
 import com.teamknp.hotel.entity.Reservation;
-import com.teamknp.hotel.form.DeliveryForm;
 import com.teamknp.hotel.form.SaleProductForm;
 import com.teamknp.hotel.services.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;

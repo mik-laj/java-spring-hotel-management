@@ -1,6 +1,5 @@
 package com.teamknp.hotel.repository;
 
-import com.teamknp.hotel.entity.Reservation;
 import com.teamknp.hotel.entity.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

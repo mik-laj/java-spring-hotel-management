@@ -1,6 +1,5 @@
 package com.teamknp.hotel.entity;
 
-import io.springlets.format.EntityFormat;
 import lombok.Data;
 import lombok.ToString;
 
@@ -18,7 +17,6 @@ public class Address {
     String postcode;
     String streetName;
     String city;
-    String street;
     String province;
     String country;
     @OneToMany(mappedBy = "address")

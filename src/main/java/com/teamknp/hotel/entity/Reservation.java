@@ -26,6 +26,15 @@ public class Reservation {
     Address address;
     @ManyToOne
     Room room;
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
     String notes;
 
     public enum Status {

@@ -7,12 +7,10 @@ import com.teamknp.hotel.entity.User;
 import com.teamknp.hotel.repository.DeliveryRepository;
 import com.teamknp.hotel.repository.ProductRepository;
 import com.teamknp.hotel.repository.UserRepository;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Priority;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;

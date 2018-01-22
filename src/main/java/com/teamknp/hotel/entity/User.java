@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,5 +26,17 @@ public class User {
     String password;
 
     @ManyToMany
-    Set<Role> roles;
+    Set<Role> roles = new HashSet<>();
+
+    public boolean addRole(Role role) {
+        return roles.add(role);
+    }
+
+    public boolean removeRole(Object o) {
+        return roles.remove(o);
+    }
+
+    public void clearRoles() {
+        roles.clear();
+    }
 }

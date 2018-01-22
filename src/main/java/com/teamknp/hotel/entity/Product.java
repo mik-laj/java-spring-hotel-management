@@ -6,7 +6,6 @@ import org.springframework.format.annotation.NumberFormat;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 @Entity
 @Data

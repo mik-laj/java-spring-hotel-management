@@ -1,11 +1,8 @@
 package com.teamknp.hotel.controller;
 
 import com.teamknp.hotel.entity.Product;
-import com.teamknp.hotel.entity.Room;
 import com.teamknp.hotel.form.ProductForm;
-import com.teamknp.hotel.repository.ProductRepository;
 import com.teamknp.hotel.services.ProductService;
-import com.teamknp.hotel.services.RoomService;
 import io.springlets.data.web.select2.Select2DataSupport;
 import io.springlets.data.web.select2.Select2DataWithConversion;
 import org.springframework.beans.factory.annotation.Autowired;

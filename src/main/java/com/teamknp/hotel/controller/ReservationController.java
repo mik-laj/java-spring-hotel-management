@@ -1,6 +1,7 @@
 package com.teamknp.hotel.controller;
 
 import com.teamknp.hotel.entity.Reservation;
+import com.teamknp.hotel.form.ReservationEditForm;
 import com.teamknp.hotel.services.ReservationService;
 import com.teamknp.hotel.services.SaleService;
 import io.springlets.data.web.select2.Select2DataSupport;
@@ -18,7 +19,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Collections;
 
 @Controller
 @RequestMapping("/admin/reservation")
@@ -39,7 +39,7 @@ public class ReservationController {
         return "reservation/list";
     }
 
-    @GetMapping("/{id}/")
+    @GetMapping("/{id}")
     @Secured("ROLE_RECEPTION")
     String view(
             @PathVariable("id") Reservation reservation,
@@ -49,28 +49,6 @@ public class ReservationController {
         model.addAttribute("soldItems", saleService.findAllByReservation(reservation));
         return "reservation/view";
     }
-
-//    @GetMapping("/add")
-//    String add(
-////            @ModelAttribute("formData") ReservationFormData formData
-//    ) {
-//        return "reservation/add";
-//    }
-//
-//    @PostMapping("/add")
-//    String add(
-////            @ModelAttribute("formData") @Valid ReservationFormData formData,
-//            BindingResult bindingResult
-//    ) {
-//        if (bindingResult.hasErrors()) {
-//            return "admin/reservation/add";
-//        }
-//        Reservation reservation = new Reservation();
-////        formData.patch(reservation);
-////        cityManager.addClaim(reservation);
-//        return String.format("redirect:/admin/reservation/%d/", reservation.getId());
-//    }
-
 
     @RequestMapping(value = "/{id}/delete", method = {RequestMethod.GET, RequestMethod.POST})
     @Secured("ROLE_RECEPTION")
@@ -100,5 +78,29 @@ public class ReservationController {
         String idExpression = "#{id}";
         Select2DataSupport<Reservation> select2Data = new Select2DataWithConversion<>(vets, idExpression, conversionService);
         return ResponseEntity.ok(select2Data);
+    }
+
+    @GetMapping("/{id}/edit")
+    String edit(
+            @PathVariable("id") Reservation entity,
+            Model model
+    ) {
+        model.addAttribute("formData", ReservationEditForm.from(entity));
+        model.addAttribute("object", entity);
+        return "reservation/edit";
+    }
+    @PostMapping("/{id}/edit")
+    String edit(
+            @ModelAttribute("formData") ReservationEditForm formData,
+            BindingResult bindingResult,
+            @PathVariable("id") Reservation entity,
+            Model model
+    ) {
+        model.addAttribute("object", entity);
+        if (bindingResult.hasErrors()) {
+            return "reservation/edit";
+        }
+        reservationService.update(entity, formData);
+        return String.format("redirect:/admin/reservation/%d/", entity.getId());
     }
 }

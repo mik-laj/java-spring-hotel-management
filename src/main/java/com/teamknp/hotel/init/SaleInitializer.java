@@ -8,15 +8,12 @@ import com.teamknp.hotel.repository.ProductRepository;
 import com.teamknp.hotel.repository.ReservationRepository;
 import com.teamknp.hotel.repository.SoldItemRepository;
 import com.teamknp.hotel.repository.UserRepository;
-import org.hibernate.criterion.Example;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Priority;
-import java.util.List;
 import java.util.Date;
+import java.util.List;
 
 
 @Component

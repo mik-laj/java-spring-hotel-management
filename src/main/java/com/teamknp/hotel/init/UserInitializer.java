@@ -4,13 +4,11 @@ import com.teamknp.hotel.entity.Role;
 import com.teamknp.hotel.entity.User;
 import com.teamknp.hotel.repository.RoleRepository;
 import com.teamknp.hotel.repository.UserRepository;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Priority;
 import java.util.Arrays;
 import java.util.HashSet;
 

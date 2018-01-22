@@ -2,12 +2,12 @@ package com.teamknp.hotel.init;
 
 import com.teamknp.hotel.entity.*;
 import com.teamknp.hotel.repository.*;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class RepositoryMockupInitializer implements DataLoader {
@@ -17,20 +17,17 @@ public class RepositoryMockupInitializer implements DataLoader {
     private PaymentRepository paymentRepository;
     private ReservationRepository reservationRepository;
     private RoomRepository roomRepository;
-    private UserRepository userRepository;
 
     @Autowired
-    public RepositoryMockupInitializer(AddressRepository addressRepository, ClientRepository clientRepository, KeyStatusRepository keyStatusRepository, PaymentRepository paymentRepository, ReservationRepository reservationRepository, RoomRepository roomRepository, UserRepository userRepository) {
+    public RepositoryMockupInitializer(AddressRepository addressRepository, ClientRepository clientRepository, KeyStatusRepository keyStatusRepository, PaymentRepository paymentRepository, ReservationRepository reservationRepository, RoomRepository roomRepository) {
         this.addressRepository = addressRepository;
         this.clientRepository = clientRepository;
         this.keyStatusRepository = keyStatusRepository;
         this.paymentRepository = paymentRepository;
         this.reservationRepository = reservationRepository;
         this.roomRepository = roomRepository;
-        this.userRepository = userRepository;
     }
 
-    @Override
     public void load() {
         if (roomRepository.findAll().isEmpty()) {
             initRoomRepository();
@@ -38,10 +35,6 @@ public class RepositoryMockupInitializer implements DataLoader {
         if (clientRepository.findAll().isEmpty()) {
             initClientRepository();
         }
-    }
-
-    private void initUserRepository() {
-        //TODO:
     }
 
     private void initRoomRepository() {
@@ -99,24 +92,14 @@ public class RepositoryMockupInitializer implements DataLoader {
         room.setCost(6500);
         room.setBedsSingleCount(1);
         room.setBedsDoubleCount(0);
-        roomRepository.save(room);
+        roomRepository.saveAndFlush(room);
 
     }
 
     private void initClientRepository() {
-        //1
-        Client client = new Client();
-        client.setFirstName("Jan");
-        client.setLastName("Kowalski");
-
-        clientRepository.save(client);
-
-        Reservation reservation = new Reservation();
-        reservation.setStatus(Reservation.Status.PENDING);
-        reservation.setNotes("Jeździ na wózku inwalidzkim.");
-        reservation.setStartDate(LocalDate.of(2018, 1, 19));
-        reservation.setEndDate(LocalDate.of(2018, 1, 27));
-        reservation.setClient(client);
+        List<Room> rooms = roomRepository.findAll();
+        List<Address> addresses = new ArrayList<Address>();
+        List<Client> clients = new ArrayList<Client>();
 
         Address address = new Address();
         address.setCity("Siedlce");
@@ -126,55 +109,7 @@ public class RepositoryMockupInitializer implements DataLoader {
         address.setStreetName("Kićka");
         address.setHouseNo("10");
         addressRepository.save(address);
-
-        reservation.setAddress(address);
-
-        Room room = new Room();
-        room.setRoomNumber("1");
-        room.setCost(12500);
-        room.setBedsSingleCount(1);
-        room.setBedsDoubleCount(1);
-        roomRepository.save(room);
-
-        reservation.setRoom(room);
-
-        reservationRepository.save(reservation);
-
-        reservation = new Reservation();
-        reservation.setStatus(Reservation.Status.CANCELLED);
-        reservation.setNotes("Jeździ na wózku inwalidzkim.");
-        reservation.setStartDate(LocalDate.of(2018, 1, 1));
-        reservation.setEndDate(LocalDate.of(2018, 1, 4));
-        reservation.setClient(client);
-        reservation.setRoom(room);
-
-        addressRepository.save(address);
-        reservation.setAddress(address);
-        reservationRepository.save(reservation);
-
-        //2
-        client = new Client();
-        client.setFirstName("Adrianna");
-        client.setLastName("Oszust");
-
-        clientRepository.save(client);
-        addressRepository.save(address);
-
-        reservation = new Reservation();
-        reservation.setStatus(Reservation.Status.PENDING);
-        reservation.setNotes("Ma uczulenie na pierze.");
-        reservation.setStartDate(LocalDate.of(2018, 1, 19));
-        reservation.setEndDate(LocalDate.of(2018, 1, 27));
-        reservation.setClient(client);
-
-        room = new Room();
-        room.setRoomNumber("2");
-        room.setCost(6000);
-        room.setBedsSingleCount(1);
-        room.setBedsDoubleCount(0);
-        roomRepository.save(room);
-
-        reservation.setRoom(room);
+        addresses.add(address);
 
         address = new Address();
         address.setCity("Warszawa");
@@ -185,39 +120,72 @@ public class RepositoryMockupInitializer implements DataLoader {
         address.setHouseNo("15B");
         addressRepository.save(address);
 
-        reservation.setAddress(address);
+        for(int i = 0; i < 10; i++) {
+            Client client = new Client();
+            client.setFirstName("Client #" + i);
+            client.setLastName("Kowalski");
+            clientRepository.save(client);
+            clients.add(client);
+        }
 
+        Reservation reservation = new Reservation();
+        reservation.setStatus(Reservation.Status.PENDING);
+        reservation.setNotes("Jeździ na wózku inwalidzkim.");
+        reservation.setStartDate(LocalDate.of(2018, 1, 2));
+        reservation.setEndDate(LocalDate.of(2018, 1, 4));
+        reservation.setClient(clients.get(0));
+        reservation.setAddress(address);
+        reservation.setRoom(rooms.get(0));
+
+        reservationRepository.save(reservation);
+
+        reservation = new Reservation();
+        reservation.setStatus(Reservation.Status.CANCELLED);
+        reservation.setNotes("Jeździ na wózku inwalidzkim.");
+        reservation.setStartDate(LocalDate.of(2018, 1, 19));
+        reservation.setEndDate(LocalDate.of(2018, 2, 27));
+        reservation.setClient(clients.get(1));
+        reservation.setRoom(rooms.get(0));
+        reservation.setAddress(addresses.get(0));
+        reservationRepository.save(reservation);
+
+        reservation = new Reservation();
+        reservation.setStatus(Reservation.Status.PENDING);
+        reservation.setNotes("Ma uczulenie na pierze.");
+        reservation.setStartDate(LocalDate.of(2018, 1, 6));
+        reservation.setEndDate(LocalDate.of(2018, 1, 14));
+        reservation.setClient(clients.get(0));
+        reservation.setRoom(rooms.get(1));
+        reservation.setAddress(address);
         reservationRepository.save(reservation);
 
         reservation = new Reservation();
         reservation.setStatus(Reservation.Status.FINISHED);
         reservation.setNotes("Ma uczulenie na pierze.");
-        reservation.setStartDate(LocalDate.of(2017, 12, 23));
-        reservation.setEndDate(LocalDate.of(2017, 12, 25));
-        reservation.setClient(client);
-        reservation.setAddress(address);
-
-        room = new Room();
-        room.setRoomNumber("26");
-        room.setCost(6500);
-        room.setBedsSingleCount(1);
-        room.setBedsDoubleCount(0);
-        roomRepository.save(room);
-
-        reservation.setRoom(room);
+        reservation.setStartDate(LocalDate.of(2018, 1, 2));
+        reservation.setEndDate(LocalDate.of(2018, 1, 6));
+        reservation.setClient(clients.get(0));
+        reservation.setAddress(addresses.get(0));
+        reservation.setRoom(rooms.get(2));
         reservationRepository.save(reservation);
 
         Payment payment = new Payment();
-        payment.setDate(LocalDate.of(2017, 12, 23));
+        payment.setDate(LocalDate.of(2018, 1, 2));
         payment.setAmount(6500);
         payment.setReservation(reservation);
         payment.setType(Payment.Type.CASH);
         paymentRepository.save(payment);
 
-        KeyStatus keyStatus = new KeyStatus();
-        keyStatus.setRoom(room);
-        keyStatus.setTimeGiven(LocalDateTime.of(2017, 12, 23, 12, 35));
-        keyStatus.setTimeReturned(LocalDateTime.of(2017, 12, 25, 15, 55));
-        keyStatusRepository.save(keyStatus);
+        reservation = new Reservation();
+        reservation.setStatus(Reservation.Status.PENDING);
+        reservation.setNotes("Ma uczulenie na pierze.");
+        reservation.setStartDate(LocalDate.of(2018, 1, 15));
+        reservation.setEndDate(LocalDate.of(2018, 1, 19));
+        reservation.setClient(clients.get(0));
+        reservation.setRoom(rooms.get(2));
+        reservation.setAddress(address);
+
+        reservationRepository.save(reservation);
     }
+
 }
