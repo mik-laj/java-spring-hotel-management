@@ -20,7 +20,6 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
