@@ -33,7 +33,6 @@ public class RepositoryMockupInitializer implements InitializingBean {
         this.userRepository = userRepository;
     }
 
-    @Override
     public void load() {
         if (roomRepository.findAll().isEmpty()) {
             initRoomRepository();
@@ -156,5 +155,10 @@ public class RepositoryMockupInitializer implements InitializingBean {
         reservation3.setAddress(address2);
 
         reservationRepository.save(reservation3);
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+
     }
 }
