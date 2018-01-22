@@ -1,9 +1,6 @@
 package com.teamknp.hotel.init;
 
-import com.teamknp.hotel.entity.Address;
-import com.teamknp.hotel.entity.Client;
-import com.teamknp.hotel.entity.Reservation;
-import com.teamknp.hotel.entity.Room;
+import com.teamknp.hotel.entity.*;
 import com.teamknp.hotel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -60,7 +57,43 @@ public class RepositoryMockupInitializer implements DataLoader {
         room.setCost(15000);
         room.setBedsSingleCount(0);
         room.setBedsDoubleCount(2);
+        roomRepository.save(room);
+
+        room = new Room();
+        room.setRoomNumber("500B");
+        room.setCost(16000);
+        room.setBedsSingleCount(2);
+        room.setBedsDoubleCount(1);
+        roomRepository.save(room);
+
+        room = new Room();
+        room.setRoomNumber("22");
+        room.setCost(14000);
+        room.setBedsSingleCount(4);
+        room.setBedsDoubleCount(0);
+        roomRepository.save(room);
+
+        room = new Room();
+        room.setRoomNumber("23");
+        room.setCost(14000);
+        room.setBedsSingleCount(4);
+        room.setBedsDoubleCount(0);
+        roomRepository.save(room);
+
+        room = new Room();
+        room.setRoomNumber("24");
+        room.setCost(6500);
+        room.setBedsSingleCount(1);
+        room.setBedsDoubleCount(0);
+        roomRepository.save(room);
+
+        room = new Room();
+        room.setRoomNumber("25");
+        room.setCost(6500);
+        room.setBedsSingleCount(1);
+        room.setBedsDoubleCount(0);
         roomRepository.saveAndFlush(room);
+
     }
 
     private void initClientRepository() {
@@ -124,7 +157,6 @@ public class RepositoryMockupInitializer implements DataLoader {
         reservation.setClient(clients.get(0));
         reservation.setRoom(rooms.get(1));
         reservation.setAddress(address);
-
         reservationRepository.save(reservation);
 
         reservation = new Reservation();
@@ -136,6 +168,13 @@ public class RepositoryMockupInitializer implements DataLoader {
         reservation.setAddress(addresses.get(0));
         reservation.setRoom(rooms.get(2));
         reservationRepository.save(reservation);
+
+        Payment payment = new Payment();
+        payment.setDate(LocalDate.of(2018, 1, 2));
+        payment.setAmount(6500);
+        payment.setReservation(reservation);
+        payment.setType(Payment.Type.CASH);
+        paymentRepository.save(payment);
 
         reservation = new Reservation();
         reservation.setStatus(Reservation.Status.PENDING);
