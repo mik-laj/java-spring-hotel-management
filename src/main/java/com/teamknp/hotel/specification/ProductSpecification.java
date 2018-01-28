@@ -1,4 +1,4 @@
-package com.teamknp.hotel.speification;
+package com.teamknp.hotel.specification;
 
 import com.teamknp.hotel.entity.Product;
 import org.springframework.data.jpa.domain.Specification;

@@ -15,7 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Service
 public class ReservationService {
@@ -44,6 +46,7 @@ public class ReservationService {
         query = "%" + query + "%";
         return reservationRepository.search(query, pageable);
     }
+
     public void update(Reservation entity, ReservationEditForm formData) {
 
         Reservation reservation = entity;
@@ -104,6 +107,11 @@ public class ReservationService {
     @Transactional
     public void expireReservationStatuses(LocalDate expirationDate) {
         reservationRepository.expireReservationStatuses(expirationDate);
+    }
+
+    public BigDecimal getReservationCost(Reservation reservation) {
+        int lengthOfReservation = Period.between(reservation.getStartDate(), reservation.getEndDate()).getDays();
+        return reservation.getRoom().getCost().multiply(new BigDecimal(lengthOfReservation));
     }
 
 }

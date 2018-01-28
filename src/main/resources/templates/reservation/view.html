@@ -20,7 +20,7 @@
 
     <div class="btn-group float-right">
         <!--<a href="#" data-th-href="@{/admin/reservation/{id}/edit/(id=${object.id})}" rel="tooltip" class="btn btn-info" data-original-title="Edit">-->
-            <!--<i class="fa fa-edit"></i>-->
+        <!--<i class="fa fa-edit"></i>-->
         <!--</a>-->
         <a href="#" data-th-href="@{/admin/reservation/{id}/add-payment/(id=${object.id})}" class="btn btn-primary">
             <i class="fa fa-credit-card"></i>
@@ -30,7 +30,8 @@
             <i class="fa fa-shopping-cart"></i>
             Sell product
         </a>
-        <a href="#" data-th-href="@{/admin/reservation/{id}/delete/(id=${object.id})}" rel="tooltip" class="btn btn-danger" data-original-title="Remove">
+        <a href="#" data-th-href="@{/admin/reservation/{id}/delete/(id=${object.id})}" rel="tooltip"
+           class="btn btn-danger" data-original-title="Remove">
             <i class="fa fa-times"></i>
         </a>
 
@@ -71,8 +72,10 @@
                         </tr>
                         <tr>
                             <td><b>Room number</b></td>
-                            <td data-th-text="*{room.roomNumber}">
-                                Potato
+                            <td>
+                                <a href="#" data-th-href="@{/admin/room/{id}/(id=${object.room.id})}"
+                                   data-th-text="*{room.roomNumber}">
+                                </a>
                             </td>
                         </tr>
                         <tr>
@@ -103,6 +106,36 @@
                     </table>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-header ">
+                    <h4 class="card-title">Payments and Invoice</h4>
+                </div>
+                <div class="card-body table-full-width table-responsive">
+                    <table class="table" data-th-object="${invoiceInfo}">
+                        <tbody>
+                        <tr>
+                            <td><b>Balance</b></td>
+                            <td data-th-with="balance=*{paymentSum - invoice}" data-th-text="${{balance}}"
+                                data-th-classappend="${balance &lt; 0} ? text-warning : default">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Invoice</b></td>
+                            <td data-th-text="*{{invoice}}">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Paid</b></td>
+                            <td data-th-text="*{{paymentSum}}">
+                                Potato
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
         <div class="col-md-6">
             <div class="card">
@@ -118,8 +151,8 @@
                                 <th>Price</th>
                                 <th>Count</th>
                                 <th>Total</th>
-                                <th>CreatedBy</th>
-                                <th>CreatedDate</th>
+                                <th>Created By</th>
+                                <th>Created Date</th>
 
                             </tr>
                             </thead>
@@ -147,39 +180,6 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header ">
-                    <h4 class="card-title">Payments and Invoice</h4>
-                </div>
-                <div class="card-body table-full-width table-responsive">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td><b>Balance</b></td>
-                            <td data-th-text="*{paymentSum - invoice}">
-                                Potato
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Invoice</b></td>
-                            <td data-th-text="*{invoice}">
-                                Potato
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Paid</b></td>
-                            <td data-th-text="*{paymentSum}">
-                                Potato
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>

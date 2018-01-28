@@ -1,5 +1,6 @@
 package com.teamknp.hotel.controller;
 
+import com.teamknp.hotel.domain.InvoiceInfo;
 import com.teamknp.hotel.entity.Reservation;
 import com.teamknp.hotel.form.ReservationEditForm;
 import com.teamknp.hotel.services.PaymentService;
@@ -51,8 +52,9 @@ public class ReservationController {
     ) {
         model.addAttribute("object", reservation);
         model.addAttribute("soldItems", saleService.findAllByReservation(reservation));
-        model.addAttribute("invoice", reservation.getRoom().getCost());
-        model.addAttribute("paymentSum", paymentService.sumPaymentsForReservation(reservation.getId()));
+
+        InvoiceInfo invoiceInfo = new InvoiceInfo(reservationService.getReservationCost(reservation), paymentService.sumPaymentsForReservation(reservation.getId()));
+        model.addAttribute("invoiceInfo", invoiceInfo);
         return "reservation/view";
     }
 
