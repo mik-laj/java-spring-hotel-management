@@ -27,6 +27,8 @@ public interface RoomRepository extends JpaRepository<Room, Long> {
             "      OR\n" +
             "      (reservation.start_date > ?2 and reservation.end_date > ?2)\n" +
             "    )\n" +
+            "       OR\n"+
+            "       (reservation.status='EXPIRED' and reservation.status='CANCELLED' and reservation.status='FINISHED')"+
             "    )\n" +
             "WHERE\n" +
             "  reservation.room_id IS NULL" , nativeQuery = true)
