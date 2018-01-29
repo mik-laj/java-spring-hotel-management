@@ -73,7 +73,7 @@
                         <tr>
                             <td><b>Room number</b></td>
                             <td>
-                                <a href="#" data-th-href="@{/admin/room/{id}/(id=${object.room.id})}"
+                                <a href="#" data-th-href="@{/admin/room/{id}/(id=*{room.id})}"
                                    data-th-text="*{room.roomNumber}">
                                 </a>
                             </td>
@@ -92,9 +92,8 @@
                         </tr>
                         <tr>
                             <td><b>Status</b></td>
-                            <td data-th-text="*{status}">
-                                Potato
-                            </td>
+                                <td class="font-weight-bold" data-th-include="/partials/reservation-status">
+                                </td>
                         </tr>
                         <tr>
                             <td><b>Notes</b></td>
@@ -114,21 +113,34 @@
                     <table class="table" data-th-object="${invoiceInfo}">
                         <tbody>
                         <tr>
-                            <td><b>Balance</b></td>
-                            <td data-th-with="balance=*{paymentSum - invoice}" data-th-text="${{balance}}"
-                                data-th-classappend="${balance &lt; 0} ? text-warning : default">
-                                Potato
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>Invoice</b></td>
-                            <td data-th-text="*{{invoice}}">
+                            <td><b>Total balance</b></td>
+                            <td data-th-with="balance=*{paymentSum - reservationInvoice - productInvoice}"
+                                data-th-text="${{balance}}"
+                                data-th-classappend="${balance &lt; 0} ? text-danger : text-info">
                                 Potato
                             </td>
                         </tr>
                         <tr>
                             <td><b>Paid</b></td>
                             <td data-th-text="*{{paymentSum}}">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Total invoice</b></td>
+                            <td data-th-text="*{{reservationInvoice + productInvoice}}">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Reservation invoice</td>
+                            <td data-th-text="*{{reservationInvoice}}">
+                                Potato
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Product invoice</td>
+                            <td data-th-text="*{{productInvoice}}">
                                 Potato
                             </td>
                         </tr>
@@ -152,14 +164,16 @@
                                 <th>Count</th>
                                 <th>Total</th>
                                 <th>Created By</th>
-                                <th>Created Date</th>
-
+                                <th>Creation Date</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr data-th-each="soldItem: ${soldItems}" data-th-object="${soldItem}">
-                                <td data-th-text="*{{product}}">
-                                    Product #444
+                                <td>
+                                    <a href="#" data-th-href="@{/admin/product/{id}/(id=*{product.id})}"
+                                       data-th-text="*{{product}}">
+                                        Product #444
+                                    </a>
                                 </td>
                                 <td data-th-text="*{{price}}">
                                     122.00
@@ -170,8 +184,11 @@
                                 <td data-th-text="${{soldItem.getTotalValue()}}">
                                     1,220.00
                                 </td>
-                                <td data-th-text="*{{createdBy}}">
-                                    10
+                                <td>
+                                    <a href="#" data-th-href="@{/admin/staff/{id}/(id=*{createdBy.id})}"
+                                       data-th-text="*{{createdBy}}">
+                                        Product #444
+                                    </a>
                                 </td>
                                 <td data-th-text="*{{createdDate}}">
                                     10

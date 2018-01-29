@@ -10,6 +10,7 @@ import com.teamknp.hotel.repository.SoldItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -42,5 +43,13 @@ public class SaleService {
 
     public List<SoldItem> findAllByReservation(Reservation reservation) {
         return soldItemRepository.findAllByReservation(reservation);
+    }
+
+    public BigDecimal getTotalValue(List <SoldItem> soldItems) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (SoldItem item: soldItems) {
+            sum = sum.add(item.getTotalValue());
+        }
+        return sum;
     }
 }

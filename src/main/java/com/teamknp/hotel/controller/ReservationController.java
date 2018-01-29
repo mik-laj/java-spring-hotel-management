@@ -2,6 +2,7 @@ package com.teamknp.hotel.controller;
 
 import com.teamknp.hotel.domain.InvoiceInfo;
 import com.teamknp.hotel.entity.Reservation;
+import com.teamknp.hotel.entity.SoldItem;
 import com.teamknp.hotel.form.ReservationEditForm;
 import com.teamknp.hotel.services.PaymentService;
 import com.teamknp.hotel.services.ReservationService;
@@ -21,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/reservation")
@@ -51,9 +53,14 @@ public class ReservationController {
             Model model
     ) {
         model.addAttribute("object", reservation);
-        model.addAttribute("soldItems", saleService.findAllByReservation(reservation));
 
-        InvoiceInfo invoiceInfo = new InvoiceInfo(reservationService.getReservationCost(reservation), paymentService.sumPaymentsForReservation(reservation.getId()));
+        List<SoldItem> soldItems = saleService.findAllByReservation(reservation);
+        model.addAttribute("soldItems", soldItems);
+
+        InvoiceInfo invoiceInfo = new InvoiceInfo(
+                reservationService.getReservationCost(reservation),
+                saleService.getTotalValue(soldItems),
+                paymentService.sumPaymentsForReservation(reservation.getId()));
         model.addAttribute("invoiceInfo", invoiceInfo);
         return "reservation/view";
     }
@@ -97,6 +104,7 @@ public class ReservationController {
         model.addAttribute("object", entity);
         return "reservation/edit";
     }
+
     @PostMapping("/{id}/edit")
     String edit(
             @ModelAttribute("formData") ReservationEditForm formData,

@@ -1,0 +1,8 @@
+<span data-th-switch="*{status}">
+    <span data-th-case="*{Status.CANCELLED}" data-th-text="Cancelled" class="text-warning"></span>
+    <span data-th-case="*{Status.EXPIRED}" data-th-text="Expired" class="text-danger"></span>
+    <span data-th-case="*{Status.IN_PROGRESS}" data-th-text="In progress" class="text-info"></span>
+    <span data-th-case="*{Status.FINISHED}" data-th-text="Finished" class="text-muted"></span>
+    <span data-th-case="*{Status.PENDING}" data-th-text="Pending" class="text-primary"></span>
+    <span data-th-case="*" data-th-text="*{{status}}"></span>
+</span>

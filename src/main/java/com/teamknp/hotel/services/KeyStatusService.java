@@ -30,8 +30,6 @@ public class KeyStatusService {
         return keyStatusRepository.findAll();
     }
 
-
-
     public void delete(KeyStatus keyStatus) {
         keyStatusRepository.delete(keyStatus);
     }
