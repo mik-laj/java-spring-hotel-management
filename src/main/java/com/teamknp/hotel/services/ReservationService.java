@@ -114,4 +114,29 @@ public class ReservationService {
         return reservation.getRoom().getCost().multiply(new BigDecimal(lengthOfReservation));
     }
 
+    public void cancelReservation(Reservation reservation) throws IllegalArgumentException {
+        if (canBeCancelled(reservation)) {
+            reservation.setStatus(Reservation.Status.CANCELLED);
+            reservationRepository.save(reservation);
+        } else {
+            throw new IllegalArgumentException("Reservation cannot be cancelled: status is not " + Reservation.Status.PENDING + "!");
+        }
+    }
+
+    public void checkInReservation(Reservation reservation) throws IllegalArgumentException {
+        if (canBeCheckedIn(reservation)) {
+            reservation.setStatus(Reservation.Status.IN_PROGRESS);
+            reservationRepository.save(reservation);
+        } else {
+            throw new IllegalArgumentException("Reservation check-in invalid: status is either not " + Reservation.Status.PENDING + " or the reservation start date " + reservation.getStartDate() + " is not today (" + LocalDate.now() + ")!");
+        }
+    }
+
+    public boolean canBeCheckedIn(Reservation reservation) {
+        return (reservation.getStatus() == Reservation.Status.PENDING && LocalDate.now().isEqual(reservation.getStartDate()));
+    }
+
+    public boolean canBeCancelled(Reservation reservation) {
+        return (reservation.getStatus() == Reservation.Status.PENDING);
+    }
 }

@@ -46,8 +46,8 @@ public class PaymentService {
         paymentRepository.delete(payment);
     }
 
-    public BigDecimal sumPaymentsForReservation(Long id) {
-    BigDecimal result = paymentRepository.getSumByReservationId(id);
+    public BigDecimal sumPaymentsForReservation(Reservation reservation) {
+    BigDecimal result = paymentRepository.getSumByReservationId(reservation.getId());
         if (result == null) {
             result = new BigDecimal("0");
         }
@@ -62,4 +62,13 @@ public class PaymentService {
         payment.setType(Payment.Type.valueOf(formData.getType()));
         paymentRepository.save(payment);
     }
+
+    /*
+    public InvoiceInfo getInvoice(Reservation reservation) {
+        InvoiceInfo invoiceInfo = new InvoiceInfo(
+                reservationService.getReservationCost(reservation),
+                saleService.getTotalValue(soldItems),
+                paymentService.sumPaymentsForReservation(reservation.getId()));
+    }
+    */
 }

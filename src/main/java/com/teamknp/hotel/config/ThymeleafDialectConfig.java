@@ -1,11 +1,11 @@
 package com.teamknp.hotel.config;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 
-@Component
+@Configuration
 public class ThymeleafDialectConfig {
     @Bean
     Java8TimeDialect java8TimeDialect() {

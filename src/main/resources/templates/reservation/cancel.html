@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorator="layout">
+<head>
+    <title>Hotel - Cancel Reservation</title>
+    <link rel="stylesheet" href="/css/hello.css"/>
+</head>
+<body>
+
+<th-block data-layout-fragment="section">Reception</th-block>
+
+<div data-layout-fragment="breadcrumbs">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/admin/">Admin</a>
+        </li>
+        <li class="breadcrumb-item"><a data-th-href="@{/admin/reservation/}">Reservations</a></li>
+        <li class="breadcrumb-item">
+            <a href="#" data-th-href="@{/admin/reservation/{id}/(id=${object.id})}" data-th-text="${{object}}">Reservation #4</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">
+            Cancel reservation
+        </li>
+    </ol>
+</div>
+
+<div data-layout-fragment="content">
+    <h1>Cancel reservation</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Confirmation required</h4>
+                </div>
+                <div class="card-body">
+                    <form action="" data-th-action="@{/admin/reservation/{id}/cancel/(id=${object.id})}" method="post">
+                        <p data-th-text="|Are you sure you want to cancel &quot;${{object}}&quot;?|"></p>
+                        <button class="btn btn-danger" type="submit">Confirm</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
