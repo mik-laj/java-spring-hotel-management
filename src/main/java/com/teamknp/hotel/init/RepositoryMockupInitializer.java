@@ -5,6 +5,7 @@ import com.teamknp.hotel.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class RepositoryMockupInitializer implements DataLoader {
         this.roomRepository = roomRepository;
     }
 
+    @Override
     public void load() {
         if (roomRepository.findAll().isEmpty()) {
             initRoomRepository();
@@ -40,56 +42,56 @@ public class RepositoryMockupInitializer implements DataLoader {
     private void initRoomRepository() {
         Room room = new Room();
         room.setRoomNumber("403");
-        room.setCost(11000);
+        room.setCost(new BigDecimal("110"));
         room.setBedsSingleCount(0);
         room.setBedsDoubleCount(1);
         roomRepository.save(room);
 
         room = new Room();
         room.setRoomNumber("404");
-        room.setCost(8500);
+        room.setCost(new BigDecimal("85"));
         room.setBedsSingleCount(2);
         room.setBedsDoubleCount(0);
         roomRepository.save(room);
 
         room = new Room();
         room.setRoomNumber("500A");
-        room.setCost(15000);
+        room.setCost(new BigDecimal("150"));
         room.setBedsSingleCount(0);
         room.setBedsDoubleCount(2);
         roomRepository.save(room);
 
         room = new Room();
         room.setRoomNumber("500B");
-        room.setCost(16000);
+        room.setCost(new BigDecimal("160"));
         room.setBedsSingleCount(2);
         room.setBedsDoubleCount(1);
         roomRepository.save(room);
 
         room = new Room();
         room.setRoomNumber("22");
-        room.setCost(14000);
+        room.setCost(new BigDecimal("140"));
         room.setBedsSingleCount(4);
         room.setBedsDoubleCount(0);
         roomRepository.save(room);
 
         room = new Room();
         room.setRoomNumber("23");
-        room.setCost(14000);
+        room.setCost(new BigDecimal("140"));
         room.setBedsSingleCount(4);
         room.setBedsDoubleCount(0);
         roomRepository.save(room);
 
         room = new Room();
         room.setRoomNumber("24");
-        room.setCost(6500);
+        room.setCost(new BigDecimal("65"));
         room.setBedsSingleCount(1);
         room.setBedsDoubleCount(0);
         roomRepository.save(room);
 
         room = new Room();
         room.setRoomNumber("25");
-        room.setCost(6500);
+        room.setCost(new BigDecimal("65"));
         room.setBedsSingleCount(1);
         room.setBedsDoubleCount(0);
         roomRepository.saveAndFlush(room);
@@ -171,7 +173,7 @@ public class RepositoryMockupInitializer implements DataLoader {
 
         Payment payment = new Payment();
         payment.setDate(LocalDate.of(2018, 1, 2));
-        payment.setAmount(6500);
+        payment.setAmount(new BigDecimal("65"));
         payment.setReservation(reservation);
         payment.setType(Payment.Type.CASH);
         paymentRepository.save(payment);
@@ -187,5 +189,4 @@ public class RepositoryMockupInitializer implements DataLoader {
 
         reservationRepository.save(reservation);
     }
-
 }

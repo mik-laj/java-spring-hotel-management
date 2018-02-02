@@ -15,7 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Period;
 
 @Service
 public class ReservationService {
@@ -44,6 +46,7 @@ public class ReservationService {
         query = "%" + query + "%";
         return reservationRepository.search(query, pageable);
     }
+
     public void update(Reservation entity, ReservationEditForm formData) {
 
         Reservation reservation = entity;
@@ -106,4 +109,34 @@ public class ReservationService {
         reservationRepository.expireReservationStatuses(expirationDate);
     }
 
+    public BigDecimal getReservationCost(Reservation reservation) {
+        int lengthOfReservation = Period.between(reservation.getStartDate(), reservation.getEndDate()).getDays();
+        return reservation.getRoom().getCost().multiply(new BigDecimal(lengthOfReservation));
+    }
+
+    public void cancelReservation(Reservation reservation) throws IllegalArgumentException {
+        if (canBeCancelled(reservation)) {
+            reservation.setStatus(Reservation.Status.CANCELLED);
+            reservationRepository.save(reservation);
+        } else {
+            throw new IllegalArgumentException("Reservation cannot be cancelled: status is not " + Reservation.Status.PENDING + "!");
+        }
+    }
+
+    public void checkInReservation(Reservation reservation) throws IllegalArgumentException {
+        if (canBeCheckedIn(reservation)) {
+            reservation.setStatus(Reservation.Status.IN_PROGRESS);
+            reservationRepository.save(reservation);
+        } else {
+            throw new IllegalArgumentException("Reservation check-in invalid: status is either not " + Reservation.Status.PENDING + " or the reservation start date " + reservation.getStartDate() + " is not today (" + LocalDate.now() + ")!");
+        }
+    }
+
+    public boolean canBeCheckedIn(Reservation reservation) {
+        return (reservation.getStatus() == Reservation.Status.PENDING && LocalDate.now().isEqual(reservation.getStartDate()));
+    }
+
+    public boolean canBeCancelled(Reservation reservation) {
+        return (reservation.getStatus() == Reservation.Status.PENDING);
+    }
 }

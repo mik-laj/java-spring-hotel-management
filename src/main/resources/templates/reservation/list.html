@@ -25,7 +25,7 @@
     <h1>Reservations</h1>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="float-right">
@@ -41,6 +41,8 @@
                                 <th>ID</th>
                                 <th>Start Date</th>
                                 <th>End Date</th>
+                                <th>Client</th>
+                                <th>Room</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -56,10 +58,24 @@
                                 <td data-th-text="*{{endDate}}">
                                     18-12-2018
                                 </td>
-                                <td data-th-text="*{{status}}">
+                                <td data-th-text="*{{client}}">
+                                    18-12-2018
+                                </td>
+                                <td>
+                                    <a href="#" data-th-href="@{/admin/room/{id}/(id=*{room.id})}"
+                                       data-th-text="*{room.roomNumber}">
+                                    </a>
+                                </td>
+                                <td class="font-weight-bold" data-th-include="/partials/reservation-status">
                                     Pending
                                 </td>
                                 <td class="td-actions text-right">
+                                    <a href="#" data-th-with="today=${#dates.createToday()}" data-th-if="*{status == Status.PENDING and startDate == #temporals.createToday()}" data-th-href="@{/admin/reservation/{id}/check-in/(id=*{id})}" rel="tooltip" title="" class="btn-success btn-simple btn-link" data-original-title="Check-in">
+                                        <i class="fa fa-check"></i>
+                                    </a>
+                                    <a href="#" data-th-if="*{status == Status.PENDING}" data-th-href="@{/admin/reservation/{id}/cancel/(id=*{id})}" rel="tooltip" title="" class="btn-warning btn-simple btn-link" data-original-title="Cancel reservation">
+                                        <i class="fa fa-ban"></i>
+                                    </a>
                                     <a href="#" data-th-href="@{/admin/reservation/{id}/(id=*{id})}" rel="tooltip" title="" class="btn btn-info btn-simple btn-link" data-original-title="Show">
                                         <i class="fa fa-eye"></i>
                                     </a>

@@ -33,23 +33,33 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header ">
-                    <h4 class="card-title">Object info</h4>
+                    <h4 class="card-title">Room Info</h4>
                 </div>
                 <div class="card-body table-full-width table-responsive">
                     <table class="table" data-th-object="${object}">
                         <tbody>
                         <tr>
-                            <td>
-                                Id:
-                            </td>
-                            <td data-th-text="*{id}">
-                                5
+                            <td><b>Room number</b></td>
+                            <td data-th-text="*{roomNumber}">
+                                Potato
                             </td>
                         </tr>
                         <tr>
-                            <td>Room Number:</td>
-                            <td data-th-text="*{roomNumber}">
-                                Potato
+                            <td><b>Beds single count</b></td>
+                            <td data-th-text="*{bedsSingleCount}">
+                                1
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Beds double count</b></td>
+                            <td data-th-text="*{bedsDoubleCount}">
+                                2
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Cost</b></td>
+                            <td data-th-text="*{{cost}}">
+                                500.50
                             </td>
                         </tr>
                         </tbody>

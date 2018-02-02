@@ -1,7 +1,12 @@
 package com.teamknp.hotel.controller;
 
+import com.teamknp.hotel.domain.InvoiceInfo;
 import com.teamknp.hotel.entity.Reservation;
+import com.teamknp.hotel.entity.SoldItem;
+import com.teamknp.hotel.exception.ResourceNotFoundException;
 import com.teamknp.hotel.form.ReservationEditForm;
+import com.teamknp.hotel.services.InvoiceService;
+import com.teamknp.hotel.services.PaymentService;
 import com.teamknp.hotel.services.ReservationService;
 import com.teamknp.hotel.services.SaleService;
 import io.springlets.data.web.select2.Select2DataSupport;
@@ -19,6 +24,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/reservation")
@@ -31,6 +37,12 @@ public class ReservationController {
 
     @Autowired
     SaleService saleService;
+
+    @Autowired
+    PaymentService paymentService;
+
+    @Autowired
+    InvoiceService invoiceService;
 
     @GetMapping("")
     @Secured("ROLE_RECEPTION")
@@ -46,7 +58,12 @@ public class ReservationController {
             Model model
     ) {
         model.addAttribute("object", reservation);
-        model.addAttribute("soldItems", saleService.findAllByReservation(reservation));
+
+        List<SoldItem> soldItems = saleService.findAllByReservation(reservation);
+        model.addAttribute("soldItems", soldItems);
+
+        InvoiceInfo invoiceInfo = invoiceService.getInvoice(reservation);
+        model.addAttribute("invoiceInfo", invoiceInfo);
         return "reservation/view";
     }
 
@@ -65,6 +82,53 @@ public class ReservationController {
         }
         model.addAttribute("object", entity);
         return "reservation/delete";
+    }
+
+    @RequestMapping(value = "/{id}/cancel", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_RECEPTION")
+    String cancel(
+            HttpServletRequest request,
+            @PathVariable("id") Reservation entity,
+            Model model
+    ) {
+        if (!reservationService.canBeCancelled(entity)) {
+            throw new ResourceNotFoundException();
+        }
+
+        boolean isPost = request.getMethod().equals("POST");
+        if (isPost) {
+            try {
+                reservationService.cancelReservation(entity);
+                return String.format("redirect:/admin/reservation/%d/", entity.getId());
+            } catch (IllegalArgumentException e) {
+            }
+        }
+        model.addAttribute("object", entity);
+        return "reservation/cancel";
+    }
+
+    @RequestMapping(value = "/{id}/check-in", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_RECEPTION")
+    String checkIn(
+            HttpServletRequest request,
+            @PathVariable("id") Reservation entity,
+            Model model
+    ) {
+        if (!reservationService.canBeCheckedIn(entity)) {
+            throw new ResourceNotFoundException();
+        }
+
+        boolean isPost = request.getMethod().equals("POST");
+        if (isPost) {
+            try {
+                reservationService.checkInReservation(entity);
+                return String.format("redirect:/admin/reservation/%d/", entity.getId());
+            } catch (IllegalArgumentException e) {
+            }
+        }
+
+        model.addAttribute("object", entity);
+        return "reservation/check-in";
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, name = "select2", value = "/s2")
@@ -89,6 +153,7 @@ public class ReservationController {
         model.addAttribute("object", entity);
         return "reservation/edit";
     }
+
     @PostMapping("/{id}/edit")
     String edit(
             @ModelAttribute("formData") ReservationEditForm formData,

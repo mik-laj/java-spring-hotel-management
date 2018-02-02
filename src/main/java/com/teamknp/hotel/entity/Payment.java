@@ -5,6 +5,8 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 @Entity
 @Data
@@ -13,7 +15,8 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    float amount;
+    @Digits(integer=5, fraction=2)
+    BigDecimal amount;
     @ManyToOne
     Reservation reservation;
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)

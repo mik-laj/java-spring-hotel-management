@@ -1,7 +1,6 @@
 package com.teamknp.hotel.config;
 
 
-import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,9 +11,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring4.SpringTemplateEngine;
-import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -49,13 +45,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
-
-    @Bean
-    public SpringTemplateEngine templateEngine(ITemplateResolver templateResolver, SpringSecurityDialect sec, LayoutDialect layoutDialect) {
-        final SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver);
-        templateEngine.addDialect(sec); // Enable use of "sec"
-        templateEngine.addDialect(layoutDialect);
-        return templateEngine;
-    }
 }

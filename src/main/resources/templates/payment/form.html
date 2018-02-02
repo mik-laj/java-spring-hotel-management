@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="inputAmount">Amount</label>
+        <input type="text" class="form-control" id="inputAmount" required="" placeholder="e.g. 70.00" data-th-field="*{amount}" data-th-classappend="${#fields.hasErrors('amount')}? is-invalid"/>
+        <div data-th-if="${#fields.hasErrors('amount')}" data-th-each="err : ${#fields.errors('amount')}" data-th-text="${err}" class="invalid-feedback"></div>
+
+        <label for="inputType">Type</label>
+        <select id="inputType" class="form-control select2" required="" data-th-field="*{type}" data-th-classappend="${#fields.hasErrors('type')}? is-invalid">
+            <option value="CASH">Cash</option>
+            <option value="CREDIT_CARD">Credit card</option>
+            <option value="TRANSFER">Transfer</option>
+            <option value="CHEQUE">Cheque</option>
+        </select>
+        <div data-th-if="${#fields.hasErrors('type')}" data-th-each="err : ${#fields.errors('type')}" data-th-text="${err}" class="invalid-feedback"></div>
+    </div>
+    <div class="form-group col-md-6">
+        <label for="inputDate">Date</label>
+        <input type="date" class="form-control" id="inputDate" required="" data-th-field="*{date}" data-th-classappend="${#fields.hasErrors('date')}? is-invalid"/>
+        <div data-th-if="${#fields.hasErrors('date')}" data-th-each="err : ${#fields.errors('date')}" data-th-text="${err}" class="invalid-feedback"></div>
+        <br/>
+        <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check" aria-hidden="true"></i> Confirm payment
+        </button>
+    </div>
+</div>
+
+</body>
+</html>

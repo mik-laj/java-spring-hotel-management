@@ -3,7 +3,7 @@ package com.teamknp.hotel.services;
 import com.teamknp.hotel.entity.Product;
 import com.teamknp.hotel.form.ProductForm;
 import com.teamknp.hotel.repository.ProductRepository;
-import com.teamknp.hotel.speification.ProductSpecification;
+import com.teamknp.hotel.specification.ProductSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
