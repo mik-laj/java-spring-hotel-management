@@ -16,29 +16,29 @@
            class="form-control" placeholder="nick" required="true" autofocus="true"/>
 </div>
 <div class="form-group">
-    <label>Imię</label>
+    <label>Name:</label>
     <input type="text" data-th-field="${formData.firstName}"
-           class="form-control" placeholder="imie" required="true" autofocus="true"/>
+           class="form-control" placeholder="Name" required="true" autofocus="true"/>
 </div>
 <div class="form-group">
-    <label>Nazwisko</label>
+    <label>Surname</label>
     <input type="text" data-th-field="${formData.lastName}"
-           class="form-control" placeholder="nazwisko" required="true" autofocus="true"/>
+           class="form-control" placeholder="Surname" required="true" autofocus="true"/>
 </div>
 
 <div class="form-group">
-    <label>Hasło</label>
+    <label>Password</label>
     <input type="password" data-th-field="${formData.password}"
-           class="form-control" placeholder="hasło" required="true" autofocus="true"/>
+           class="form-control" placeholder="Password" required="true" autofocus="true"/>
 </div>
 
 <div class="form-group">
-    <label>Powtórz hasło</label>
+    <label>Repeat password</label>
     <input type="password" data-th-field="${formData.passwordConfirm}"
-           class="form-control" placeholder="hasło" required="true" autofocus="true"/>
+           class="form-control" placeholder="Repeat password" required="true" autofocus="true"/>
 </div>
 <div class="form-group">
-    <label>Wybierz role</label>
+    <label>Select Roles</label>
     <select multiple="multiple" data-ajax--url="/admin/staff/s2-role" data-th-field="${formData.roles}" class="form-control select2">
     </select>
 </div>

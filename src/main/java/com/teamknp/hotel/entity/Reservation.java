@@ -35,6 +35,7 @@ public class Reservation {
         this.room = room;
     }
 
+
     String notes;
 
     public enum Status {

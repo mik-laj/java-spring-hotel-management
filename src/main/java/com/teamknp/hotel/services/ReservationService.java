@@ -95,13 +95,13 @@ public class ReservationService {
         reservation.setClient(client);
         reservation.setAddress(address);
         reservation.setNotes(reservationForm.getNotes());
-        reservation.setRoom(reservation.getRoom());
+
+        reservation.setRoom(roomRepository.findOne(reservationForm.getRoomId()));
         reservationRepository.save(reservation);
 
         // Save reservation
 
         return reservation;
-
     }
 
     @Transactional
