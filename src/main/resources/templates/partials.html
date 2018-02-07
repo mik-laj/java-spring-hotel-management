@@ -15,7 +15,7 @@
 
     <div data-th-fragment="pager(objectsList)">
         <nav data-th-with="currentUrl=(${@currentUrlWithoutParam.apply('page')})">
-            <ul class="pagination">
+            <ul class="pagination" data-th-if="${objectsList.totalPages ne 0}" >
                 <li class="page-item" data-th-class="${objectsList.hasPrevious()}?'disabled':''">
                     <span data-th-if='${not objectsList.hasPrevious()}' class="page-link">&laquo;</span>
                     <a data-th-if='${objectsList.hasPrevious()}' data-th-href='@{${currentUrl}(page=${objectsList.number-1})}' title='Previous page' class="page-link">&laquo;</a>
