@@ -14,15 +14,16 @@ public class KeyStatusService {
     @Autowired
     KeyStatusRepository keyStatusRepository;
 
-    public void giveOutKey(Reservation reservation, LocalDateTime when) {
+    public void giveOutKey(Reservation reservation) {
         KeyStatus keyStatus = new KeyStatus();
-        keyStatus.setRoom(reservation.getRoom());
-        keyStatus.setTimeGiven(when);
+        keyStatus.setReservation(reservation);
+        keyStatus.setTimeGiven(LocalDateTime.now());
         keyStatusRepository.save(keyStatus);
     }
 
-    public void returnKey(KeyStatus keyStatus, LocalDateTime when) {
-        keyStatus.setTimeReturned(when);
+    public void returnKey(KeyStatus keyStatus) throws IllegalArgumentException {
+        if (keyStatus.getTimeReturned() != null) throw new IllegalArgumentException();
+        keyStatus.setTimeReturned(LocalDateTime.now());
         keyStatusRepository.save(keyStatus);
     }
 
