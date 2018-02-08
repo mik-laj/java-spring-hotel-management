@@ -46,16 +46,21 @@
             <i class="fa fa-key"></i>
             Give new key
         </a>
-        <a href="#" data-th-if="${object.status == object.Status.PENDING}"
+        <a href="#"
+           data-th-if="${object.status == object.Status.PENDING}"
            data-th-href="@{/admin/reservation/{id}/cancel/(id=${object.id})}" class="btn btn-danger">
             <i class="fa fa-ban"></i>
             Cancel
         </a>
-        <a href="#" data-th-href="@{/admin/reservation/{id}/add-payment/(id=${object.id})}" class="btn btn-primary">
+        <a href="#"
+           data-th-if="${object.status != object.Status.CANCELLED}"
+           data-th-href="@{/admin/reservation/{id}/add-payment/(id=${object.id})}" class="btn btn-primary">
             <i class="fa fa-credit-card"></i>
             Add payment
         </a>
-        <a href="#" data-th-href="@{/admin/reservation/{id}/sell-product/(id=${object.id})}" class="btn btn-primary">
+        <a href="#"
+           data-th-if="${object.status == object.Status.IN_PROGRESS}"
+           data-th-href="@{/admin/reservation/{id}/sell-product/(id=${object.id})}" class="btn btn-primary">
             <i class="fa fa-shopping-cart"></i>
             Sell product
         </a>
