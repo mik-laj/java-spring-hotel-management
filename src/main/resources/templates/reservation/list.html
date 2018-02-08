@@ -70,6 +70,9 @@
                                     Pending
                                 </td>
                                 <td class="td-actions text-right">
+                                    <a href="#" data-th-if="*{status == Status.CHECK_OUT_OVERDUE}" data-th-href="@{/admin/reservation/{id}/resolve/(id=*{id})}" rel="tooltip" title="" class="btn-danger btn-simple btn-link" data-original-title="Resolve (late check-out)">
+                                        <i class="fa fa-gavel"></i>
+                                    </a>
                                     <a href="#" data-th-with="today=${#dates.createToday()}" data-th-if="*{status == Status.PENDING and startDate == #temporals.createToday()}" data-th-href="@{/admin/reservation/{id}/check-in/(id=*{id})}" rel="tooltip" title="" class="btn-success btn-simple btn-link" data-original-title="Check-in">
                                         <i class="fa fa-check"></i>
                                     </a>
