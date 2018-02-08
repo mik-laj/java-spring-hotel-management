@@ -63,12 +63,8 @@ public class PaymentService {
         paymentRepository.save(payment);
     }
 
-    /*
-    public InvoiceInfo getInvoice(Reservation reservation) {
-        InvoiceInfo invoiceInfo = new InvoiceInfo(
-                reservationService.getReservationCost(reservation),
-                saleService.getTotalValue(soldItems),
-                paymentService.sumPaymentsForReservation(reservation.getId()));
+    public List<Payment> findAllByReservation(Reservation reservation) {
+        return paymentRepository.findAllByReservation(reservation);
     }
-    */
+
 }

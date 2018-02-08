@@ -16,12 +16,41 @@
     </ol>
 </div>
 
-<div data-layout-fragment="content">
+<div data-layout-fragment="content" data-th-with="today=${#temporals.createToday()}">
 
     <div class="btn-group float-right">
         <!--<a href="#" data-th-href="@{/admin/reservation/{id}/edit/(id=${object.id})}" rel="tooltip" class="btn btn-info" data-original-title="Edit">-->
         <!--<i class="fa fa-edit"></i>-->
         <!--</a>-->
+        <a href="#"
+           data-th-if="${object.status == object.Status.CHECK_OUT_OVERDUE}"
+           data-th-href="@{/admin/reservation/{id}/resolve/(id=${object.id})}" class="btn btn-danger">
+            <i class="fa fa-gavel"></i>
+            Resolve (late check-out)
+        </a>
+        <a href="#"
+           data-th-if="${object.status == object.Status.PENDING and object.startDate == today}"
+           data-th-href="@{/admin/reservation/{id}/check-in/(id=${object.id})}" class="btn btn-success">
+            <i class="fa fa-check"></i>
+            Check-in
+        </a>
+        <a href="#"
+           data-th-if="${object.status == object.Status.IN_PROGRESS and object.endDate == today}"
+           data-th-href="@{/admin/reservation/{id}/check-out/(id=${object.id})}" class="btn btn-success">
+            <i class="fa fa-sign-out"></i>
+            Check-out
+        </a>
+        <a href="#"
+           data-th-if="${object.status == object.Status.IN_PROGRESS}"
+           data-th-href="@{/admin/reservation/{id}/add-key/(id=${object.id})}" class="btn btn-primary">
+            <i class="fa fa-key"></i>
+            Give new key
+        </a>
+        <a href="#" data-th-if="${object.status == object.Status.PENDING}"
+           data-th-href="@{/admin/reservation/{id}/cancel/(id=${object.id})}" class="btn btn-danger">
+            <i class="fa fa-ban"></i>
+            Cancel
+        </a>
         <a href="#" data-th-href="@{/admin/reservation/{id}/add-payment/(id=${object.id})}" class="btn btn-primary">
             <i class="fa fa-credit-card"></i>
             Add payment
@@ -29,6 +58,10 @@
         <a href="#" data-th-href="@{/admin/reservation/{id}/sell-product/(id=${object.id})}" class="btn btn-primary">
             <i class="fa fa-shopping-cart"></i>
             Sell product
+        </a>
+        <a href="#" data-th-href="@{/admin/reservation/{id}/edit/(id=${object.id})}" rel="tooltip"
+           class="btn btn-info" data-original-title="Edit">
+            <i class="fa fa-edit"></i>
         </a>
         <a href="#" data-th-href="@{/admin/reservation/{id}/delete/(id=${object.id})}" rel="tooltip"
            class="btn btn-danger" data-original-title="Remove">
@@ -80,20 +113,32 @@
                         </tr>
                         <tr>
                             <td><b>Start date</b></td>
-                            <td data-th-text="*{startDate}">
+                            <td data-th-text="*{{startDate}}">
                                 Potato
                             </td>
                         </tr>
                         <tr>
                             <td><b>End date</b></td>
-                            <td data-th-text="*{endDate}">
+                            <td data-th-text="*{{endDate}}">
                                 Potato
                             </td>
                         </tr>
                         <tr>
                             <td><b>Status</b></td>
-                                <td class="font-weight-bold" data-th-include="/partials/reservation-status">
-                                </td>
+                            <td class="font-weight-bold" data-th-include="/partials/reservation-status">
+                            </td>
+                        </tr>
+                        <tr data-th-if="*{checkInTime != null}">
+                            <td>Checked-in</td>
+                            <td data-th-text="*{{checkInTime}}">
+                                01-01-01 13:50
+                            </td>
+                        </tr>
+                        <tr data-th-if="*{checkOutTime != null}">
+                            <td>Checked-out</td>
+                            <td data-th-text="*{{checkOutTime}}">
+                                01-01-01 11:50
+                            </td>
                         </tr>
                         <tr>
                             <td><b>Notes</b></td>
@@ -105,12 +150,12 @@
                     </table>
                 </div>
             </div>
-            <div class="card">
+            <div class="card" data-th-object="${invoice}">
                 <div class="card-header ">
                     <h4 class="card-title">Payments and Invoice</h4>
                 </div>
                 <div class="card-body table-full-width table-responsive">
-                    <table class="table" data-th-object="${invoiceInfo}">
+                    <table class="table">
                         <tbody>
                         <tr>
                             <td><b>Total balance</b></td>
@@ -147,9 +192,85 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="card-header">
+                    <h4 class="card-subtitle">History</h4>
+                </div>
+                <div class="card-body ">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                Date
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Type
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-th-each="payment: *{payments}" data-th-object="${payment}">
+                            <td data-th-text="*{{date}}">
+                                01-01-01
+                            </td>
+                            <td data-th-text="*{{amount}}">
+                                50.00
+                            </td>
+                            <td data-th-include="/partials/payment-type">
+                                CASH
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
+            <div class="card" data-th-object="${object}" data-th-if="${object.status != object.Status.PENDING}">
+                <div class="card-header ">
+                    <h4 class="card-title">Keys</h4>
+                </div>
+                <div class="card-body table-full-width table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                        <tr>
+                            <th>
+                                Given
+                            </th>
+                            <th>
+                                Returned
+                            </th>
+                            <th>
+                                Actions
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-th-each="keyStatus: *{keyStatuses}" data-th-object="${keyStatus}">
+                            <td data-th-text="*{{timeGiven}}">
+                                01-01-01
+                            </td>
+                            <td data-th-text="*{{timeReturned}}">
+                                01-01-02
+                            </td>
+                            <td class="td-actions text-right">
+                                <a href="#" data-th-if="*{timeReturned == null}"
+                                   data-th-href="@{/admin/reservation/{rid}/return-key/{kid}(kid=*{id}, rid=${object.id})}" rel="tooltip"
+                                   title="" class="btn-success btn-simple btn-link" data-original-title="Return key">
+                                    <i class="fa fa-check"></i>
+                                </a>
+                                <a href="#" data-th-href="@{/admin/reservation/{rid}/delete-key/{kid}(kid=*{id}, rid=${object.id})}"
+                                   rel="tooltip" title="" class="btn-danger btn-simple btn-link" data-original-title="Delete entry">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title">Sold items</h4>
@@ -163,12 +284,12 @@
                                 <th>Price</th>
                                 <th>Count</th>
                                 <th>Total</th>
-                                <th>Created By</th>
-                                <th>Creation Date</th>
+                                <th>Sold By</th>
+                                <th>Date</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr data-th-each="soldItem: ${soldItems}" data-th-object="${soldItem}">
+                            <tr data-th-each="soldItem: ${invoice.soldItems}" data-th-object="${soldItem}">
                                 <td>
                                     <a href="#" data-th-href="@{/admin/product/{id}/(id=*{product.id})}"
                                        data-th-text="*{{product}}">

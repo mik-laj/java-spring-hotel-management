@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Period;
 
 @Service
@@ -109,6 +110,11 @@ public class ReservationService {
         reservationRepository.expireReservationStatuses(expirationDate);
     }
 
+    @Transactional
+    public void updateOverdueCheckOuts(LocalDate overdueDate) {
+        reservationRepository.updateOverdueCheckOuts(overdueDate);
+    }
+
     public BigDecimal getReservationCost(Reservation reservation) {
         int lengthOfReservation = Period.between(reservation.getStartDate(), reservation.getEndDate()).getDays();
         return reservation.getRoom().getCost().multiply(new BigDecimal(lengthOfReservation));
@@ -126,17 +132,52 @@ public class ReservationService {
     public void checkInReservation(Reservation reservation) throws IllegalArgumentException {
         if (canBeCheckedIn(reservation)) {
             reservation.setStatus(Reservation.Status.IN_PROGRESS);
+            reservation.setCheckInTime(LocalDateTime.now());
             reservationRepository.save(reservation);
         } else {
             throw new IllegalArgumentException("Reservation check-in invalid: status is either not " + Reservation.Status.PENDING + " or the reservation start date " + reservation.getStartDate() + " is not today (" + LocalDate.now() + ")!");
         }
     }
 
+    public void checkOutReservation(Reservation reservation) throws IllegalArgumentException {
+        if (canBeCheckedOut(reservation)) {
+            reservation.setStatus(Reservation.Status.FINISHED);
+            reservation.setCheckOutTime(LocalDateTime.now());
+            reservationRepository.save(reservation);
+        } else {
+            throw new IllegalArgumentException("Reservation check-out invalid: status is either not " + Reservation.Status.IN_PROGRESS + " or the reservation end date " + reservation.getEndDate() + " is not today (" + LocalDate.now() + ")!");
+        }
+    }
+
+    public void resolveReservation(Reservation reservation) {
+        if (canBeResolved(reservation)) {
+            reservation.setStatus(Reservation.Status.CHECK_OUT_OVERDUE_RESOLVED);
+            reservation.setCheckOutTime(LocalDateTime.now());
+            reservationRepository.save(reservation);
+        } else {
+            throw new IllegalArgumentException("Reservation resolve invalid: status is not " + Reservation.Status.CHECK_OUT_OVERDUE + "!");
+        }
+    }
+
     public boolean canBeCheckedIn(Reservation reservation) {
-        return (reservation.getStatus() == Reservation.Status.PENDING && LocalDate.now().isEqual(reservation.getStartDate()));
+        return (reservation.getStatus() == Reservation.Status.PENDING && reservation.getStartDate().isEqual(LocalDate.now()));
     }
 
     public boolean canBeCancelled(Reservation reservation) {
         return (reservation.getStatus() == Reservation.Status.PENDING);
+    }
+
+    public boolean canBeCheckedOut(Reservation reservation) {
+        Reservation.Status currentStatus = reservation.getStatus();
+        return (currentStatus == Reservation.Status.IN_PROGRESS && reservation.getEndDate().isEqual(LocalDate.now()));
+    }
+
+    public boolean canBeResolved(Reservation reservation) {
+        return reservation.getStatus() == Reservation.Status.CHECK_OUT_OVERDUE;
+    }
+
+    public boolean canKeyBeAdded(Reservation reservation) {
+        Reservation.Status currentStatus = reservation.getStatus();
+        return (currentStatus == Reservation.Status.IN_PROGRESS);
     }
 }

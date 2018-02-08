@@ -3,20 +3,29 @@ package com.teamknp.hotel.controller;
 import com.teamknp.hotel.entity.Reservation;
 import com.teamknp.hotel.form.PaymentForm;
 import com.teamknp.hotel.services.PaymentService;
+import com.teamknp.hotel.validator.PaymentValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class PaymentController {
     @Autowired
     PaymentService paymentService;
+
+    @Autowired
+    PaymentValidator paymentValidator;
+
+    @InitBinder("formData")
+    protected void initBinder(final WebDataBinder binder) {
+        binder.addValidators(paymentValidator);
+    }
 
     @Secured("ROLE_RECEPTION")
     @GetMapping("admin/reservation/{id}/add-payment")
@@ -32,7 +41,7 @@ public class PaymentController {
     @Secured("ROLE_RECEPTION")
     @PostMapping("admin/reservation/{id}/add-payment")
     String addPayment(
-            @ModelAttribute("formData") PaymentForm formData,
+            @ModelAttribute("formData") @Valid PaymentForm formData,
             BindingResult bindingResult,
             @PathVariable("id") Reservation entity,
             Model model

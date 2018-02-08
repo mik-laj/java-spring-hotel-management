@@ -14,8 +14,6 @@ public class PaymentForm {
     @Digits(integer=5, fraction=2)
     BigDecimal amount;
     @NotNull
-    Long reservationId;
-    @NotNull
     @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
     LocalDate date;
     @NotNull
