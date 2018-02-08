@@ -1,14 +1,11 @@
 package com.teamknp.hotel.controller;
 
-import com.teamknp.hotel.domain.InvoiceInfo;
+import com.teamknp.hotel.domain.Invoice;
+import com.teamknp.hotel.entity.KeyStatus;
 import com.teamknp.hotel.entity.Reservation;
-import com.teamknp.hotel.entity.SoldItem;
 import com.teamknp.hotel.exception.ResourceNotFoundException;
 import com.teamknp.hotel.form.ReservationEditForm;
-import com.teamknp.hotel.services.InvoiceService;
-import com.teamknp.hotel.services.PaymentService;
-import com.teamknp.hotel.services.ReservationService;
-import com.teamknp.hotel.services.SaleService;
+import com.teamknp.hotel.services.*;
 import io.springlets.data.web.select2.Select2DataSupport;
 import io.springlets.data.web.select2.Select2DataWithConversion;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +21,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @RequestMapping("/admin/reservation")
@@ -44,6 +40,9 @@ public class ReservationController {
     @Autowired
     InvoiceService invoiceService;
 
+    @Autowired
+    KeyStatusService keyStatusService;
+
     @GetMapping("")
     @Secured("ROLE_RECEPTION")
     String list(Model model, Pageable pageable) {
@@ -59,11 +58,10 @@ public class ReservationController {
     ) {
         model.addAttribute("object", reservation);
 
-        List<SoldItem> soldItems = saleService.findAllByReservation(reservation);
-        model.addAttribute("soldItems", soldItems);
+        Invoice invoice = invoiceService.getInvoice(reservation);
+        model.addAttribute("invoice", invoice);
 
-        InvoiceInfo invoiceInfo = invoiceService.getInvoice(reservation);
-        model.addAttribute("invoiceInfo", invoiceInfo);
+
         return "reservation/view";
     }
 
@@ -131,6 +129,54 @@ public class ReservationController {
         return "reservation/check-in";
     }
 
+    @RequestMapping(value = "/{id}/check-out", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_RECEPTION")
+    String checkOut(
+            HttpServletRequest request,
+            @PathVariable("id") Reservation entity,
+            Model model
+    ) {
+        if (!reservationService.canBeCheckedOut(entity)) {
+            throw new ResourceNotFoundException();
+        }
+
+        boolean isPost = request.getMethod().equals("POST");
+        if (isPost) {
+            try {
+                reservationService.checkOutReservation(entity);
+                return String.format("redirect:/admin/reservation/%d/", entity.getId());
+            } catch (IllegalArgumentException e) {
+            }
+        }
+
+        model.addAttribute("object", entity);
+        return "reservation/check-out";
+    }
+
+    @RequestMapping(value = "/{id}/resolve", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_RECEPTION")
+    String resolve(
+            HttpServletRequest request,
+            @PathVariable("id") Reservation entity,
+            Model model
+    ) {
+        if (!reservationService.canBeResolved(entity)) {
+            throw new ResourceNotFoundException();
+        }
+
+        boolean isPost = request.getMethod().equals("POST");
+        if (isPost) {
+            try {
+                reservationService.resolveReservation(entity);
+                return String.format("redirect:/admin/reservation/%d/", entity.getId());
+            } catch (IllegalArgumentException e) {
+            }
+        }
+
+        model.addAttribute("object", entity);
+        return "reservation/resolve";
+    }
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE, name = "select2", value = "/s2")
     @ResponseBody
     @Secured("ROLE_RECEPTION")
@@ -145,6 +191,7 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}/edit")
+    @Secured("ROLE_RECEPTION")
     String edit(
             @PathVariable("id") Reservation entity,
             Model model
@@ -155,6 +202,7 @@ public class ReservationController {
     }
 
     @PostMapping("/{id}/edit")
+    @Secured("ROLE_RECEPTION")
     String edit(
             @ModelAttribute("formData") ReservationEditForm formData,
             BindingResult bindingResult,
@@ -167,5 +215,51 @@ public class ReservationController {
         }
         reservationService.update(entity, formData);
         return String.format("redirect:/admin/reservation/%d/", entity.getId());
+    }
+
+    @GetMapping("/{id}/add-key")
+    @Secured("ROLE_RECEPTION")
+    String addKey(
+            @PathVariable("id") Reservation entity,
+            Model model
+    ) {
+        if (!reservationService.canKeyBeAdded(entity)) {
+            throw new ResourceNotFoundException();
+        }
+        keyStatusService.giveOutKey(entity);
+        return String.format("redirect:/admin/reservation/%d/", entity.getId());
+    }
+
+    @RequestMapping(value = "/{rid}/delete-key/{kid}", method = {RequestMethod.GET, RequestMethod.POST})
+    @Secured("ROLE_RECEPTION")
+    String deleteKey(
+            HttpServletRequest request,
+            @PathVariable("rid") Reservation reservationEntity,
+            @PathVariable("kid") KeyStatus keyEntity,
+            Model model
+    ) {
+        boolean isPost = request.getMethod().equals("POST");
+        if (isPost) {
+            keyStatusService.delete(keyEntity);
+            return String.format("redirect:/admin/reservation/%d/", reservationEntity.getId());
+        }
+        model.addAttribute("object", keyEntity);
+        model.addAttribute("reservation", reservationEntity);
+        return "reservation/delete-key";
+    }
+
+    @GetMapping("/{rid}/return-key/{kid}")
+    @Secured("ROLE_RECEPTION")
+    String returnKey(
+            @PathVariable("rid") Reservation reservationEntity,
+            @PathVariable("kid") KeyStatus keyEntity,
+            Model model
+    ) {
+        try {
+            keyStatusService.returnKey(keyEntity);
+        } catch (IllegalArgumentException e) {
+            throw new ResourceNotFoundException();
+        }
+        return String.format("redirect:/admin/reservation/%d/", reservationEntity.getId());
     }
 }

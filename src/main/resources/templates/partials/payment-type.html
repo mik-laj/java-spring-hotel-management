@@ -1,0 +1,7 @@
+<span data-th-switch="*{type}">
+    <span data-th-case="*{Type.CREDIT_CARD}">Credit card</span>
+    <span data-th-case="*{Type.CASH}">Cash</span>
+    <span data-th-case="*{Type.TRANSFER}">Transfer</span>
+    <span data-th-case="*{Type.CHEQUE}">Cheque</span>
+    <span data-th-case="*" data-th-text="*{{type}}"></span>
+</span>

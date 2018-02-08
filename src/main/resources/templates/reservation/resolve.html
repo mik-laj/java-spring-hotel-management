@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-layout-decorator="layout">
 <head>
-    <title>Hello world page</title>
+    <title>Hotel - Reservation Resolve</title>
     <link rel="stylesheet" href="/css/hello.css"/>
 </head>
 <body>
@@ -18,13 +18,13 @@
             <a href="#" data-th-href="@{/admin/reservation/{id}/(id=${object.id})}" data-th-text="${{object}}">Reservation #4</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">
-            Delete reservation
+            Resolve overdue check-out
         </li>
     </ol>
 </div>
 
 <div data-layout-fragment="content">
-    <h1>Delete reservation</h1>
+    <h1>Resolve overdue check-out</h1>
 
     <div class="row">
         <div class="col-md-6">
@@ -33,9 +33,9 @@
                     <h4 class="card-title">Confirmation required</h4>
                 </div>
                 <div class="card-body">
-                    <form action="" data-th-action="@{/admin/reservation/{id}/delete/(id=${object.id})}" method="post">
-                        <p data-th-text="|Are you sure you want to delete the object &quot;${{object}}&quot;?|"></p>
-                        <button class="btn btn-danger" type="submit">Confirm</button>
+                    <form action="" data-th-action="@{/admin/reservation/{id}/resolve/(id=${object.id})}" method="post">
+                        <p data-th-text="|Are you sure you want to resolve an overdue checkout for &quot;${{object}}&quot;? Make sure you have applied applicable penalties.|"></p>
+                        <button class="btn btn-success" type="submit">Confirm</button>
                     </form>
                 </div>
             </div>

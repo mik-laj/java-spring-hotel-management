@@ -32,9 +32,9 @@
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>Numer pokoju</th>
-                                <th>Pojedyncze lozka</th>
-                                <th>Podwojne lozka</th>
+                                <th>Room numer</th>
+                                <th>Single beds</th>
+                                <th>Double beds</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -50,74 +50,74 @@
 
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label>Imię: </label>
+                                <label>Name: </label>
                                 <input type="text" th:field="*{firstName}"
                                        class="form-control" placeholder="Imie Klienta" required="true"
                                        autofocus="true"/>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Nazwisko: </label>
+                                <label>Surname: </label>
                                 <input type="text" th:field="*{lastName}"
-                                       class="form-control" placeholder="Nazwisko Klienta" required="true"
+                                       class="form-control" placeholder="Surname" required="true"
                                        autofocus="true"/>
                             </div>
                         </div>
+
                         <hr/>
                         <h5>Address</h5>
                         <div class="form-row">
 
                             <div class="form-group col-9">
-                                <label>Ulica: </label>
+                                <label>Street: </label>
                                 <input type="text" th:field="*{street}"
-                                       class="form-control" placeholder="Ulica" required="true" autofocus="true"/>
+                                       class="form-control" placeholder="Street" required="true" autofocus="true"/>
                             </div>
                             <div class="form-group col-3">
-                                <label>Numer domu: </label>
+                                <label>House number: </label>
                                 <input type="text" th:field="*{houseNo}"
-                                       class="form-control" placeholder="Numer domu" required="true" autofocus="true"/>
+                                       class="form-control" placeholder="House Number" required="true"
+                                       autofocus="true"/>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-8">
-                                <label>Miasto:</label>
+                                <label>City:</label>
                                 <input type="text" th:field="*{city}"
-                                       class="form-control" placeholder="Miasto" required="true" autofocus="true"/>
+                                       class="form-control" placeholder="City" required="true" autofocus="true"/>
                             </div>
                             <div class="form-group col-4">
-                                <label>Kod pocztowy:</label>
+                                <label>Postcode:</label>
                                 <input type="text" th:field="*{postcode}"
-                                       class="form-control" placeholder="Kod pocztowy" required="true"
+                                       class="form-control" placeholder="Postcode" required="true"
                                        autofocus="true"/>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label>Państwo</label>
+                                <label>Country</label>
                                 <input type="text" th:field="*{country}"
-                                       class="form-control" placeholder="Państwo" required="true" autofocus="true"/>
+                                       class="form-control" placeholder="Country" required="true" autofocus="true"/>
                             </div>
                             <div class="form-group col-md-6">
-                                <label>Województwo</label>
+                                <label>Province</label>
                                 <input type="text" th:field="*{province}"
-                                       class="form-control" placeholder="Województwo" required="true" autofocus="true"/>
+                                       class="form-control" placeholder="Province" required="true" autofocus="true"/>
                             </div>
                         </div>
                         <hr/>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <label>Pole na notatki:</label>
+                                <label>Notes:</label>
                                 <input type="text" th:field="*{notes}"
-                                       class="form-control" placeholder="notatka" required="true" autofocus="true"/>
+                                       class="form-control" placeholder="Notes..." required="true" autofocus="true"/>
                             </div>
                         </div>
-
-
 
                         <div class="row">
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <input type="hidden" id="csrf" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Dodaj rezerwację"/>
+                            <input type="submit" class="btn btn-lg btn-primary btn-block" value="Add New Reservation"/>
                         </div>
 
                     </form>

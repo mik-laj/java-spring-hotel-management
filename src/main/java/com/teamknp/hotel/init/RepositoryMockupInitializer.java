@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -142,7 +143,7 @@ public class RepositoryMockupInitializer implements DataLoader {
         reservationRepository.save(reservation);
 
         reservation = new Reservation();
-        reservation.setStatus(Reservation.Status.CANCELLED);
+        reservation.setStatus(Reservation.Status.FINISHED);
         reservation.setNotes("Jeździ na wózku inwalidzkim.");
         reservation.setStartDate(LocalDate.of(2018, 1, 19));
         reservation.setEndDate(LocalDate.of(2018, 2, 27));
@@ -154,8 +155,8 @@ public class RepositoryMockupInitializer implements DataLoader {
         reservation = new Reservation();
         reservation.setStatus(Reservation.Status.PENDING);
         reservation.setNotes("Ma uczulenie na pierze.");
-        reservation.setStartDate(LocalDate.of(2018, 1, 6));
-        reservation.setEndDate(LocalDate.of(2018, 1, 14));
+        reservation.setStartDate(LocalDate.of(2018, 2, 9));
+        reservation.setEndDate(LocalDate.of(2018, 2, 14));
         reservation.setClient(clients.get(0));
         reservation.setRoom(rooms.get(1));
         reservation.setAddress(address);
@@ -166,6 +167,8 @@ public class RepositoryMockupInitializer implements DataLoader {
         reservation.setNotes("Ma uczulenie na pierze.");
         reservation.setStartDate(LocalDate.of(2018, 1, 2));
         reservation.setEndDate(LocalDate.of(2018, 1, 6));
+        reservation.setCheckInTime(LocalDateTime.of(2018, 1, 2, 13, 5));
+        reservation.setCheckOutTime(LocalDateTime.of(2018, 1, 6, 11, 20));
         reservation.setClient(clients.get(0));
         reservation.setAddress(addresses.get(0));
         reservation.setRoom(rooms.get(2));
@@ -186,6 +189,17 @@ public class RepositoryMockupInitializer implements DataLoader {
         reservation.setClient(clients.get(0));
         reservation.setRoom(rooms.get(2));
         reservation.setAddress(address);
+
+        reservation = new Reservation();
+        reservation.setStatus(Reservation.Status.CHECK_OUT_OVERDUE);
+        reservation.setNotes("");
+        reservation.setStartDate(LocalDate.of(2018, 2, 5));
+        reservation.setCheckInTime(LocalDateTime.of(2018, 2, 5, 14, 0));
+        reservation.setEndDate(LocalDate.of(2018, 2, 7));
+        reservation.setClient(clients.get(5));
+        reservation.setRoom(rooms.get(5));
+        reservation.setAddress(address);
+
 
         reservationRepository.save(reservation);
     }

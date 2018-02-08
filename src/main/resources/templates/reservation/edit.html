@@ -13,7 +13,8 @@
         <li class="breadcrumb-item"><a href="/admin/">Admin</a></li>
         <li class="breadcrumb-item"><a data-th-href="@{/admin/reservation/}">Reservation</a></li>
         <li class="breadcrumb-item">
-            <a href="#" data-th-href="@{/admin/reservation/{id}/(id=${object.id})}" data-th-text="${{object}}">Room #4</a>
+            <a href="#" data-th-href="@{/admin/reservation/{id}/(id=${object.id})}" data-th-text="${{object}}">Room
+                #4</a>
         </li>
         <li class="breadcrumb-item active" aria-current="page">Edit reservation</li>
     </ol>
@@ -29,45 +30,72 @@
                     <h4 class="card-title">Form</h4>
                 </div>
                 <div class="card-body">
-                    <form action="#" data-th-action="@{/admin/reservation/{id}/edit/(id=${object.id})}" data-th-object="${formData}" method="post">
-                        <div class="form-group">
-                            <input type="text" th:field="*{firstName}"
-                                   class="form-control" placeholder="imie klienta" required="true" autofocus="true"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" th:field="*{lastName}"
-                                   class="form-control" placeholder="nazwisko klienta" required="true" autofocus="true"/>
+                    <form action="#" data-th-action="@{/admin/reservation/{id}/edit/(id=${object.id})}"
+                          data-th-object="${formData}" method="post">
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Name: </label>
+                                <input type="text" th:field="*{firstName}"
+                                       class="form-control" placeholder="name" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Surname: </label>
+                                <input type="text" th:field="*{lastName}"
+                                       class="form-control" placeholder="surname" required="true" autofocus="true"/>
+                            </div>
                         </div>
 
-                        -- Address
+                        <hr/>
+                        <h5>Address</h5>
 
-                        <div class="form-group">
-                            <input type="text" th:field="*{houseNo}"
-                                   class="form-control" placeholder="numer domu" required="true" autofocus="true"/>
+                        <div class="form-row">
+
+                            <div class="form-group col-9">
+                                <label>Street: </label>
+                                <input type="text" th:field="*{street}"
+                                       class="form-control" placeholder="street" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group col-3">
+                                <label>House number: </label>
+                                <input type="text" th:field="*{houseNo}"
+                                       class="form-control" placeholder="house number" required="true"
+                                       autofocus="true"/>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" th:field="*{street}"
-                                   class="form-control" placeholder="ulica" required="true" autofocus="true"/>
+
+                        <div class="form-row">
+                            <div class="form-group col-8">
+                                <label>City:</label>
+                                <input type="text" th:field="*{city}"
+                                       class="form-control" placeholder="city" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group col-4">
+                                <label>Postcode:</label>
+                                <input type="text" th:field="*{postcode}"
+                                       class="form-control" placeholder="postcode" required="true" autofocus="true"/>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" th:field="*{postcode}"
-                                   class="form-control" placeholder="kod pocztowy" required="true" autofocus="true"/>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label>Country</label>
+                                <input type="text" th:field="*{country}"
+                                       class="form-control" placeholder="coutry" required="true" autofocus="true"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>Province</label>
+                                <input type="text" th:field="*{province}"
+                                       class="form-control" placeholder="province" required="true" autofocus="true"/>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input type="text" th:field="*{city}"
-                                   class="form-control" placeholder="miasto" required="true" autofocus="true"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" th:field="*{province}"
-                                   class="form-control" placeholder="wojewodztwo" required="true" autofocus="true"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" th:field="*{country}"
-                                   class="form-control" placeholder="Państwo" required="true" autofocus="true"/>
-                        </div>
-                        <div class="form-group">
-                            <input type="text" th:field="*{notes}"
-                                   class="form-control" placeholder="notes" required="true" autofocus="true"/>
+
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label>Notes:</label>
+                                <input type="text" th:field="*{notes}"
+                                       class="form-control" placeholder="notes" required="true" autofocus="true"/>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary">
