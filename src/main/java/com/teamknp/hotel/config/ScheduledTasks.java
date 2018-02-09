@@ -13,8 +13,17 @@ public class ScheduledTasks {
     @Autowired
     ReservationService reservationService;
 
-    @Scheduled(cron = "0 10 0 * * ?")
+    /**
+     * Check-in time is 3pm (15:00).
+     */
+    @Scheduled(cron = "15 00 0 * * ?")
     public void expireReservationStatuses() {
         reservationService.expireReservationStatuses(LocalDate.now());
     }
+
+    /**
+     * Check-out time is noon.
+     */
+    @Scheduled(cron = "12 00 0 * * ?")
+    public void updateOverdueCheckOuts() {reservationService.updateOverdueCheckOuts(LocalDate.now());}
 }

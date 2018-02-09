@@ -15,11 +15,11 @@ public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Digits(integer=5, fraction=2)
+    @Digits(integer=6, fraction=2)
     BigDecimal amount;
     @ManyToOne
     Reservation reservation;
-    @DateTimeFormat(iso= DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(pattern="dd-MM-yyyy")
     LocalDate date;
     @Enumerated(EnumType.STRING)
     Type type;
